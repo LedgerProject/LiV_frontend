@@ -13,16 +13,16 @@
         </sidebar-item>
 
         <sidebar-item
-            :link="{
+          :link="{
               name: 'Icons',
               path: '/icons',
               icon: 'ni ni-planet text-blue'
               }"
-            >
+        >
         </sidebar-item>
 
         <sidebar-item
-              :link="{
+          :link="{
                 name: 'Maps',
                 path: '/maps',
                 icon: 'ni ni-pin-3 text-orange'
@@ -30,7 +30,7 @@
         </sidebar-item>
 
         <sidebar-item
-              :link="{
+          :link="{
                 name: 'User Profile',
                 path: '/profile',
                 icon: 'ni ni-single-02 text-yellow'
@@ -38,7 +38,7 @@
         </sidebar-item>
 
         <sidebar-item
-                :link="{
+          :link="{
                   name: 'Tables',
                   path: '/tables',
                   icon: 'ni ni-bullet-list-67 text-red'
@@ -46,14 +46,14 @@
         </sidebar-item>
 
         <sidebar-item
-                  :link="{
+          :link="{
                     name: 'Login',
                     path: '/login',
                     icon: 'ni ni-key-25 text-info'
                   }">
         </sidebar-item>
         <sidebar-item
-                  :link="{
+          :link="{
                     name: 'Register',
                     path: '/register',
                     icon: 'ni ni-circle-08 text-pink'
@@ -67,18 +67,20 @@
 
         <b-nav class="navbar-nav mb-md-3">
           <b-nav-item
-               href="https://www.creative-tim.com/learning-lab/bootstrap-vue/quick-start/argon-dashboard"
-               >
-              <i class="ni ni-spaceship"></i>
-              <b-nav-text class="p-0">Getting started</b-nav-text>
+            href="https://www.creative-tim.com/learning-lab/bootstrap-vue/quick-start/argon-dashboard"
+          >
+            <i class="ni ni-spaceship"></i>
+            <b-nav-text class="p-0">Getting started</b-nav-text>
           </b-nav-item>
-          <b-nav-item href="https://www.creative-tim.com/learning-lab/bootstrap-vue/colors/argon-dashboard">
-              <i class="ni ni-palette"></i>
-              <b-nav-text class="p-0">Foundation</b-nav-text>
+          <b-nav-item
+            href="https://www.creative-tim.com/learning-lab/bootstrap-vue/colors/argon-dashboard">
+            <i class="ni ni-palette"></i>
+            <b-nav-text class="p-0">Foundation</b-nav-text>
           </b-nav-item>
-          <b-nav-item href="https://www.creative-tim.com/learning-lab/bootstrap-vue/avatar/argon-dashboard">
-              <i class="ni ni-ui-04"></i>
-              <b-nav-text class="p-0">Components</b-nav-text>
+          <b-nav-item
+            href="https://www.creative-tim.com/learning-lab/bootstrap-vue/avatar/argon-dashboard">
+            <i class="ni ni-ui-04"></i>
+            <b-nav-text class="p-0">Components</b-nav-text>
           </b-nav-item>
         </b-nav>
       </template>
@@ -97,49 +99,49 @@
   </div>
 </template>
 <script>
-  /* eslint-disable no-new */
-  import PerfectScrollbar from 'perfect-scrollbar';
-  import 'perfect-scrollbar/css/perfect-scrollbar.css';
+/* eslint-disable no-new */
+import PerfectScrollbar from 'perfect-scrollbar';
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
-  function hasElement(className) {
-    return document.getElementsByClassName(className).length > 0;
+function hasElement(className) {
+  return document.getElementsByClassName(className).length > 0;
+}
+
+function initScrollbar(className) {
+  if (hasElement(className)) {
+    new PerfectScrollbar(`.${className}`);
+  } else {
+    // try to init it later in case this component is loaded async
+    setTimeout(() => {
+      initScrollbar(className);
+    }, 100);
   }
+}
 
-  function initScrollbar(className) {
-    if (hasElement(className)) {
-      new PerfectScrollbar(`.${className}`);
-    } else {
-      // try to init it later in case this component is loaded async
-      setTimeout(() => {
-        initScrollbar(className);
-      }, 100);
-    }
-  }
+import DashboardNavbar from './DashboardNavbar.vue';
+import ContentFooter from './ContentFooter.vue';
+import DashboardContent from './Content.vue';
+import {FadeTransition} from 'vue2-transitions';
 
-  import DashboardNavbar from './DashboardNavbar.vue';
-  import ContentFooter from './ContentFooter.vue';
-  import DashboardContent from './Content.vue';
-  import { FadeTransition } from 'vue2-transitions';
-
-  export default {
-    components: {
-      DashboardNavbar,
-      ContentFooter,
-      DashboardContent,
-      FadeTransition
-    },
-    methods: {
-      initScrollbar() {
-        let isWindows = navigator.platform.startsWith('Win');
-        if (isWindows) {
-          initScrollbar('sidenav');
-        }
+export default {
+  components: {
+    DashboardNavbar,
+    ContentFooter,
+    DashboardContent,
+    FadeTransition
+  },
+  methods: {
+    initScrollbar() {
+      let isWindows = navigator.platform.startsWith('Win');
+      if (isWindows) {
+        initScrollbar('sidenav');
       }
-    },
-    mounted() {
-      this.initScrollbar()
     }
-  };
+  },
+  mounted() {
+    this.initScrollbar()
+  }
+};
 </script>
 <style lang="scss">
 </style>
