@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { vueRoutes } from "@/routes/routes";
+import {store, vuexTypes} from '@/vuex'
 
 Vue.use(VueRouter);
 
@@ -56,9 +57,9 @@ const router = new VueRouter({
 });
 
 export default router;
-const isLoggedIn = false
 
 function redirectRouteGuard (to, from, next) {
+  const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   if (isLoggedIn) {
     if (to.name === vueRoutes.app.name) {
       next(vueRoutes.services)
@@ -71,6 +72,7 @@ function redirectRouteGuard (to, from, next) {
 }
 
 function authPageGuard (to, from, next) {
+  const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   if (isLoggedIn) {
     next(vueRoutes.app)
   } else {
@@ -79,6 +81,7 @@ function authPageGuard (to, from, next) {
 }
 
 function inAppRouteGuard (to, from, next) {
+  const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   if (isLoggedIn) {
     next()
   } else {

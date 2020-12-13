@@ -1,4 +1,5 @@
 import { vuexTypes } from '@/vuex/types'
+import { api } from "@/api";
 
 export const state = {
   account: {}
@@ -9,11 +10,10 @@ export const mutations = {
   }
 }
 export const actions = {
-  [vuexTypes.LOAD_ACCOUNT] ({ commit }) {
-    const data = {
-      name: 'name',
-      surname: 'surname'
-    }
+  async [vuexTypes.LOAD_ACCOUNT] ({ commit }, token) {
+    const { data } = api.post('/validate_token.php', {
+      jwt: token
+    })
     commit(vuexTypes.SET_ACCOUNT, data)
   }
 }

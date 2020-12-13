@@ -11,7 +11,9 @@ export const rootModule ={
   mutations: {},
   actions: {},
   getters: {
-    [vuexTypes.isLoggedIn]: (_, getters) => _isEmpty(getters[vuexTypes.account])
+    [vuexTypes.isLoggedIn]: (_, getters) =>
+      _isEmpty(getters[vuexTypes.account]) &&
+      getters[vuexTypes.account].id
   }
 }
 
@@ -19,7 +21,7 @@ let store
 function buildStore () {
   store = new Vuex.Store({
     ...rootModule,
-    module: {
+    modules: {
       account
     }
   })

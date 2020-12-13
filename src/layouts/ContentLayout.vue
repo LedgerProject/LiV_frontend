@@ -52,6 +52,8 @@ import { FadeTransition } from 'vue2-transitions';
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import { vueRoutes } from '@/routes/routes'
+import {vuexTypes} from "@/vuex";
+import {mapActions} from "vuex";
 
 function hasElement(className) {
   return document.getElementsByClassName(className).length > 0;
@@ -77,7 +79,13 @@ export default {
   data: _ => ({
     vueRoutes,
   }),
+  async created () {
+    await this.loadAccount(this.$cookies.get('token'))
+  },
   methods: {
+    ...mapActions({
+      loadAccount: vuexTypes.LOAD_ACCOUNT,
+    }),
     initScrollbar() {
       let isWindows = navigator.platform.startsWith('Win');
       if (isWindows) {

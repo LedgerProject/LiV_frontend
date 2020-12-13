@@ -63,7 +63,9 @@
 
 <script>
 import {vueRoutes} from '@/routes/routes'
-import Axios from "axios";
+import {vuexTypes} from "@/vuex";
+import { api } from "@/api";
+import {mapActions} from "vuex";
 
 export default {
   name: 'login',
@@ -75,15 +77,19 @@ export default {
     vueRoutes
   }),
   methods: {
+    ...mapActions({
+      loadAccount: vuexTypes.LOAD_ACCOUNT,
+    }),
     async onSubmit() {
       try {
-        const response = Axios.post(
-          'http://www.server.livproj.com/api/login.php',
-          {
-            email: this.form.email,
-            password: this.form.password
-          })
-        console.log('response', response)
+        const { data } = await api.post('/login.php', {
+          email: this.form.email,
+          password: this.form.password
+        })
+        console.log(data)
+        this.$cookies.set('token', data['jwt'])
+        await this.loadAccount(this.$cookies.get('token'))
+        await this.$router.push(vueRoutes.app)
       } catch (error) {
         this.$notify({
           type: 'error',

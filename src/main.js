@@ -16,6 +16,7 @@
 */
 import Vue from 'vue';
 import DashboardPlugin from './plugins/dashboard-plugin';
+import VueCookies from 'vue-cookies'
 import App from './App.vue';
 
 // vuex setup
@@ -24,6 +25,7 @@ import { buildStore } from '@/vuex';
 import router from './routes/router';
 // plugin setup
 Vue.use(DashboardPlugin);
+Vue.use(VueCookies)
 
 const store = buildStore()
 
