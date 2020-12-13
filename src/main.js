@@ -18,14 +18,19 @@ import Vue from 'vue';
 import DashboardPlugin from './plugins/dashboard-plugin';
 import App from './App.vue';
 
+// vuex setup
+import { buildStore } from '@/vuex';
 // router setup
 import router from './routes/router';
 // plugin setup
 Vue.use(DashboardPlugin);
 
+const store = buildStore()
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   render: h => h(App),
-  router
+  router,
+  store,
 });

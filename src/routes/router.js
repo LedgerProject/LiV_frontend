@@ -10,24 +10,24 @@ const router = new VueRouter({
   routes: [
     {
       path: '*',
-      redirect: '/',
+      redirect: '/'
     },
     {
       path: '/auth',
       name: vueRoutes.auth.name,
-      redirect: vueRoutes.login.name,
-      component: () => import('@/views/Pages/AuthLayout'),
+      component: () => import('@/layouts/AuthLayout'),
+      redirect: vueRoutes.login,
       children: [
         {
           path: '/login',
           name: vueRoutes.login.name,
-          component: () => import('@/views/Pages/Login.vue'),
+          component: () => import('@/views/Login.vue'),
           beforeEnter: authPageGuard
         },
         {
           path: '/signup',
           name: vueRoutes.signup.name,
-          component: () => import('@/views/Pages/Register.vue'),
+          component: () => import('@/views/Signup.vue'),
           beforeEnter: authPageGuard
         },
       ]
@@ -35,22 +35,21 @@ const router = new VueRouter({
     {
       path: '/',
       name: vueRoutes.app.name,
-      component: () => import('@/App'),
+      component: () => import('@/layouts/ContentLayout'),
       beforeEnter: redirectRouteGuard,
       children: [
         {
-          path: '/content',
-          component: () => import('@/views/Layout/Content'),
-          redirect: vueRoutes.services,
-          children: [
-            {
-              path: '/services',
-              name: vueRoutes.services.name,
-              component: () => import('@/views/Services'),
-              beforeEnter: inAppRouteGuard,
-            }
-          ]
+          path: '/services',
+          name: vueRoutes.services.name,
+          component: () => import('@/views/Services'),
+          beforeEnter: inAppRouteGuard,
         },
+        {
+          path: '/profile',
+          name: vueRoutes.profile.name,
+          component: () => import('@/views/Profile'),
+          beforeEnter: inAppRouteGuard,
+        }
       ]
     },
   ],
