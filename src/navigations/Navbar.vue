@@ -28,7 +28,7 @@
         <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
           <b-media no-body class="align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="img/theme/team-4.jpg">
+              <img alt="Image placeholder" src="img/theme/team-1.jpg">
             </span>
             <b-media-body class="ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
@@ -37,12 +37,14 @@
         </a>
 
         <template>
-          <b-dropdown-item>
+          <router-link :to="vueRoutes.profile" class="dropdown-item">
             <i class="ni ni-single-02"></i>
             <span>My profile</span>
-          </b-dropdown-item>
+          </router-link>
           <div class="dropdown-divider"></div>
-          <b-dropdown-item href="#!">
+          <b-dropdown-item
+            @click="logout"
+          >
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </b-dropdown-item>
@@ -85,6 +87,9 @@ export default {
     };
   },
   methods: {
+    logout () {
+      this.$cookies.remove('token')
+    },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },

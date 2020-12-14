@@ -103,7 +103,7 @@ export default {
   }
 
   &__body {
-
+    display: flex;
   }
 
   &__footer {

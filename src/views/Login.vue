@@ -71,8 +71,8 @@ export default {
   name: 'login',
   data: _ => ({
     form: {
-      email: '',
-      password: ''
+      email: 'qwerty@mail.com',
+      password: 'qwerty'
     },
     vueRoutes
   }),
@@ -82,14 +82,13 @@ export default {
     }),
     async onSubmit() {
       try {
-        const { data } = await api.post('/login.php', {
+        const response = api.post('/login.php', {
           email: this.form.email,
           password: this.form.password
         })
-        console.log(data)
-        this.$cookies.set('token', data['jwt'])
-        await this.loadAccount(this.$cookies.get('token'))
-        await this.$router.push(vueRoutes.app)
+        // this.$cookies.set('token', data['jwt'])
+        // await this.loadAccount(this.$cookies.get('token'))
+        // await this.$router.push(vueRoutes.app)
       } catch (error) {
         this.$notify({
           type: 'error',

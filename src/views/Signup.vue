@@ -27,10 +27,21 @@
                     alternative
                     class="mb-3"
                     prepend-icon="ni ni-hat-3"
-                    placeholder="Name"
-                    name="Name"
+                    placeholder="Firstname"
+                    name="Firstname"
                     :rules="{required: true}"
-                    v-model="model.name"
+                    v-model="model.firstname"
+                  >
+                  </base-input>
+
+                  <base-input
+                    alternative
+                    class="mb-3"
+                    prepend-icon="ni ni-hat-3"
+                    placeholder="Lastname"
+                    name="Lastname"
+                    :rules="{required: true}"
+                    v-model="model.lastname"
                   >
                   </base-input>
 
@@ -80,15 +91,17 @@
 <script>
 import { vueRoutes } from '@/routes/routes'
 import Axios from "axios";
+import {api} from "@/api";
 
 export default {
   name: 'register',
   data() {
     return {
       model: {
-        name: '',
-        email: '',
-        password: ''
+        firstname: 'firstname',
+        lastname: 'lastname',
+        email: 'qwerty@mail.com',
+        password: 'qwerty'
       },
       vueRoutes
     }
@@ -96,9 +109,18 @@ export default {
   methods: {
     onSubmit() {
       try {
-        Axios.post('http://livproj.com/api/create_user.php', {})
+        const response = api.post('/create_user.php', {
+          "firstname": this.model.firstname,
+          "lastname": this.model.lastname,
+          "email": this.model.email,
+          "password": this.model.password
+        })
+        console.log(reponse)
       } catch (error) {
-
+        this.$notify({
+          type: 'error',
+          message: error.message
+        })
       }
     }
   }
