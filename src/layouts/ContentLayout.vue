@@ -11,14 +11,6 @@
           }"
         >
         </sidebar-item>
-        <sidebar-item
-          :link="{
-              name: vueRoutes.profile.name,
-              path: vueRoutes.profile.name,
-              icon: 'ni ni-planet text-blue'
-              }"
-        >
-        </sidebar-item>
       </template>
     </side-bar>
     <div class="main-content">
