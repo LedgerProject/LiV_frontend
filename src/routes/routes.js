@@ -5,7 +5,8 @@ export const vueRoutes = Object.freeze({
   signup: { name: 'signup' },
   companies: { name: 'companies' },
   company: { name: 'company' },
-  profile: { name: 'profile' }
+  profile: { name: 'profile' },
+  statuses: { name: 'statuses' },
 })
 
 export default vueRoutes;

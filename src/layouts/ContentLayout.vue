@@ -11,6 +11,14 @@
           }"
         >
         </sidebar-item>
+        <sidebar-item
+          :link="{
+            name: vueRoutes.statuses.name,
+            path: vueRoutes.statuses.name,
+            icon: 'ni ni-box-2 text-primary',
+          }"
+        >
+        </sidebar-item>
       </template>
     </side-bar>
     <div class="main-content">

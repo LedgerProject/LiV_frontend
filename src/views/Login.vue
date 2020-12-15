@@ -88,7 +88,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
-      await this.$router.push(vueRoutes.company)
+      await this.$router.push(vueRoutes.companies)
     }
   }
 };

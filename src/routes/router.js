@@ -56,6 +56,12 @@ const router = new VueRouter({
           name: vueRoutes.profile.name,
           component: () => import('@/views/Profile'),
           beforeEnter: inAppRouteGuard,
+        },
+        {
+          path: '/statuses',
+          name: vueRoutes.statuses.name,
+          component: () => import('@/views/Statuses'),
+          beforeEnter: inAppRouteGuard,
         }
       ]
     },
