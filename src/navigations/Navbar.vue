@@ -2,7 +2,7 @@
   <base-nav
     container-classes="container-fluid"
     class="navbar-top navbar-expand"
-    :class="{'navbar-dark': type === 'default'}"
+    :type="type"
   >
     <a href="#" aria-current="page"
        class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block active router-link-active">
@@ -31,7 +31,9 @@
               <img alt="Image placeholder" src="img/theme/team-1.jpg">
             </span>
             <b-media-body class="ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+              <span class="mb-0 text-sm  font-weight-bold">
+                {{ fullName }}
+              </span>
             </b-media-body>
           </b-media>
         </a>
@@ -54,9 +56,11 @@
   </base-nav>
 </template>
 <script>
-import {CollapseTransition} from 'vue2-transitions';
-import {BaseNav, Modal} from '@/components';
-import {vueRoutes} from '@/routes/routes'
+import { CollapseTransition } from 'vue2-transitions'
+import { BaseNav, Modal } from '@/components'
+import { vueRoutes } from '@/routes/routes'
+import { mapActions, mapGetters } from "vuex"
+import { vuexTypes } from "@/vuex"
 
 export default {
   components: {
@@ -71,34 +75,23 @@ export default {
       description: 'Look of the dashboard navbar. Default (Green) or light (gray)'
     }
   },
-  computed: {
-    routeName() {
-      const {name} = this.$route;
-      return this.capitalizeFirstLetter(name);
-    }
-  },
   data() {
     return {
-      activeNotifications: false,
-      showMenu: false,
-      searchModalVisible: false,
-      searchQuery: '',
       vueRoutes,
     };
   },
+  computed: {
+    ...mapGetters([
+      vuexTypes.account
+    ]),
+    fullName() {
+      return `${this.account.firstname} ${this.account.lastname}`
+    },
+  },
   methods: {
-    logout () {
-      this.$cookies.remove('token')
-    },
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    toggleNotificationDropDown() {
-      this.activeNotifications = !this.activeNotifications;
-    },
-    closeDropDown() {
-      this.activeNotifications = false;
-    }
+    ...mapActions({
+      logout: vuexTypes.LOG_OUT,
+    }),
   }
 };
 </script>

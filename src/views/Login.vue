@@ -62,39 +62,33 @@
 </template>
 
 <script>
-import {vueRoutes} from '@/routes/routes'
-import {vuexTypes} from "@/vuex";
-import { api } from "@/api";
-import {mapActions} from "vuex";
+import { vueRoutes } from '@/routes/routes'
+import { vuexTypes } from '@/vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'login',
   data: _ => ({
     form: {
-      email: 'qwerty@mail.com',
+      email: 'qwerty1@mail.com',
       password: 'qwerty'
     },
     vueRoutes
   }),
   methods: {
     ...mapActions({
-      loadAccount: vuexTypes.LOAD_ACCOUNT,
+      loginAccount: vuexTypes.LOG_IN,
     }),
     async onSubmit() {
       try {
-        const response = api.post('/login.php', {
+        await this.loginAccount({
           email: this.form.email,
           password: this.form.password
         })
-        // this.$cookies.set('token', data['jwt'])
-        // await this.loadAccount(this.$cookies.get('token'))
-        // await this.$router.push(vueRoutes.app)
       } catch (error) {
-        this.$notify({
-          type: 'error',
-          message: error.message
-        })
+        console.log(error)
       }
+      await this.$router.push(vueRoutes.company)
     }
   }
 };

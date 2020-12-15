@@ -5,16 +5,21 @@ export const state = {
   account: {}
 }
 export const mutations = {
-  [vuexTypes.SET_ACCOUNT] ({state}, account) {
+  [vuexTypes.SET_ACCOUNT] (state, account) {
     state.account = account
   }
 }
 export const actions = {
   async [vuexTypes.LOAD_ACCOUNT] ({ commit }, token) {
-    const { data } = api.post('/validate_token.php', {
-      jwt: token
+    // const { data } = await api.post('/validate', {
+    //   jwt: token
+    // })
+    commit(vuexTypes.SET_ACCOUNT, {
+      id: '1',
+      firstname: 'firstname',
+      lastname: 'lastname',
+      email: 'qwerty1@gmail.com'
     })
-    commit(vuexTypes.SET_ACCOUNT, data)
   }
 }
 export const getters = {

@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapper">
+  <div class="main-wrapper">
     <notifications></notifications>
     <side-bar>
       <template slot="links">
         <sidebar-item
           :link="{
-            name: vueRoutes.services.name,
-            path: vueRoutes.services.name,
+            name: vueRoutes.companies.name,
+            path: vueRoutes.companies.name,
             icon: 'ni ni-tv-2 text-primary',
           }"
         >
@@ -16,7 +16,7 @@
     <div class="main-content">
       <dashboard-navbar
         class="main-content__header"
-        :type="$route.meta.navbarType"
+        type="primary"
       />
 
       <div
@@ -71,9 +71,7 @@ export default {
   data: _ => ({
     vueRoutes,
   }),
-  async created () {
-    await this.loadAccount(this.$cookies.get('token'))
-  },
+  async created () {},
   methods: {
     ...mapActions({
       loadAccount: vuexTypes.LOAD_ACCOUNT,
@@ -91,23 +89,23 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+.main-wrapper {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
 .main-content {
+  overflow: hidden auto;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 0.05fr 1fr auto;
 
   &__header {
     position: relative;
-  }
-
-  &__body {
-    display: flex;
-  }
-
-  &__footer {
-
   }
 }
 </style>

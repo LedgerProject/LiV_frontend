@@ -30,7 +30,7 @@
                     placeholder="Firstname"
                     name="Firstname"
                     :rules="{required: true}"
-                    v-model="model.firstname"
+                    v-model="form.firstname"
                   >
                   </base-input>
 
@@ -41,7 +41,7 @@
                     placeholder="Lastname"
                     name="Lastname"
                     :rules="{required: true}"
-                    v-model="model.lastname"
+                    v-model="form.lastname"
                   >
                   </base-input>
 
@@ -52,7 +52,7 @@
                     placeholder="Email"
                     name="Email"
                     :rules="{required: true, email: true}"
-                    v-model="model.email"
+                    v-model="form.email"
                   >
                   </base-input>
 
@@ -64,7 +64,7 @@
                     type="password"
                     name="Password"
                     :rules="{required: true, min: 6}"
-                    v-model="model.password"
+                    v-model="form.password"
                   >
                   </base-input>
                   <div class="text-center">
@@ -92,12 +92,14 @@
 import { vueRoutes } from '@/routes/routes'
 import Axios from "axios";
 import {api} from "@/api";
+import {mapActions} from "vuex";
+import {vuexTypes} from "@/vuex";
 
 export default {
   name: 'register',
   data() {
     return {
-      model: {
+      form: {
         firstname: 'firstname',
         lastname: 'lastname',
         email: 'qwerty@mail.com',
@@ -107,20 +109,24 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    ...mapActions({
+      loginAccount: vuexTypes.LOG_IN,
+    }),
+    async onSubmit() {
       try {
-        const response = api.post('/create_user.php', {
-          "firstname": this.model.firstname,
-          "lastname": this.model.lastname,
-          "email": this.model.email,
-          "password": this.model.password
+        // await api.post('/create_user.php', {
+        //   "firstname": this.form.firstname,
+        //   "lastname": this.form.lastname,
+        //   "email": this.form.email,
+        //   "password": this.form.password
+        // })
+        await this.loginAccount({
+          email: this.form.email,
+          password: this.form.password
         })
-        console.log(reponse)
+        await this.$router.push(vueRoutes.companies)
       } catch (error) {
-        this.$notify({
-          type: 'error',
-          message: error.message
-        })
+        console.log(error)
       }
     }
   }
