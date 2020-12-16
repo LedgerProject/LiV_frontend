@@ -30,13 +30,11 @@
       <b-form-group>
         <b-form-file
           v-model="form.file"
-          :state="Boolean(form.file)"
           placeholder="Choose a file or drop it here..."
-          drop-placeholder="Drop file here..."
         />
       </b-form-group>
       <b-form-group>
-        <b-button type="submit">
+        <b-button variant="primary" type="submit">
           Send
         </b-button>
       </b-form-group>
@@ -68,8 +66,15 @@ export default {
   }),
   methods: {
     submit () {
-      alert(this.form)
-      this.$emit(EVENTS.submitted)
+      try {
+        const buildedData = {
+          ...this.form
+        }
+        console.log(buildedData)
+        this.$emit(EVENTS.submitted)
+      } catch (error) {
+
+      }
     }
   }
 }

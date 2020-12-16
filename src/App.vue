@@ -16,7 +16,6 @@ export default {
   },
   async created () {
     await this.initApp()
-    this.watchChangesInLocalStorage()
   },
   methods: {
     ...mapMutations({
@@ -28,17 +27,6 @@ export default {
     }),
     async initApp () {
       await this.loadAccount(this.jwtToken)
-    },
-    watchChangesInLocalStorage () {
-      window.onstorage = (storage) => {
-        const isLocalStorageExists = localStorage.getItem('liv-storage')
-        if ((this.isLoggedIn ||
-          storage.newValue !== storage.oldValue) && isLocalStorageExists) {
-          this.popState()
-        } else {
-          this.clearState()
-        }
-      }
     },
   }
 }

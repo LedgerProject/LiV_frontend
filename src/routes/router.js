@@ -40,18 +40,6 @@ const router = new VueRouter({
       beforeEnter: redirectRouteGuard,
       children: [
         {
-          path: '/companies',
-          name: vueRoutes.companies.name,
-          component: () => import('@/views/Companies'),
-          beforeEnter: inAppRouteGuard
-        },
-        {
-          path: 'companies/:id',
-          name: vueRoutes.company.name,
-          component: () => import('@/views/Companies/Company'),
-          beforeEnter: inAppRouteGuard
-        },
-        {
           path: '/profile',
           name: vueRoutes.profile.name,
           component: () => import('@/views/Profile'),
@@ -62,7 +50,29 @@ const router = new VueRouter({
           name: vueRoutes.statuses.name,
           component: () => import('@/views/Statuses'),
           beforeEnter: inAppRouteGuard,
-        }
+        },
+        {
+          path: '/companies',
+          name: vueRoutes.companies.name,
+          component: () => import('@/views/Companies'),
+          redirect: vueRoutes.companiesAll,
+          children: [
+            {
+              path: '/companies/all',
+              props: true,
+              name: vueRoutes.companiesAll.name,
+              component: () => import('@/views/Companies/CompaniesAll'),
+              beforeEnter: inAppRouteGuard
+            },
+            {
+              path: '/companies/:id',
+              props: true,
+              name: vueRoutes.companiesSingle.name,
+              component: () => import('@/views/Companies/CompaniesSingle'),
+              beforeEnter: inAppRouteGuard
+            },
+          ]
+        },
       ]
     },
   ],

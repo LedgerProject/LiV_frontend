@@ -6,7 +6,7 @@
         <sidebar-item
           :link="{
             name: vueRoutes.companies.name,
-            path: vueRoutes.companies.name,
+            path: vueRoutes.companies,
             icon: 'ni ni-tv-2 text-primary',
           }"
         >
@@ -14,7 +14,7 @@
         <sidebar-item
           :link="{
             name: vueRoutes.statuses.name,
-            path: vueRoutes.statuses.name,
+            path: vueRoutes.statuses,
             icon: 'ni ni-box-2 text-primary',
           }"
         >

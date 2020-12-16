@@ -1,4 +1,5 @@
-import {vuexTypes} from "@/vuex";
+import { vuexTypes } from '@/vuex'
+import { CONFIG } from '@/config'
 
 export const sessionStoragePlugin = store => {
   store.subscribe((mutation, state) => {
@@ -8,12 +9,12 @@ export const sessionStoragePlugin = store => {
         break;
       }
       case vuexTypes.CLEAR_STATE: {
-        localStorage.removeItem('liv-storage')
+        localStorage.removeItem(CONFIG.STORAGE_KEY)
         store.replaceState({})
         break
       }
       case vuexTypes.POP_STATE: {
-        let savedStore = localStorage.getItem('liv-storage')
+        let savedStore = localStorage.getItem(CONFIG.STORAGE_KEY)
         if (!savedStore) break
         savedStore = JSON.parse(savedStore)
         store.replaceState({
@@ -33,7 +34,7 @@ export const sessionStoragePlugin = store => {
 
 
 function setLocalStorage (state) {
-  localStorage.setItem('liv-storage', JSON.stringify({
+  localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify({
     account: state.account,
     auth: state.auth,
   }))
