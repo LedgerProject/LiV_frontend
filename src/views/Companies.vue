@@ -8,6 +8,7 @@
         v-for="company in companies"
         :key="`company-${company.id}`"
         class="companies__list-item"
+        :disabled="company.disabled"
       >
         <template slot="header">
           <img
@@ -46,12 +47,14 @@ export default {
         {
           id: '1',
           name: 'asdflas jdfa sdhfkjas hdljkfahsdkjhfaklsdj hflkajs hdkljfashdlkfjhasl',
-          excerpt: 'asdkj gfasd hgfjakh gkjfah gdkjfg ajkshdg jkag djkfg ads gasdg jkag dgf sdg jkfagds kjfgasdfsdf jkasd jkfg adsjkgf jdg jkagds kjfg asdkj gfajsdg dgs f jkhgkhg'
+          excerpt: 'asdkj gfasd hgfjakh gkjfah gdkjfg ajkshdg jkag djkfg ads gasdg jkag dgf sdg jkfagds kjfgasdfsdf jkasd jkfg adsjkgf jdg jkagds kjfg asdkj gfajsdg dgs f jkhgkhg',
+          disabled: false
         },
         {
           id: '2',
           name: 'asdflas jdfa sdhfkjas hdljkfahsdkjhfaklsdj hflkajs hdkljfashdlkfjhasl',
-          excerpt: 'asdkj gfasd hgfjakh gkjfah gdkjfg ajkshdg jkag djkfg ads gasdg jkag dgf sdg jkfagds kjfgasdfsdf jkasd jkfg adsjkgf jdg jkagds kjfg asdkj gfajsdg dgs f jkhgkhg'
+          excerpt: 'asdkj gfasd hgfjakh gkjfah gdkjfg ajkshdg jkag djkfg ads gasdg jkag dgf sdg jkfagds kjfgasdfsdf jkasd jkfg adsjkgf jdg jkagds kjfg asdkj gfajsdg dgs f jkhgkhg',
+          disabled: true
         },
       ]
     }

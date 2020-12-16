@@ -70,7 +70,7 @@ export default {
   name: 'login',
   data: _ => ({
     form: {
-      email: 'qwerty1@mail.com',
+      email: 'mike@mail.com',
       password: 'qwerty'
     },
     vueRoutes

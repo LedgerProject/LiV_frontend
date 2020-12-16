@@ -6,6 +6,7 @@
          {'shadow': shadow},
          {[`shadow-${shadowSize}`]: shadowSize},
          {[`bg-gradient-${gradient}`]: gradient},
+         {[`disabled`]: disabled},
          {[`bg-${type}`]: type}
        ]">
 
@@ -29,6 +30,10 @@
   export default {
     name: "card",
     props: {
+      disabled: {
+        type: Boolean,
+        default: false
+      },
       type: {
         type: String,
         description: "Card type"
@@ -69,5 +74,10 @@
     }
   };
 </script>
-<style>
+
+<style lang="scss" scoped>
+.disabled {
+  pointer-events: none !important;
+  filter: grayscale(1);
+}
 </style>
