@@ -111,7 +111,7 @@ export default {
     }),
     async onSubmit() {
       try {
-        await api.post('/signup', {
+        await api.post('/users/signup', {
           "firstName": this.form.firstname,
           "lastName": this.form.lastname,
           "email": this.form.email,

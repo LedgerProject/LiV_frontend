@@ -26,6 +26,12 @@
           placeholder="passportID"
           type="text"
         />
+        <base-input
+          v-model="form.email"
+          label="email"
+          placeholder="email"
+          type="email"
+        />
       </b-form-group>
       <b-form-group>
         <b-form-file
@@ -43,6 +49,8 @@
 </template>
 
 <script>
+import {api} from "@/api";
+
 const EVENTS = {
   submitted: 'submitted',
 }
@@ -61,19 +69,33 @@ export default {
       middlename: '',
       lastname: '',
       passportID: '',
+      email: '',
       file: null
     }
   }),
   methods: {
-    submit () {
+    async submit () {
       try {
         const buildedData = {
-          ...this.form
+          ...this.form,
+          userEmail: this.form.email,
+          institution: this.service.institution,
+          service: this.service.name,
+          status: 'In progress'
         }
-        console.log(buildedData)
+        await api.post('/services/addServiceStatus', {
+          ...buildedData
+        })
+        this.$notify({
+          type: 'success',
+          message: 'Success'
+        })
         this.$emit(EVENTS.submitted)
       } catch (error) {
-
+        this.$notify({
+          type: 'danger',
+          message: 'Error on create request!'
+        })
       }
     }
   }

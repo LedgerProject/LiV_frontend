@@ -11,7 +11,7 @@ export const mutations = {
 }
 export const actions = {
   async [vuexTypes.LOAD_ACCOUNT] ({ commit }, token) {
-    const { data } = await api.post('/verifyJWT', {
+    const { data } = await api.post('/users/verifyJWT', {
       jwt: token
     })
     commit(vuexTypes.SET_ACCOUNT, data)
