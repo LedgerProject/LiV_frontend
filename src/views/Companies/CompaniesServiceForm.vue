@@ -76,15 +76,27 @@ export default {
   methods: {
     async submit () {
       try {
-        const buildedData = {
+        const serviceData = {
           ...this.form,
           userEmail: this.form.email,
           institution: this.service.institution,
           service: this.service.name,
           status: 'In progress'
         }
+        const kycData = {
+          ...this.form,
+          firstName: this.form.firstname,
+          middleName: this.form.middlename,
+          lastName: this.form.lastname,
+          passportID: this.form.passportID,
+          email: this.form.email,
+          file: 'someFile'
+        }
         await api.post('/services/addServiceStatus', {
-          ...buildedData
+          ...serviceData
+        })
+        await api.post('users/addKYC', {
+          ...kycData
         })
         this.$notify({
           type: 'success',
