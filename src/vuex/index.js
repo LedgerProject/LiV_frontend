@@ -5,16 +5,18 @@ import auth from './modules/auth.module'
 import { vuexTypes } from '@/vuex/types'
 import _isEmpty from 'lodash/isEmpty'
 import {sessionStoragePlugin} from "@/vuex/plugins/session-storage"
-import vueRoutes from "@/routes/routes";
 
 Vue.use(Vuex)
 
 export const rootModule = {
   state: {},
-  mutations: {},
+  mutations: {
+    [vuexTypes.POP_STATE] () {},
+    [vuexTypes.CLEAR_STATE] () { },
+  },
   actions: {
-    async [vuexTypes.LOG_OUT] ({ commit  }) {
-      await this.$router.push(vueRoutes.login)
+      async [vuexTypes.LOG_OUT] ({ commit  }) {
+        commit(vuexTypes.CLEAR_STATE)
     },
     async [vuexTypes.LOG_IN] ({ getters, dispatch }, { email, password }) {
       await dispatch(vuexTypes.LOAD_JWT_TOKEN, { email, password })
@@ -36,6 +38,7 @@ function buildStore () {
     },
     plugins: [sessionStoragePlugin]
   })
+  store.commit(vuexTypes.POP_STATE)
   return store
 }
 buildStore()

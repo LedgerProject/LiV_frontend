@@ -1,4 +1,8 @@
 const mutations = {
+  // root
+  POP_STATE: 'POP_STATE',
+  CLEAR_STATE: 'CLEAR_STATE',
+
   // auth
   SET_JWT_TOKEN: 'SET_JWT_TOKEN',
 

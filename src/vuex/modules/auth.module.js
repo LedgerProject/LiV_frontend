@@ -12,12 +12,11 @@ export const mutations = {
 }
 export const actions = {
   async [vuexTypes.LOAD_JWT_TOKEN] ({ commit }, { email, password }) {
-    const response  = api.post('/login', {
+    const { data } = await api.post('/login', {
       email: email,
       password: password
     })
-    console.log(response)
-    commit(vuexTypes.SET_JWT_TOKEN, 'h kjsdfakjhs dgfkjha sdkjhfakshdgfakshd gfkhadsgkhfagsdkjfagsdjkhfgakjs gfasdf')
+    commit(vuexTypes.SET_JWT_TOKEN, data)
   }
 }
 export const getters = {

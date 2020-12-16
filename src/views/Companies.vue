@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     openCompany (id) {
-      console.log(id)
       this.$router.push({
         name: vueRoutes.company.name,
         params: id,

@@ -46,14 +46,12 @@
 
 <script>
 /* eslint-disable no-new */
-import DashboardNavbar from '@/navigations/Navbar.vue';
-import ContentFooter from '@/navigations/Footer.vue';
-import { FadeTransition } from 'vue2-transitions';
-import PerfectScrollbar from 'perfect-scrollbar';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import DashboardNavbar from '@/navigations/Navbar.vue'
+import ContentFooter from '@/navigations/Footer.vue'
+import { FadeTransition } from 'vue2-transitions'
+import PerfectScrollbar from 'perfect-scrollbar'
+import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import { vueRoutes } from '@/routes/routes'
-import {vuexTypes} from "@/vuex";
-import {mapActions} from "vuex";
 
 function hasElement(className) {
   return document.getElementsByClassName(className).length > 0;
@@ -79,11 +77,7 @@ export default {
   data: _ => ({
     vueRoutes,
   }),
-  async created () {},
   methods: {
-    ...mapActions({
-      loadAccount: vuexTypes.LOAD_ACCOUNT,
-    }),
     initScrollbar() {
       let isWindows = navigator.platform.startsWith('Win');
       if (isWindows) {

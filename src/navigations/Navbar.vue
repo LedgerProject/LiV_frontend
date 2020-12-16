@@ -45,7 +45,7 @@
           </router-link>
           <div class="dropdown-divider"></div>
           <b-dropdown-item
-            @click="logout"
+            @click="logOut"
           >
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
@@ -90,8 +90,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      logout: vuexTypes.LOG_OUT,
+      logOutUser: vuexTypes.LOG_OUT,
     }),
+    async logOut () {
+      await this.logOutUser()
+      window.location.reload()
+    },
   }
 };
 </script>

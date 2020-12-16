@@ -8,7 +8,7 @@
         <b-container fluid class="d-flex align-items-center">
           <b-row>
             <b-col lg="7" md="10">
-              <h1 class="display-2 text-white">Hello {{ account.firstname }}</h1>
+              <h1 class="display-2 text-white">Hello, {{ account.firstname }}</h1>
             </b-col>
           </b-row>
         </b-container>

@@ -70,8 +70,8 @@ export default {
   name: 'login',
   data: _ => ({
     form: {
-      email: 'mike@mail.com',
-      password: 'qwerty'
+      email: '',
+      password: ''
     },
     vueRoutes
   }),
@@ -85,10 +85,10 @@ export default {
           email: this.form.email,
           password: this.form.password
         })
+        await this.$router.push(vueRoutes.companies)
       } catch (error) {
         console.log(error)
       }
-      await this.$router.push(vueRoutes.companies)
     }
   }
 };

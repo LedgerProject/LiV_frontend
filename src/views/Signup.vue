@@ -22,7 +22,7 @@
                 <small>Sign up with credentials</small>
               </div>
               <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
+                <b-form role="form" @submit.prevent="onSubmit">
                   <base-input
                     alternative
                     class="mb-3"
@@ -33,7 +33,6 @@
                     v-model="form.firstname"
                   >
                   </base-input>
-
                   <base-input
                     alternative
                     class="mb-3"
@@ -44,7 +43,6 @@
                     v-model="form.lastname"
                   >
                   </base-input>
-
                   <base-input
                     alternative
                     class="mb-3"
@@ -55,7 +53,6 @@
                     v-model="form.email"
                   >
                   </base-input>
-
                   <base-input
                     alternative
                     class="mb-3"
@@ -100,10 +97,10 @@ export default {
   data() {
     return {
       form: {
-        firstname: 'firstname',
-        lastname: 'lastname',
-        email: 'qwerty@mail.com',
-        password: 'qwerty'
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: ''
       },
       vueRoutes
     }
@@ -114,12 +111,12 @@ export default {
     }),
     async onSubmit() {
       try {
-        // await api.post('/create_user.php', {
-        //   "firstname": this.form.firstname,
-        //   "lastname": this.form.lastname,
-        //   "email": this.form.email,
-        //   "password": this.form.password
-        // })
+        await api.post('/signup', {
+          "firstName": this.form.firstname,
+          "lastName": this.form.lastname,
+          "email": this.form.email,
+          "password": this.form.password
+        })
         await this.loginAccount({
           email: this.form.email,
           password: this.form.password
