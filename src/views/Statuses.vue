@@ -1,15 +1,15 @@
 <template>
   <div class="statuses">
-    <projects-table type="dark" title="Dark Table"></projects-table>
+    <statuses-table />
   </div>
 </template>
 
 <script>
-import ProjectsTable from '@/components/Tables/ProjectsTable'
+import StatusesTable from '@/views/Statuses/StatusesTable'
 export default {
   name: "statuses",
   components: {
-    ProjectsTable
+    StatusesTable
   }
 }
 </script>
