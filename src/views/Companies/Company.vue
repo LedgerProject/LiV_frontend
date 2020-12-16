@@ -4,6 +4,7 @@
       <card
         v-for="service in services"
         :key="`service-${service.id}`"
+        :disabled="service.disabled"
       >
         <template slot="header">
           {{ service.name }}
@@ -62,32 +63,38 @@ export default {
         {
           id: '1',
           name: 'service 1',
-          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf'
+          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf',
+          disabled: false
         },
         {
           id: '2',
           name: 'service 2',
-          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf'
+          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf',
+          disabled: true
         },
         {
           id: '3',
           name: 'service 3',
-          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf'
+          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf',
+          disabled: true
         },
         {
           id: '4',
           name: 'service 4',
-          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf'
+          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf',
+          disabled: true
         },
         {
           id: '5',
           name: 'service 5',
-          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf'
+          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf',
+          disabled: true
         },
         {
           id: '6',
           name: 'service 6',
-          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf'
+          description: 'asdj nfal sdjfakj fhlkajs dhflkajs hdflkjasdhflkja shdflkjasdhlf',
+          disabled: true
         },
       ]
     },
