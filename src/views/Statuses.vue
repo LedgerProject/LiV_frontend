@@ -55,10 +55,8 @@ export default {
       this.isLoaded = false
       this.isLoadFailed = false
       try {
-        await api.get('/services/getUserServices', {
-          params: {
-            email: this.account.email,
-          }
+        await api.post('/services/getUserServices', {
+          email: this.account.email,
         })
       } catch (error) {
         this.isLoadFailed = true

@@ -24,7 +24,7 @@ export const rootModule = {
     }
   },
   getters: {
-    [vuexTypes.isLoggedIn]: (_, getters) => _isEmpty(getters[vuexTypes.account])
+    [vuexTypes.isLoggedIn]: (_, getters) => !_isEmpty(getters[vuexTypes.account])
   }
 }
 
