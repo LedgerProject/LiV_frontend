@@ -5,8 +5,8 @@
       <template slot="links">
         <sidebar-item
           :link="{
-            name: vueRoutes.companies.name,
-            path: vueRoutes.companies,
+            name: vueRoutes.services.name,
+            path: vueRoutes.services,
             icon: 'ni ni-tv-2 text-primary',
           }"
         >

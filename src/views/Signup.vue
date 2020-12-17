@@ -121,7 +121,7 @@ export default {
           email: this.form.email,
           password: this.form.password
         })
-        await this.$router.push(vueRoutes.companies)
+        await this.$router.push(vueRoutes.services)
       } catch (error) {
         console.log(error)
       }

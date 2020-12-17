@@ -3,9 +3,9 @@ export const vueRoutes = Object.freeze({
   auth: { name: 'auth' },
   login: { name: 'login' },
   signup: { name: 'signup' },
-  companies: { name: 'companies' },
-  companiesAll: { name: 'companies-all' },
-  companiesSingle: { name: 'companies-single' },
+  services: { name: 'services' },
+  servicesAll: { name: 'services-all' },
+  servicesSingle: { name: 'services-single' },
   profile: { name: 'profile' },
   statuses: { name: 'statuses' },
 })

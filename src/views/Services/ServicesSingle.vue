@@ -1,6 +1,6 @@
 <template>
-  <div class="company">
-    <b-card-group columns class="company__services">
+  <div class="services-single">
+    <b-card-group columns class="services-single__wrapper">
       <card
         v-for="service in services"
         :key="`service-${service.id}`"
@@ -14,10 +14,7 @@
         </template>
         <template slot="footer">
           <base-button
-            @click="
-              serviceId = service.id;
-              isServiceModalShown = true
-            "
+            @click="serviceId = service.id; isServiceModalShown = true"
           >
             Open
           </base-button>
@@ -32,11 +29,11 @@
         v-if="currentService"
         slot="header"
       >
-        <div class="company__services-item__header">
-          <div class="company__services-item__title">
+        <div class="services-single__item-header">
+          <div class="services-single__item-title">
             {{ currentService.name }}
           </div>
-          <div class="company__services-item__description">
+          <div class="services-single__item-description">
             {{ currentService.description }}
           </div>
         </div>
@@ -49,7 +46,7 @@
 </template>
 
 <script>
-import CompaniesServiceForm from "@/views/Companies/CompaniesServiceForm";
+import CompaniesServiceForm from "./CompaniesServiceForm";
 export default {
   name: "company",
   components: {CompaniesServiceForm},
@@ -112,30 +109,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.company {
+.services-single {
   width: 100%;
 
-  &__services {
+  &__wrapper {
     padding: 1rem;
+  }
 
-    &-item {
+  &__item {
 
-      &__header {
-        display: flex;
-        flex-direction: column;
-      }
+    &-header {
+      display: flex;
+      flex-direction: column;
+    }
 
-      &__title {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
+    &-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
 
-      &__description {
-        font-size: 1rem;
-        font-weight: 500;
-        margin-bottom: 1.5rem;
-      }
+    &-description {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
     }
   }
 }

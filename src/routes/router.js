@@ -52,23 +52,23 @@ const router = new VueRouter({
           beforeEnter: inAppRouteGuard,
         },
         {
-          path: '/companies',
-          name: vueRoutes.companies.name,
-          component: () => import('@/views/Companies'),
-          redirect: vueRoutes.companiesAll,
+          path: '/services',
+          name: vueRoutes.services.name,
+          component: () => import('@/views/Services'),
+          redirect: vueRoutes.servicesAll,
           children: [
             {
-              path: '/companies/all',
+              path: '/services/all',
               props: true,
-              name: vueRoutes.companiesAll.name,
-              component: () => import('@/views/Companies/CompaniesAll'),
+              name: vueRoutes.servicesAll.name,
+              component: () => import('@/views/Services/ServicesAll'),
               beforeEnter: inAppRouteGuard
             },
             {
-              path: '/companies/:id',
+              path: '/services/:id',
               props: true,
-              name: vueRoutes.companiesSingle.name,
-              component: () => import('@/views/Companies/CompaniesSingle'),
+              name: vueRoutes.servicesSingle.name,
+              component: () => import('@/views/Services/ServicesSingle'),
               beforeEnter: inAppRouteGuard
             },
           ]
@@ -84,7 +84,7 @@ function redirectRouteGuard (to, from, next) {
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   if (isLoggedIn) {
     if (to.name === vueRoutes.app.name) {
-      next(vueRoutes.companies)
+      next(vueRoutes.services)
     } else {
       next()
     }
