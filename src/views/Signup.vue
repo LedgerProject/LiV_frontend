@@ -65,9 +65,16 @@
                   >
                   </base-input>
                   <div class="text-center">
-                    <b-button type="submit" variant="primary" class="mt-4">
-                      Create account
-                    </b-button>
+                    <template v-if="isPending">
+                      <scale-loader
+                        color="#525f7f"
+                      />
+                    </template>
+                    <template v-else>
+                      <b-button type="submit" variant="primary" class="mt-4">
+                        Create account
+                      </b-button>
+                    </template>
                   </div>
                 </b-form>
               </validation-observer>
@@ -86,14 +93,15 @@
 </template>
 
 <script>
+import { ScaleLoader } from '@saeris/vue-spinners'
 import { vueRoutes } from '@/routes/routes'
-import Axios from "axios";
 import {api} from "@/api";
 import {mapActions} from "vuex";
 import {vuexTypes} from "@/vuex";
 
 export default {
   name: 'register',
+  components: { ScaleLoader },
   data() {
     return {
       form: {
@@ -102,6 +110,7 @@ export default {
         email: '',
         password: ''
       },
+      isPending: false,
       vueRoutes
     }
   },
@@ -110,6 +119,7 @@ export default {
       loginAccount: vuexTypes.LOG_IN,
     }),
     async onSubmit() {
+      this.isPending = true
       try {
         await api.post('/users/signup', {
           "firstName": this.form.firstname,
@@ -125,6 +135,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
+      this.isPending = false
     }
   }
 

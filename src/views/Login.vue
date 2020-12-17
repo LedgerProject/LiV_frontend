@@ -43,7 +43,14 @@
                   >
                   </base-input>
                   <div class="text-center">
-                    <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    <template v-if="isPending">
+                      <scale-loader
+                        color="#525f7f"
+                      />
+                    </template>
+                    <template v-else>
+                      <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    </template>
                   </div>
                 </b-form>
               </validation-observer>
@@ -62,17 +69,20 @@
 </template>
 
 <script>
+import {ScaleLoader} from "@saeris/vue-spinners";
 import { vueRoutes } from '@/routes/routes'
 import { vuexTypes } from '@/vuex'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'login',
+  components: { ScaleLoader },
   data: _ => ({
     form: {
       email: '',
       password: ''
     },
+    isPending: false,
     vueRoutes
   }),
   methods: {
@@ -80,6 +90,7 @@ export default {
       loginAccount: vuexTypes.LOG_IN,
     }),
     async onSubmit() {
+      this.isPending = true
       try {
         await this.loginAccount({
           email: this.form.email,
@@ -89,6 +100,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
+      this.isPending = false
     }
   }
 };
