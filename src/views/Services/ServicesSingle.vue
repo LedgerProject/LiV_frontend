@@ -33,20 +33,19 @@
           <div class="services-single__item-title">
             {{ currentService.name }}
           </div>
-          <div class="services-single__item-description">
-            {{ currentService.description }}
-          </div>
         </div>
       </template>
       <services-form
         :service="currentService"
+        @submitted="onSubmitted"
       />
     </modal>
   </div>
 </template>
 
 <script>
-import ServicesForm from "./ServicesForm";
+import ServicesForm from "./ServicesForm"
+import vueRoutes from "@/routes/routes"
 export default {
   name: "services-single",
   components: {ServicesForm},
@@ -104,7 +103,12 @@ export default {
     currentService () {
       return this.services.find(el => el.id === this.serviceId)
     }
-  }
+  },
+  methods: {
+    onSubmitted () {
+      this.$router.push(vueRoutes.statuses)
+    },
+  },
 }
 </script>
 

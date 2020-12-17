@@ -48,6 +48,9 @@ const router = new VueRouter({
         {
           path: '/statuses',
           name: vueRoutes.statuses.name,
+          meta: {
+            pageName: 'statuses'
+          },
           component: () => import('@/views/Statuses'),
           beforeEnter: inAppRouteGuard,
         },
@@ -61,6 +64,9 @@ const router = new VueRouter({
               path: '/services/all',
               props: true,
               name: vueRoutes.servicesAll.name,
+              meta: {
+                pageName: 'services'
+              },
               component: () => import('@/views/Services/ServicesAll'),
               beforeEnter: inAppRouteGuard
             },
@@ -68,6 +74,9 @@ const router = new VueRouter({
               path: '/services/:id',
               props: true,
               name: vueRoutes.servicesSingle.name,
+              meta: {
+                pageName: ''
+              },
               component: () => import('@/views/Services/ServicesSingle'),
               beforeEnter: inAppRouteGuard
             },

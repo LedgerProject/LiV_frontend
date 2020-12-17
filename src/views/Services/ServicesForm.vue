@@ -4,33 +4,27 @@
       <b-form-group>
         <base-input
           v-model="form.firstname"
-          label="firstname"
-          placeholder="firstname"
+          label="First name"
+          placeholder="First name"
           type="text"
         />
         <base-input
           v-model="form.middlename"
-          label="middlename"
-          placeholder="middlename"
+          label="Middle name"
+          placeholder="Middle name"
           type="text"
         />
         <base-input
           v-model="form.lastname"
-          label="lastname"
-          placeholder="lastname"
+          label="Last name"
+          placeholder="Last name"
           type="text"
         />
         <base-input
           v-model="form.passportID"
-          label="passportID"
-          placeholder="passportID"
+          label="Passport ID"
+          placeholder="Passport ID"
           type="text"
-        />
-        <base-input
-          v-model="form.email"
-          label="email"
-          placeholder="email"
-          type="email"
         />
       </b-form-group>
       <b-form-group>
@@ -40,9 +34,16 @@
         />
       </b-form-group>
       <b-form-group>
-        <b-button variant="primary" type="submit">
-          Send
-        </b-button>
+        <template v-if="isPending">
+          <scale-loader
+            color="#525f7f"
+          />
+        </template>
+        <template v-else>
+          <b-button variant="primary" type="submit">
+            Send
+          </b-button>
+        </template>
       </b-form-group>
     </b-form>
   </div>
@@ -50,6 +51,9 @@
 
 <script>
 import {api} from "@/api";
+import {mapGetters} from "vuex";
+import {vuexTypes} from "@/vuex";
+import { ScaleLoader } from '@saeris/vue-spinners'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -57,6 +61,7 @@ const EVENTS = {
 
 export default {
   name: "services-form",
+  components: { ScaleLoader },
   props: {
     service: {
       type: Object,
@@ -69,35 +74,25 @@ export default {
       middlename: '',
       lastname: '',
       passportID: '',
-      email: '',
       file: null
-    }
+    },
+    isPending: false,
   }),
+  computed: {
+    ...mapGetters([
+      vuexTypes.account,
+    ]),
+    theFile () {
+      console.log(this.form.file)
+      return this.form.file
+    }
+  },
   methods: {
     async submit () {
+      this.isPending = true
       try {
-        const serviceData = {
-          ...this.form,
-          userEmail: this.form.email,
-          institution: this.service.institution,
-          service: this.service.name,
-          status: 'In progress'
-        }
-        const kycData = {
-          ...this.form,
-          firstName: this.form.firstname,
-          middleName: this.form.middlename,
-          lastName: this.form.lastname,
-          passportID: this.form.passportID,
-          email: this.form.email,
-          file: 'someFile'
-        }
-        await api.post('/services/addServiceStatus', {
-          ...serviceData
-        })
-        await api.post('users/addKYC', {
-          ...kycData
-        })
+        await this.addServiceStatus()
+        await this.addKycData()
         this.$notify({
           type: 'success',
           message: 'Success'
@@ -109,7 +104,33 @@ export default {
           message: 'Error on create request!'
         })
       }
-    }
+      this.isPending = false
+    },
+    async addServiceStatus () {
+      const serviceData = {
+        ...this.form,
+        userEmail: this.account.email,
+        institution: this.service.institution,
+        service: this.service.name,
+        status: 'In progress'
+      }
+      await api.post('/services/addServiceStatus', {
+        ...serviceData
+      })
+    },
+    async addKycData () {
+      const kycData = {
+        firstName: this.form.firstname,
+        middleName: this.form.middlename,
+        lastName: this.form.lastname,
+        passportID: this.form.passportID,
+        email: this.account.email,
+        file: 'some file'
+      }
+      await api.post('users/addKYC', {
+        ...kycData
+      })
+    },
   }
 }
 </script>

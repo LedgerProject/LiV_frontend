@@ -6,7 +6,7 @@
   >
     <a href="#" aria-current="page"
        class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block active router-link-active">
-      {{ $route.name }}
+      {{ $route.meta.pageName }}
     </a>
     <!-- Navbar links -->
     <b-navbar-nav class="align-items-center ml-md-auto">
@@ -28,7 +28,9 @@
       >
         <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
           <b-media no-body class="align-items-center">
-            <span class="avatar avatar-sm rounded-circle" />
+            <span class="avatar avatar-sm rounded-circle">
+              <i class="ni ni-circle-08" />
+            </span>
             <b-media-body class="ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm  font-weight-bold">
                 {{ fullName }}

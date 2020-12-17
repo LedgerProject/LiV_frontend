@@ -52,14 +52,14 @@ export default {
       return [
         {
           id: '1',
-          imgUrl: 'img/theme/notary.jpg',
+          imgUrl: 'https://blog.suretysolutions.com/hs-fs/hubfs/bigstock-Notary-Public-Tools--120299054.jpg?width=828&name=bigstock-Notary-Public-Tools--120299054.jpg',
           name: 'Notary',
           excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo a diam sollicitudin tempor id eu. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Magna eget est lorem ipsum dolor sit amet. Sapien faucibus et molestie ac feugiat sed lectus. At quis risus sed vulputate odio. Sed libero enim sed faucibus turpis in eu mi bibendum. Molestie nunc non blandit massa.',
           disabled: false
         },
         {
           id: '2',
-          imgUrl: 'img/theme/law.jpg',
+          imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9T4mUSWrJXIT7fALBu4YEieuTtUeuCwcX9A&usqp=CAU',
           name: 'Law Firm',
           excerpt: 'Egestas sed sed risus pretium quam vulputate. Euismod nisi porta lorem mollis aliquam ut porttitor. Pellentesque sit amet porttitor eget dolor morbi. Massa tincidunt dui ut ornare lectus sit amet est. Sagittis nisl rhoncus mattis rhoncus. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. Sollicitudin ac orci phasellus egestas tellus rutrum tellus.',
           disabled: true
@@ -80,6 +80,7 @@ export default {
     &-item {
 
       img {
+        max-height: 25rem;
         width: 100%;
         height: 100%;
         object-fit: cover;
