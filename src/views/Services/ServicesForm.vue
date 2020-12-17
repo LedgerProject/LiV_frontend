@@ -1,5 +1,5 @@
 <template>
-  <div class="company-service-form">
+  <div class="services-form">
     <b-form @submit.prevent="submit">
       <b-form-group>
         <base-input
@@ -56,7 +56,7 @@ const EVENTS = {
 }
 
 export default {
-  name: "company-service-form",
+  name: "services-form",
   props: {
     service: {
       type: Object,

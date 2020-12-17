@@ -38,7 +38,7 @@
           </div>
         </div>
       </template>
-      <companies-service-form
+      <services-form
         :service="currentService"
       />
     </modal>
@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import CompaniesServiceForm from "./CompaniesServiceForm";
+import ServicesForm from "./ServicesForm";
 export default {
-  name: "company",
-  components: {CompaniesServiceForm},
+  name: "services-single",
+  components: {ServicesForm},
   data: _ => ({
     isServiceModalShown: false,
     serviceId: '',
