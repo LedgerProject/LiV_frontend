@@ -30,6 +30,8 @@
       <b-form-group>
         <b-form-file
           v-model="form.file"
+          name="form-file"
+          accept="image/jpeg, image/png, application/pdf"
           placeholder="Choose a file or drop it here..."
         />
       </b-form-group>
@@ -82,10 +84,6 @@ export default {
     ...mapGetters([
       vuexTypes.account,
     ]),
-    theFile () {
-      console.log(this.form.file)
-      return this.form.file
-    }
   },
   methods: {
     async submit () {
@@ -108,27 +106,38 @@ export default {
     },
     async addServiceStatus () {
       const serviceData = {
-        ...this.form,
         userEmail: this.account.email,
         institution: this.service.institution,
         service: this.service.name,
-        status: 'In progress'
+        status: 'In progress',
       }
-      await api.post('/services/addServiceStatus', {
-        ...serviceData
+      await api.post('/services/addServiceStatus', JSON.stringify(serviceData), {
+        headers: {
+          'accept': 'application/json',
+          'Content-type': 'multipart/form-data',
+        }
       })
     },
     async addKycData () {
+      const reader = new FileReader();
+      await reader.readAsBinaryString(this.form.file)
+
       const kycData = {
         firstName: this.form.firstname,
         middleName: this.form.middlename,
         lastName: this.form.lastname,
         passportID: this.form.passportID,
         email: this.account.email,
-        file: 'some file'
+        file: '',
       }
-      await api.post('users/addKYC', {
-        ...kycData
+      reader.onload = evt => {
+        kycData.file = evt.target.result
+      }
+      await api.post('users/addKYC', kycData,{
+        headers: {
+          'accept': 'application/json',
+          'Content-type': 'multipart/form-data',
+        }
       })
     },
   }
