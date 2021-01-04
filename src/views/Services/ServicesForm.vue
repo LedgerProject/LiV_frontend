@@ -89,8 +89,8 @@ export default {
     async submit () {
       this.isPending = true
       try {
-        await this.addServiceStatus()
         await this.addKycData()
+        await this.addServiceStatus()
         this.$notify({
           type: 'success',
           message: 'Success'
@@ -111,34 +111,18 @@ export default {
         service: this.service.name,
         status: 'In progress',
       }
-      await api.post('/services/addServiceStatus', JSON.stringify(serviceData), {
-        headers: {
-          'accept': 'application/json',
-          'Content-type': 'multipart/form-data',
-        }
-      })
+      await api.post('/services/addServiceStatus', serviceData)
     },
     async addKycData () {
-      const reader = new FileReader();
-      await reader.readAsBinaryString(this.form.file)
+      const fd = new FormData();
+      fd.append("firstName", this.form.firstname);
+      fd.append("middleName", this.form.middlename);
+      fd.append("lastName", this.form.lastname);
+      fd.append("passportID", this.form.passportID);
+      fd.append("email", this.account.email);
+      fd.append("file", this.form.file, this.form.file.name);
 
-      const kycData = {
-        firstName: this.form.firstname,
-        middleName: this.form.middlename,
-        lastName: this.form.lastname,
-        passportID: this.form.passportID,
-        email: this.account.email,
-        file: '',
-      }
-      reader.onload = evt => {
-        kycData.file = evt.target.result
-      }
-      await api.post('users/addKYC', kycData,{
-        headers: {
-          'accept': 'application/json',
-          'Content-type': 'multipart/form-data',
-        }
-      })
+      await api.post('users/addKYC', fd)
     },
   }
 }
