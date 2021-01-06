@@ -22,18 +22,27 @@
                 <small>Sign up with credentials</small>
               </div>
               <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
+                <b-form role="form" @submit.prevent="onSubmit">
                   <base-input
                     alternative
                     class="mb-3"
                     prepend-icon="ni ni-hat-3"
-                    placeholder="Name"
-                    name="Name"
+                    placeholder="Firstname"
+                    name="Firstname"
                     :rules="{required: true}"
-                    v-model="model.name"
+                    v-model="form.firstname"
                   >
                   </base-input>
-
+                  <base-input
+                    alternative
+                    class="mb-3"
+                    prepend-icon="ni ni-hat-3"
+                    placeholder="Lastname"
+                    name="Lastname"
+                    :rules="{required: true}"
+                    v-model="form.lastname"
+                  >
+                  </base-input>
                   <base-input
                     alternative
                     class="mb-3"
@@ -41,10 +50,9 @@
                     placeholder="Email"
                     name="Email"
                     :rules="{required: true, email: true}"
-                    v-model="model.email"
+                    v-model="form.email"
                   >
                   </base-input>
-
                   <base-input
                     alternative
                     class="mb-3"
@@ -53,13 +61,20 @@
                     type="password"
                     name="Password"
                     :rules="{required: true, min: 6}"
-                    v-model="model.password"
+                    v-model="form.password"
                   >
                   </base-input>
                   <div class="text-center">
-                    <b-button type="submit" variant="primary" class="mt-4">
-                      Create account
-                    </b-button>
+                    <template v-if="isPending">
+                      <scale-loader
+                        color="#525f7f"
+                      />
+                    </template>
+                    <template v-else>
+                      <b-button type="submit" variant="primary" class="mt-4">
+                        Create account
+                      </b-button>
+                    </template>
                   </div>
                 </b-form>
               </validation-observer>
@@ -78,28 +93,49 @@
 </template>
 
 <script>
+import { ScaleLoader } from '@saeris/vue-spinners'
 import { vueRoutes } from '@/routes/routes'
-import Axios from "axios";
+import {api} from "@/api";
+import {mapActions} from "vuex";
+import {vuexTypes} from "@/vuex";
 
 export default {
   name: 'register',
+  components: { ScaleLoader },
   data() {
     return {
-      model: {
-        name: '',
+      form: {
+        firstname: '',
+        lastname: '',
         email: '',
         password: ''
       },
+      isPending: false,
       vueRoutes
     }
   },
   methods: {
-    onSubmit() {
+    ...mapActions({
+      loginAccount: vuexTypes.LOG_IN,
+    }),
+    async onSubmit() {
+      this.isPending = true
       try {
-        Axios.post('http://livproj.com/api/create_user.php', {})
+        await api.post('/users/signup', {
+          "firstName": this.form.firstname,
+          "lastName": this.form.lastname,
+          "email": this.form.email,
+          "password": this.form.password
+        })
+        await this.loginAccount({
+          email: this.form.email,
+          password: this.form.password
+        })
+        await this.$router.push(vueRoutes.services)
       } catch (error) {
-
+        console.log(error)
       }
+      this.isPending = false
     }
   }
 

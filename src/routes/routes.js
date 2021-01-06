@@ -4,7 +4,10 @@ export const vueRoutes = Object.freeze({
   login: { name: 'login' },
   signup: { name: 'signup' },
   services: { name: 'services' },
-  profile: { name: 'profile' }
+  servicesAll: { name: 'services-all' },
+  servicesSingle: { name: 'services-single' },
+  profile: { name: 'profile' },
+  statuses: { name: 'statuses' },
 })
 
 export default vueRoutes;

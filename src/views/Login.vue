@@ -43,7 +43,14 @@
                   >
                   </base-input>
                   <div class="text-center">
-                    <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    <template v-if="isPending">
+                      <scale-loader
+                        color="#525f7f"
+                      />
+                    </template>
+                    <template v-else>
+                      <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    </template>
                   </div>
                 </b-form>
               </validation-observer>
@@ -62,40 +69,38 @@
 </template>
 
 <script>
-import {vueRoutes} from '@/routes/routes'
-import {vuexTypes} from "@/vuex";
-import { api } from "@/api";
-import {mapActions} from "vuex";
+import {ScaleLoader} from "@saeris/vue-spinners";
+import { vueRoutes } from '@/routes/routes'
+import { vuexTypes } from '@/vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'login',
+  components: { ScaleLoader },
   data: _ => ({
     form: {
       email: '',
       password: ''
     },
+    isPending: false,
     vueRoutes
   }),
   methods: {
     ...mapActions({
-      loadAccount: vuexTypes.LOAD_ACCOUNT,
+      loginAccount: vuexTypes.LOG_IN,
     }),
     async onSubmit() {
+      this.isPending = true
       try {
-        const { data } = await api.post('/login.php', {
+        await this.loginAccount({
           email: this.form.email,
           password: this.form.password
         })
-        console.log(data)
-        this.$cookies.set('token', data['jwt'])
-        await this.loadAccount(this.$cookies.get('token'))
-        await this.$router.push(vueRoutes.app)
+        await this.$router.push(vueRoutes.services)
       } catch (error) {
-        this.$notify({
-          type: 'error',
-          message: error.message
-        })
+        console.log(error)
       }
+      this.isPending = false
     }
   }
 };

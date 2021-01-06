@@ -5,7 +5,7 @@ import Notifications from '@/components/NotificationPlugin';
 // Validation plugin used to validate forms
 import { configure } from 'vee-validate';
 // A plugin file where you could register global components used across the app
-import GlobalComponents from './globalComponents';
+import GlobalComponents from '@/plugins/globalComponents';
 // A plugin file where you could register global directives
 import GlobalDirectives from './globalDirectives';
 // Sidebar on the right. Used as a local plugin in DashboardLayout.vue

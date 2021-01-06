@@ -40,17 +40,48 @@ const router = new VueRouter({
       beforeEnter: redirectRouteGuard,
       children: [
         {
-          path: '/services',
-          name: vueRoutes.services.name,
-          component: () => import('@/views/Services'),
-          beforeEnter: inAppRouteGuard,
-        },
-        {
           path: '/profile',
           name: vueRoutes.profile.name,
           component: () => import('@/views/Profile'),
           beforeEnter: inAppRouteGuard,
-        }
+        },
+        {
+          path: '/statuses',
+          name: vueRoutes.statuses.name,
+          meta: {
+            pageName: 'statuses'
+          },
+          component: () => import('@/views/Statuses'),
+          beforeEnter: inAppRouteGuard,
+        },
+        {
+          path: '/services',
+          name: vueRoutes.services.name,
+          component: () => import('@/views/Services'),
+          redirect: vueRoutes.servicesAll,
+          children: [
+            {
+              path: '/services/all',
+              props: true,
+              name: vueRoutes.servicesAll.name,
+              meta: {
+                pageName: 'services'
+              },
+              component: () => import('@/views/Services/ServicesAll'),
+              beforeEnter: inAppRouteGuard
+            },
+            {
+              path: '/services/:id',
+              props: true,
+              name: vueRoutes.servicesSingle.name,
+              meta: {
+                pageName: ''
+              },
+              component: () => import('@/views/Services/ServicesSingle'),
+              beforeEnter: inAppRouteGuard
+            },
+          ]
+        },
       ]
     },
   ],

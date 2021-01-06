@@ -1,22 +1,22 @@
 <template>
-  <div class="wrapper">
+  <div class="main-wrapper">
     <notifications></notifications>
     <side-bar>
       <template slot="links">
         <sidebar-item
           :link="{
             name: vueRoutes.services.name,
-            path: vueRoutes.services.name,
+            path: vueRoutes.services,
             icon: 'ni ni-tv-2 text-primary',
           }"
         >
         </sidebar-item>
         <sidebar-item
           :link="{
-              name: vueRoutes.profile.name,
-              path: vueRoutes.profile.name,
-              icon: 'ni ni-planet text-blue'
-              }"
+            name: vueRoutes.statuses.name,
+            path: vueRoutes.statuses,
+            icon: 'ni ni-box-2 text-primary',
+          }"
         >
         </sidebar-item>
       </template>
@@ -24,7 +24,7 @@
     <div class="main-content">
       <dashboard-navbar
         class="main-content__header"
-        :type="$route.meta.navbarType"
+        type="primary"
       />
 
       <div
@@ -46,14 +46,12 @@
 
 <script>
 /* eslint-disable no-new */
-import DashboardNavbar from '@/navigations/Navbar.vue';
-import ContentFooter from '@/navigations/Footer.vue';
-import { FadeTransition } from 'vue2-transitions';
-import PerfectScrollbar from 'perfect-scrollbar';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import DashboardNavbar from '@/navigations/Navbar.vue'
+import ContentFooter from '@/navigations/Footer.vue'
+import { FadeTransition } from 'vue2-transitions'
+import PerfectScrollbar from 'perfect-scrollbar'
+import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import { vueRoutes } from '@/routes/routes'
-import {vuexTypes} from "@/vuex";
-import {mapActions} from "vuex";
 
 function hasElement(className) {
   return document.getElementsByClassName(className).length > 0;
@@ -79,13 +77,7 @@ export default {
   data: _ => ({
     vueRoutes,
   }),
-  async created () {
-    await this.loadAccount(this.$cookies.get('token'))
-  },
   methods: {
-    ...mapActions({
-      loadAccount: vuexTypes.LOAD_ACCOUNT,
-    }),
     initScrollbar() {
       let isWindows = navigator.platform.startsWith('Win');
       if (isWindows) {
@@ -99,23 +91,23 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+.main-wrapper {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
 .main-content {
+  overflow: hidden auto;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 0.05fr 1fr auto;
 
   &__header {
     position: relative;
-  }
-
-  &__body {
-
-  }
-
-  &__footer {
-
   }
 }
 </style>

@@ -4,6 +4,7 @@
         ref="app-modal"
         :size="size"
         :hide-header="!$slots.header"
+        :hide-footer="!$slots.footer"
         :modal-class="[{'modal-mini': type === 'mini'}, ...modalClasses]"
         @mousedown.self="closeModal"
         tabindex="-1"
@@ -20,12 +21,14 @@
       <template v-slot:modal-header>
         <slot name="header"></slot>
             <slot name="close-button">
-              <button type="button"
-                      class="close"
-                      v-if="showClose"
-                      @click="closeModal"
-                      data-dismiss="modal"
-                      aria-label="Close">
+              <button
+                type="button"
+                class="close"
+                v-if="showClose"
+                @click="closeModal"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span :aria-hidden="!show">×</span>
               </button>
             </slot>
@@ -34,7 +37,7 @@
       <slot />
 
       <template v-slot:modal-footer>
-        <slot name="footer"></slot> 
+        <slot name="footer"></slot>
       </template>
 
     </b-modal>
