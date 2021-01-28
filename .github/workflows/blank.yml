@@ -27,6 +27,7 @@ jobs:
       - name: SSH deploy $GITHUB_REF branch version
         run: |
               ssh staging 'cd liv'
+              ssh staging 'ls'
               ssh staging 'rm -r dist'
               ssh staging 'git fetch'
               ssh staging 'git checkout $GITHUB_REF'
