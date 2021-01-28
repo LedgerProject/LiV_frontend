@@ -24,8 +24,9 @@ jobs:
             SSH_USER: ${{ secrets.SSH_USER }}
             SSH_KEY: ${{ secrets.PRIVATE_KEY}}
             SSH_HOST: ${{ secrets.HOST }}
-      - name: SSH deploy ${{ GITHUB_REF }} branch version
+      - name: SSH deploy  $GITHUB_REF branch version
         run: |
+              exec $GITHUB_REF
               ssh staging 'cd liv && ls && rm -r dist && git fetch && sudo apt-get install nodejs && node --version && npm rebuild node-sass && git checkout $GITHUB_REF && git pull && npm install && npm run build'
 
   restart:
