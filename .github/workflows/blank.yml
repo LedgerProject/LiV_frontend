@@ -26,7 +26,7 @@ jobs:
             SSH_HOST: ${{ secrets.HOST }}
       - name: SSH deploy $GITHUB_REF branch version
         run: |
-              ssh staging 'cd liv'
+              ssh staging 'cd liv && ls'
               ssh staging 'ls'
               ssh staging 'rm -r dist'
               ssh staging 'git fetch'
