@@ -26,14 +26,7 @@ jobs:
             SSH_HOST: ${{ secrets.HOST }}
       - name: SSH deploy $GITHUB_REF branch version
         run: |
-              ssh staging 'cd liv && ls'
-              ssh staging 'ls'
-              ssh staging 'rm -r dist'
-              ssh staging 'git fetch'
-              ssh staging 'git checkout $GITHUB_REF'
-              ssh staging 'git pull'
-              ssh staging 'npm install'
-              ssh staging 'npm run build'
+              ssh staging 'cd liv && ls && rm -r dist && git fetch && git checkout $GITHUB_REF && git pull && npm install && npm run build'
 
   restart:
     needs: setup
