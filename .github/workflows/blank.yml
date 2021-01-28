@@ -40,7 +40,7 @@ jobs:
         run: ssh staging 'npm run build'
 
   restart:
-    needs: build
+    needs: setup
     runs-on: ubuntu-latest
     steps:
         - name: Configure SSH
