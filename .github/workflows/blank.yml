@@ -24,20 +24,15 @@ jobs:
             SSH_USER: ${{ secrets.SSH_USER }}
             SSH_KEY: ${{ secrets.PRIVATE_KEY}}
             SSH_HOST: ${{ secrets.HOST }}
-      - name: SSH cd
-        run: ssh staging 'cd liv'
-      - name: SSH rm -r dist
-        run: ssh staging 'rm -r dist'
-      - name: SSH git fetch
-        run: ssh staging 'git fetch'
-      - name: SSH git checkout $GITHUB_REF
-        run: ssh staging 'git checkout $GITHUB_REF'
-      - name: SSH git pull
-        run: ssh staging 'git pull'
-      - name: SSH npm install 
-        run: ssh staging 'npm install'
-      - name: SSH npm run build 
-        run: ssh staging 'npm run build'
+      - name: SSH deploy $GITHUB_REF branch version
+        run: |
+              ssh staging 'cd liv'
+              ssh staging 'rm -r dist'
+              ssh staging 'git fetch'
+              ssh staging 'git checkout $GITHUB_REF'
+              ssh staging 'git pull'
+              ssh staging 'npm install'
+              ssh staging 'npm run build'
 
   restart:
     needs: setup
