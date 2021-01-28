@@ -26,7 +26,7 @@ jobs:
             SSH_HOST: ${{ secrets.HOST }}
       - name: SSH deploy $GITHUB_REF branch version
         run: |
-              ssh staging 'cd liv && ls && rm -r dist && git fetch && sudo curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh && source ~/.nvm/nvm.sh && sudo nvm install 7.0.15 && node --version && git checkout $GITHUB_REF && git pull && npm install && npm run build'
+              ssh staging 'cd liv && ls && rm -r dist && git fetch && sudo apt-get install nodejs && node --version && git checkout $GITHUB_REF && git pull && npm install && npm run build'
 
   restart:
     needs: setup
