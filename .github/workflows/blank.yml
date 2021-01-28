@@ -3,7 +3,7 @@ name: Frontend CI
 on: [push]
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,36 +24,40 @@ jobs:
             SSH_USER: ${{ secrets.SSH_USER }}
             SSH_KEY: ${{ secrets.PRIVATE_KEY}}
             SSH_HOST: ${{ secrets.HOST }}
-      - name: SSH rm old version
-        run: ls
-      #- name: SSH copy
-      #  run: scp target/cryptomodule-1.1.0.jar staging:~/cryptomodule-1.1.0.jar
-      #- name: Upload math result
-      #  uses: actions/upload-artifact@v2
-      #  with:
-      #    name: module
-      #    path: target/cryptomodule-1.1.0.jar
-  #restart:
-  #  needs: build
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #      - name: Configure SSH
-  #        run: |
-  #          mkdir -p ~/.ssh/
-  #          echo "$SSH_KEY" > ~/.ssh/staging.key
-  #          chmod 600 ~/.ssh/staging.key
-  #          cat >>~/.ssh/config <<END
-  #          Host staging
-  #            HostName $SSH_HOST
-  #            User $SSH_USER
-  #            IdentityFile ~/.ssh/staging.key
-  #            StrictHostKeyChecking no
-  #          END
-  #        env:
-  #          SSH_USER: ${{ secrets.SSH_USER }}
-  #          SSH_KEY: ${{ secrets.PRIVATE_KEY}}
-  #          SSH_HOST: ${{ secrets.HOST }}
-  #      - name: SSH restart service 
-  #        run: ssh staging 'sudo systemctl restart crypto'
-  #      - name: SSH status service 
-  #        run: ssh staging 'sudo systemctl status crypto'
+      - name: SSH cd
+        run: ssh staging 'cd liv'
+      - name: SSH rm -r dist
+        run: ssh staging 'rm -r dist'
+      - name: SSH git fetch
+        run: ssh staging 'git fetch'
+      - name: SSH git checkout $GITHUB_REF
+        run: ssh staging 'git checkout $GITHUB_REF'
+      - name: SSH git pull
+        run: ssh staging 'git pull'
+      - name: SSH npm install 
+        run: ssh staging 'npm install'
+      - name: SSH npm run build 
+        run: ssh staging 'npm run build'
+
+  restart:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - name: Configure SSH
+          run: |
+            mkdir -p ~/.ssh/
+            echo "$SSH_KEY" > ~/.ssh/staging.key
+            chmod 600 ~/.ssh/staging.key
+            cat >>~/.ssh/config <<END
+            Host staging
+              HostName $SSH_HOST
+              User $SSH_USER
+              IdentityFile ~/.ssh/staging.key
+              StrictHostKeyChecking no
+            END
+          env:
+            SSH_USER: ${{ secrets.SSH_USER }}
+            SSH_KEY: ${{ secrets.PRIVATE_KEY}}
+            SSH_HOST: ${{ secrets.HOST }}
+        - name: SSH restart server 
+          run: ssh staging 'sudo reboot'
