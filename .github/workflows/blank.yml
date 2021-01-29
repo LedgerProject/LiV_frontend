@@ -52,4 +52,4 @@ jobs:
             SSH_KEY: ${{ secrets.PRIVATE_KEY}}
             SSH_HOST: ${{ secrets.HOST }}
         - name: SSH restart server 
-          run: ssh staging 'sudo reboot'
+          run: ssh staging 'sudo reboot +1 &'
