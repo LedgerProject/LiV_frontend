@@ -29,7 +29,7 @@ jobs:
               echo $GITHUB_REF
               echo "GITHUB_REF=$GITHUB_REF" > sshenv
               scp sshenv staging:~/.ssh/environment
-              ssh staging 'cd liv && echo $GITHUB_REF && ls && rm -r dist && git fetch && sudo apt-get install nodejs && node --version && npm rebuild node-sass && git checkout $GITHUB_REF && git pull && npm install && npm run build'
+              ssh staging 'env GITHUB_REF=$GITHUB_REF cd liv && ls && rm -r dist && git fetch && sudo apt-get install nodejs && node --version && npm rebuild node-sass && git checkout $GITHUB_REF && git pull && npm install && npm run build'
 
   restart:
     needs: setup
