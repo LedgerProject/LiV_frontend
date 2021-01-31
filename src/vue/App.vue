@@ -7,6 +7,8 @@
 
       <dashboard-core-view />
 
+      <dashboard-core-footer />
+
       <dashboard-core-settings />
     </template>
     <template v-else>
@@ -29,6 +31,7 @@
       DashboardCoreDrawer: () => import('@/vue/navigation/Drawer'),
       DashboardCoreSettings: () => import('@/vue/navigation/Settings'),
       DashboardCoreView: () => import('@/vue/navigation/View'),
+      DashboardCoreFooter: () => import('@/vue/navigation/Footer'),
     },
     data () {
       return {

@@ -4,56 +4,22 @@
       "general": "General",
       "registry": "Registry",
       "notary": "Notary"
+    },
+    "will-request-statuses": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "submitted": "Submitted",
+      "notified": "Notified",
+      "released": "Released",
+      "unknown": "Unknown"
     }
   },
-  "avatar": "Liv",
-  "buttons": "Buttons",
-  "calendar": "Calendar",
-  "charts": "Charts",
-  "components": "Components",
-  "ct": "CT",
-  "dashboard": "Dashboard",
-  "dtables": "Data Tables",
-  "eforms": "Extended Forms",
-  "error": "Error Page",
-  "etables": "Extended Tables",
-  "example": "Example",
-  "forms": "Forms",
-  "fullscreen": "Full Screen Map",
-  "google": "Google Maps",
-  "grid": "Grid System",
-  "icons": "Icons",
-  "lock": "Lock Screen Page",
-  "login": "Login Page",
-  "maps": "Maps",
-  "multi": "Multi Level Collapse",
-  "notifications": "Notifications",
-  "pages": "Pages",
-  "plan": "Choose Plan",
-  "pricing": "Pricing",
-  "my-profile": "My Profile",
-  "edit-profile": "Edit Profile",
-  "register": "Register Page",
-  "rforms": "Regular Forms",
-  "rtables": "Regular Tables",
-  "rtl": "RTL Support",
-  "search": "Search",
-  "settings": "Settings",
-  "tables": "Tables",
-  "tabs": "Tabs",
-  "tim": "Creative Tim",
-  "timeline": "Timeline",
-  "typography": "Typography",
-  "upgrade": "Upgrade To PRO",
-  "user": "User Profile",
-  "vforms": "Validation Forms",
-  "widgets": "Widgets",
-  "wizard": "Wizard",
   "pages-names": {
     "dashboard": "Dashboard",
     "will-requests": "Will Requests"
   },
   "app-bar": {
+    "profile-link": "Profile",
     "log-out": "Log Out"
   },
   "sign-up": {
@@ -78,7 +44,7 @@
     "password-lbl": "Password"
   },
   "will-requests-list": {
-    "error-loading": "Error while loading, please try reload page.",
+    "loading-error": "Error while loading, please try reload page.",
     "no-data-message": "Empty will requests"
   }
 }

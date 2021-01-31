@@ -18,8 +18,9 @@ import router from '@/vue-router'
 import vuetify from '@/plugins/vuetify'
 import i18n from '@/i18n'
 import { buildStore } from './vuex'
-import { globalizeUserRole } from '@/vue/filters/globalizeUserRole'
 import { globalize } from '@/vue/filters/globalize'
+import { globalizeUserRole } from '@/vue/filters/globalizeUserRole'
+import { globalizeWillRequest } from '@/vue/filters/globalizeWillRequest'
 import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
@@ -27,8 +28,9 @@ import './plugins/vee-validate'
 Vue.config.productionTip = false
 const store = buildStore()
 
-Vue.filter('globalizeUserRole', globalizeUserRole)
 Vue.filter('globalize', globalize)
+Vue.filter('globalizeUserRole', globalizeUserRole)
+Vue.filter('globalizeWillRequest', globalizeWillRequest)
 
 new Vue({
   router,

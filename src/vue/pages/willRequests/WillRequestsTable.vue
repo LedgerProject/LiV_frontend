@@ -10,85 +10,77 @@
             Name
           </th>
           <th class="primary--text">
-            Country
+            Passport ID
           </th>
           <th class="primary--text">
-            City
+            Status
           </th>
           <th class="text-right primary--text">
-            Salary
+            Action
           </th>
         </tr>
       </thead>
 
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Dakota Rice</td>
-          <td>Niger</td>
-          <td>Oud-Turnhout</td>
-          <td class="text-right">
-            $36,738
+        <router-link
+          v-for="item in willRequests"
+          :key="item.id"
+          :to="{
+            ...vueRoutes.updateWillRequest,
+            params: {
+              id: item.requestId
+            }
+          }"
+          tag="tr"
+        >
+          <td>
+            {{ item.requestId }}
           </td>
-        </tr>
-
-        <tr>
-          <td>2</td>
-          <td>Minverva Hooper</td>
-          <td>Curaçao</td>
-          <td>Sinaas-Waas</td>
-          <td class="text-right">
-            $23,789
+          <td>
+            {{ item.fullName }}
           </td>
-        </tr>
-
-        <tr>
-          <td>3</td>
-          <td>Sage Rodriguez</td>
-          <td>Netherlands</td>
-          <td>Baileux</td>
-          <td class="text-right">
-            $56,142
+          <td>
+            {{ item.passportId }}
           </td>
-        </tr>
-
-        <tr>
-          <td>4</td>
-          <td>Philip Chaney</td>
-          <td>Korea, South</td>
-          <td>Overland Park</td>
-          <td class="text-right">
-            $38,735
+          <td>
+            {{ item.statusId | globalizeWillRequest }}
           </td>
-        </tr>
-
-        <tr>
-          <td>5</td>
-          <td>Doris Greene</td>
-          <td>Malawi</td>
-          <td>Feldkirchen in Kärnten</td>
-          <td class="text-right">
-            $63,542
+          <td>
+            <template v-if="item.statusId === WILL_REQUEST_STATUSES.approved">
+              <v-btn>
+                {{ 'will-requests-table.reject-btn' | globalize }}
+              </v-btn>
+            </template>
+            <template v-else>
+              <v-btn>
+                {{ 'will-requests-table.reject-btn' | globalize }}
+              </v-btn>
+            </template>
           </td>
-        </tr>
-
-        <tr>
-          <td>6</td>
-          <td>Mason Porter</td>
-          <td>Chile</td>
-          <td>Gloucester</td>
-          <td class="text-right">
-            $78,615
-          </td>
-        </tr>
+        </router-link>
       </tbody>
     </v-simple-table>
   </div>
 </template>
 
 <script>
+  import { vueRoutes } from '@/vue-router/routes'
+  import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+
   export default {
     name: 'WillRequestsTable',
+    props: {
+      willRequests: {
+        type: Array, /** {@link WillRequestRecord} **/
+        required: true,
+      },
+    },
+    data () {
+      return {
+        vueRoutes,
+        WILL_REQUEST_STATUSES,
+      }
+    },
   }
 </script>
 

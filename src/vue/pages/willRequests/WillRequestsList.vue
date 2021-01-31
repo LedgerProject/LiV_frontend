@@ -14,13 +14,15 @@
             </v-alert>
           </template>
           <template v-else-if="willRequests.length">
-            <will-requests-table />
+            <will-requests-table
+              :will-requests="willRequests"
+            />
           </template>
           <template v-else>
             <v-alert
               border="right"
               colored-border
-              type="error"
+              type="info"
               elevation="2"
             >
               {{ 'will-requests-list.no-data-message' | globalize }}
@@ -58,7 +60,7 @@
         this.isLoaded = false
         this.isLoadFalse = false
         try {
-          const { data } = await api.get('/will-requests')
+          const { data } = await api.get('/will-requests/')
           this.willRequests = data.map(el => new WillRequestRecord(el))
         } catch (error) {
           Bus.error('will-requests-list.loading-error')

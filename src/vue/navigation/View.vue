@@ -1,7 +1,6 @@
 <template>
   <v-content>
     <router-view />
-    <dashboard-core-footer />
   </v-content>
 </template>
 
@@ -10,7 +9,6 @@
     name: 'DashboardCoreView',
 
     components: {
-      DashboardCoreFooter: () => import('./Footer'),
     },
   }
 </script>

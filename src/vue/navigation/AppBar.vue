@@ -130,6 +130,13 @@
         nav
       >
         <div>
+          <app-bar-item
+            :to="vueRoutes.profile"
+          >
+            <v-list-item-title>
+              {{ 'app-bar.profile-link' | globalize }}
+            </v-list-item-title>
+          </app-bar-item>
           <app-bar-item>
             <v-list-item-title
               @click="logOut"
@@ -150,6 +157,7 @@
   // Utilities
   import { mapState, mapMutations, mapActions } from 'vuex'
   import { vuexTypes } from '@/vuex'
+  import { vueRoutes } from '@/vue-router/routes'
 
   export default {
     name: 'DashboardCoreAppBar',
@@ -195,6 +203,7 @@
         'Another Notification',
         'Another one',
       ],
+      vueRoutes,
     }),
 
     computed: {
