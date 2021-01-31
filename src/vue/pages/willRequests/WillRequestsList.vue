@@ -1,7 +1,15 @@
 <template>
-  <v-container class="will-requests-list">
-    <v-row>
-      <v-col cols="12" lg="12">
+  <v-row class="will-requests-list">
+    <v-col cols="12" lg="12">
+      <v-btn
+        color="info"
+        :to="vueRoutes.createWillRequest"
+      >
+        {{ 'will-requests-list.create-will-request-btn' | globalize }}
+      </v-btn>
+    </v-col>
+    <v-col cols="12" lg="12">
+      <v-card>
         <template v-if="isLoaded">
           <template v-if="isLoadFalse">
             <v-alert
@@ -30,11 +38,11 @@
           </template>
         </template>
         <template v-else>
-          <v-skeleton-loader />
+          <v-progress-linear indeterminate />
         </template>
-      </v-col>
-    </v-row>
-  </v-container>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -42,6 +50,8 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { WillRequestRecord } from '@/js/records/will-request.record'
+  import { vueRoutes } from '@/vue-router/routes'
+
   export default {
     name: 'WillRequestsList',
     components: { WillRequestsTable },
@@ -50,6 +60,7 @@
         isLoaded: false,
         isLoadFalse: false,
         willRequests: [],
+        vueRoutes,
       }
     },
     async created () {

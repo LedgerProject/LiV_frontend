@@ -8,8 +8,6 @@
       <dashboard-core-view />
 
       <dashboard-core-footer />
-
-      <dashboard-core-settings />
     </template>
     <template v-else>
       <router-view />
@@ -29,7 +27,6 @@
       Notification,
       DashboardCoreAppBar: () => import('@/vue/navigation/AppBar'),
       DashboardCoreDrawer: () => import('@/vue/navigation/Drawer'),
-      DashboardCoreSettings: () => import('@/vue/navigation/Settings'),
       DashboardCoreView: () => import('@/vue/navigation/View'),
       DashboardCoreFooter: () => import('@/vue/navigation/Footer'),
     },

@@ -45,6 +45,27 @@
   },
   "will-requests-list": {
     "loading-error": "Error while loading, please try reload page.",
-    "no-data-message": "Empty will requests"
+    "no-data-message": "Empty will requests",
+    "create-will-request-btn": "Create"
+  },
+  "create-will-request": {
+    "title": "Create Will Request"
+  },
+  "update-will-request": {
+    "title": "Update Will Request",
+    "loading-error": "Error while loading, please try reload page."
+  },
+  "will-request-form": {
+    "error-sending": "Something went wrong, please try again",
+    "first-name-lbl": "First Name",
+    "middle-name-lbl": "Middle Name",
+    "last-name-lbl": "Last Name",
+    "email-lbl": "Email",
+    "address-lbl": "Address",
+    "passport-number-lbl": "Passport Number",
+    "document-lbl": "Document",
+    "submit-btn": "Create",
+    "approve-btn": "Approve",
+    "reject-btn": "Reject"
   }
 }

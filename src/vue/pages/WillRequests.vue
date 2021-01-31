@@ -1,5 +1,8 @@
 <template>
-  <v-container class="will-requests">
+  <v-container
+    class="will-requests"
+    fluid
+  >
     <router-view />
   </v-container>
 </template>

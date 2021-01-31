@@ -15,6 +15,7 @@ export class WillRequestFormer extends Former {
             address: '',
             passportNumber: '',
             status: WILL_REQUEST_STATUSES.submitted,
+            document: null,
         }
     }
 
@@ -58,27 +59,43 @@ export class WillRequestFormer extends Former {
         this.useUpdateOpBuilder()
         this.attrs = this.attrs || this._defaultAttrs
 
-        this.attrs.id = source.id
+        this.attrs.id = source.requestId
         this.attrs.email = source.email
         this.attrs.firstName = source.firstName
         this.attrs.lastName = source.lastName
         this.attrs.middleName = source.middleName
         this.attrs.address = source.address
-        this.attrs.passportNumber = source.passportNumber
-        this.attrs.status = source.status
+        this.attrs.passportNumber = source.passportId
+        this.attrs.status = source.statusId
     }
 
     _buildOpCreate () {
-        const opts = {
-
-        }
-        return opts
+        const fd = new FormData()
+        fd.append('email', this.attrs.email)
+        fd.append('kyc', {
+            id: this.attrs.id,
+            firstName: this.attrs.firstName,
+            middleName: this.attrs.middleName,
+            lastName: this.attrs.lastName,
+            address: this.attrs.address,
+            passportNumber: this.attrs.passportNumber,
+        })
+        fd.append('document', this.attrs.document)
+        return fd
     }
 
     _buildOpUpdate () {
-        const opts = {
-
-        }
-        return opts
+        const fd = new FormData()
+        fd.append('email', this.attrs.email)
+        fd.append('kyc', {
+            id: this.attrs.id,
+            firstName: this.attrs.firstName,
+            middleName: this.attrs.middleName,
+            lastName: this.attrs.lastName,
+            address: this.attrs.address,
+            passportNumber: this.attrs.passportNumber,
+        })
+        fd.append('document', this.attrs.document)
+        return fd
     }
 }

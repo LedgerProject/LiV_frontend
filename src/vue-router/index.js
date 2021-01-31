@@ -93,7 +93,7 @@ export default new Router({
                             beforeEnter: inAppRouteGuard,
                         },
                         {
-                            path: '/will-requests/:id',
+                            path: '/will-requests/list/:id',
                             name: vueRoutes.updateWillRequest.name,
                             component: () => import('@/vue/pages/willRequests/UpdateWillRequest'),
                             beforeEnter: inAppRouteGuard,
@@ -103,6 +103,7 @@ export default new Router({
                             name: vueRoutes.createWillRequest.name,
                             component: () => import('@/vue/pages/willRequests/CreateWillRequest'),
                             beforeEnter: inAppRouteGuard,
+                            props: true,
                         },
                     ],
                 },
