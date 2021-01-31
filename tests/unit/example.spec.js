@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import App from '@/App.vue'
+import App from '@/vue/App.vue'
 
 test('App should work', () => {
   const wrapper = shallowMount(App)

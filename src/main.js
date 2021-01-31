@@ -9,19 +9,26 @@
 //
 // =========================================================
 //
+// eslint-disable-next-line max-len
 // * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import App from '@/vue/App.vue'
+import router from '@/vue-router'
+import vuetify from '@/plugins/vuetify'
+import i18n from '@/i18n'
+import { buildStore } from './vuex'
+import { globalizeUserRole } from '@/vue/filters/globalizeUserRole'
+import { globalize } from '@/vue/filters/globalize'
 import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
-import vuetify from './plugins/vuetify'
-import i18n from './i18n'
 
 Vue.config.productionTip = false
+const store = buildStore()
+
+Vue.filter('globalizeUserRole', globalizeUserRole)
+Vue.filter('globalize', globalize)
 
 new Vue({
   router,
