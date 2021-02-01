@@ -14,6 +14,34 @@
       "unknown": "Unknown"
     }
   },
+  "validation": {
+    "failed": "Please fill out all the fields before continuing",
+    "field-error": "Invalid field",
+    "field-error_email": "This field should be a valid email",
+    "field-error_seed": "This field should be a valid secret seed",
+    "field-error_required": "Please fill out this field",
+    "field-error_validateUrl": "This field should be a valid website URL",
+    "field-error_integer": "This field should be a valid integer",
+    "field-error_minValue": "This field should be more or equal {{minValue, number}}",
+    "field-error_password": "Password should contain minimum 6 symbols",
+    "field-error_sameAsPassword": "Passwords don't match",
+    "field-error_requiredAtLeastOne": "Choose at least one of the options",
+    "field-error_amount": "Amount must be a number, greater than {{ minValue, number }}",
+    "field-error_maxValue": "Value should be less than {{maxValue, number}}",
+    "field-error_decimal": "Allowed integer or decimal numbers only",
+    "field-error_amountRange": "Amount should be in the range from {{from, money}} to {{to, money}}",
+    "field-error_minDate": "Date should be same or after {{ minDate, dmy }}",
+    "field-error_maxDate": "Date should be before {{ maxDate, dmy }}",
+    "field-error_emailOrAccountId": "This field should be a valid email or account ID",
+    "field-error_accountId": "This field should be a valid account ID",
+    "field-error_maxDecimalPoints": "Only {{quantity}} digits after point are allowed",
+    "field-error_address": "Make sure the address is correct",
+    "field-error_maxLength": "This field must contain maximum {{length}} symbols",
+    "field-error_maxDecimalDigitsCount": "This field cannot contain more than {{maxDecimalDigitsCount}} decimal digits",
+    "field-error_alphaNum": "Value should consists of alphanumeric values (A-Z, a-z, 0-9)",
+    "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
+    "field-error_phoneNumber": "Make sure the number is correct"
+  },
   "pages-names": {
     "dashboard": "Dashboard",
     "will-requests": "Will Requests"
@@ -47,6 +75,12 @@
     "loading-error": "Error while loading, please try reload page.",
     "no-data-message": "Empty will requests",
     "create-will-request-btn": "Create"
+  },
+  "will-requests-table": {
+    "approve-error": "Error while approving! Please try again",
+    "reject-error": "Error while rejecting! Please try again",
+    "approve-btn": "Approve",
+    "reject-btn": "Reject"
   },
   "create-will-request": {
     "title": "Create Will Request"

@@ -7,7 +7,7 @@
       'color': 'transparent'
     }"
   >
-    <base-material-alert
+    <material-alert
       v-model="internalValue"
       :color="$attrs.color"
       :dismissible="dismissible"
@@ -16,13 +16,14 @@
       dark
     >
       <slot />
-    </base-material-alert>
+    </material-alert>
   </v-snackbar>
 </template>
 <script>
+  import MaterialAlert from '@/vue/common/base/MaterialAlert'
   export default {
-    name: 'BaseMaterialSnackbar',
-
+    name: 'MaterialSnackbar',
+    components: { MaterialAlert },
     props: {
       dismissible: {
         type: Boolean,

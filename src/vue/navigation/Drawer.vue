@@ -58,15 +58,15 @@
       <template
         v-for="(item, i) in computedItems"
       >
-        <base-item-group
+        <item-group
           v-if="item.children"
           :key="`group-${i}`"
           :item="item"
         >
           <!--  -->
-        </base-item-group>
+        </item-group>
 
-        <base-item
+        <item
           v-else
           :key="`item-${i}`"
           :item="item"
@@ -82,7 +82,7 @@
       v-if="false"
       v-slot:append
     >
-      <base-item
+      <item
         :item="{
           title: 'upgrade' | globalize,
           icon: 'mdi-package-up',
@@ -94,6 +94,8 @@
 </template>
 
 <script>
+  import ItemGroup from '@/vue/common/base/ItemGroup'
+  import Item from '@/vue/common/base/Item'
   // Utilities
   import {
     mapState,
@@ -103,7 +105,7 @@
 
   export default {
     name: 'DashboardCoreDrawer',
-
+    components: { Item, ItemGroup },
     props: {
       expandOnHover: {
         type: Boolean,

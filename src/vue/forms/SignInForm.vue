@@ -1,7 +1,7 @@
 <template>
   <div class="sign-in-form">
     <v-form
-      @submit.prevent="submit"
+      @submit.prevent="isFormValid() && submit()"
     >
       <v-container>
         <v-row>
@@ -9,14 +9,19 @@
             <v-text-field
               v-model="form.login"
               :label="'sign-in-form.login-lbl' | globalize"
+              :error-messages="getFieldErrorMessage('form.login')"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.login')"
             />
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.password"
+              type="password"
               :label="'sign-in-form.password-lbl' | globalize"
+              :error-messages="getFieldErrorMessage('form.password')"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.password')"
             />
           </v-col>
           <v-col cols="12" md="12">
@@ -45,6 +50,7 @@
   import { mapActions } from 'vuex'
   import { Bus } from '@/js/helpers/event-bus'
   import { vueRoutes } from '@/vue-router/routes'
+  import { email, required } from 'vuelidate/lib/validators'
 
   export default {
     name: 'SignInForm',
@@ -56,6 +62,12 @@
           password: '',
         },
       }
+    },
+    validations: {
+      form: {
+        login: { required, email },
+        password: { required },
+      },
     },
     methods: {
       ...mapActions({

@@ -8,6 +8,13 @@
               class="heading-2"
             >
               {{ 'update-will-request.title' | globalize }}
+              <v-btn
+                class="float-right"
+                text
+                disabled
+              >
+                {{ former._initAttrs.statusId | globalizeWillRequest }}
+              </v-btn>
             </h1>
           </template>
           <v-card-text>

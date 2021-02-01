@@ -1,6 +1,9 @@
+import { validationMixin } from 'vuelidate'
+import FormValidationMixin from '@/vue/mixins/form-validation.mixin'
+
 export default {
   components: {},
-  mixins: [],
+  mixins: [validationMixin, FormValidationMixin],
   data: _ => ({
     formMixin: {
       isDisabled: false,

@@ -1,9 +1,11 @@
 import { Former } from '@/js/formers/Former'
 import { WillRequestRecord } from '@/js/records/will-request.record'
 import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+import cloneDeep from 'lodash/cloneDeep'
 
 export class WillRequestFormer extends Former {
     attrs = this.attrs || this._defaultAttrs
+    _initAttrs = cloneDeep(this.attrs)
 
     get _defaultAttrs () {
         return {
@@ -14,7 +16,7 @@ export class WillRequestFormer extends Former {
             middleName: '',
             address: '',
             passportNumber: '',
-            status: WILL_REQUEST_STATUSES.submitted,
+            statusId: WILL_REQUEST_STATUSES.submitted,
             document: null,
         }
     }
@@ -59,43 +61,59 @@ export class WillRequestFormer extends Former {
         this.useUpdateOpBuilder()
         this.attrs = this.attrs || this._defaultAttrs
 
-        this.attrs.id = source.requestId
+        this.attrs.id = source.id
         this.attrs.email = source.email
         this.attrs.firstName = source.firstName
         this.attrs.lastName = source.lastName
         this.attrs.middleName = source.middleName
         this.attrs.address = source.address
         this.attrs.passportNumber = source.passportId
-        this.attrs.status = source.statusId
+        this.attrs.statusId = source.statusId
     }
 
     _buildOpCreate () {
-        const fd = new FormData()
-        fd.append('email', this.attrs.email)
-        fd.append('kyc', {
-            id: this.attrs.id,
+        // const fd = new FormData()
+        // fd.append('email', this.attrs.email)
+        // fd.append('firstName', this.attrs.firstName)
+        // fd.append('middleName', this.attrs.middleName)
+        // fd.append('lastName', this.attrs.lastName)
+        // fd.append('address', this.attrs.address)
+        // fd.append('passportNumber', this.attrs.passportNumber)
+        // fd.append('document', 'this.attrs.document')
+        // return fd
+        let opts = {}
+        opts = {
+            email: this.attrs.email,
             firstName: this.attrs.firstName,
             middleName: this.attrs.middleName,
             lastName: this.attrs.lastName,
             address: this.attrs.address,
             passportNumber: this.attrs.passportNumber,
-        })
-        fd.append('document', this.attrs.document)
-        return fd
+            document: 'this.attrs.document',
+        }
+        return opts
     }
 
     _buildOpUpdate () {
-        const fd = new FormData()
-        fd.append('email', this.attrs.email)
-        fd.append('kyc', {
-            id: this.attrs.id,
+        // const fd = new FormData()
+        // fd.append('email', this.attrs.email)
+        // fd.append('firstName', this.attrs.firstName)
+        // fd.append('middleName', this.attrs.middleName)
+        // fd.append('lastName', this.attrs.lastName)
+        // fd.append('address', this.attrs.address)
+        // fd.append('passportNumber', this.attrs.passportNumber)
+        // fd.append('document', 'this.attrs.document')
+        // return fd
+        let opts = {}
+        opts = {
+            email: this.attrs.email,
             firstName: this.attrs.firstName,
             middleName: this.attrs.middleName,
             lastName: this.attrs.lastName,
             address: this.attrs.address,
             passportNumber: this.attrs.passportNumber,
-        })
-        fd.append('document', this.attrs.document)
-        return fd
+            document: 'this.attrs.document',
+        }
+        return opts
     }
 }

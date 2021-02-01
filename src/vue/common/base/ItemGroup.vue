@@ -4,7 +4,8 @@
     :prepend-icon="item.icon"
     :sub-group="subGroup"
     append-icon="mdi-menu-down"
-    :color="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)' ? 'white' : 'grey darken-1'"
+    :color="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)'
+      ? 'white' : 'grey darken-1'"
   >
     <template v-slot:activator>
       <v-list-item-icon
@@ -28,13 +29,13 @@
     </template>
 
     <template v-for="(child, i) in children">
-      <base-item-sub-group
+      <item-sub-group
         v-if="child.children"
         :key="`sub-group-${i}`"
         :item="child"
       />
 
-      <base-item
+      <item
         v-else
         :key="`item-${i}`"
         :item="child"
@@ -45,13 +46,15 @@
 </template>
 
 <script>
+  import ItemSubGroup from '@/vue/common/base/ItemSubGroup'
+  import Item from '@/vue/common/base/Item'
   // Utilities
   import kebabCase from 'lodash/kebabCase'
   import { mapState } from 'vuex'
 
   export default {
     name: 'ItemGroup',
-
+    components: { Item, ItemSubGroup },
     inheritAttrs: false,
 
     props: {

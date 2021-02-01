@@ -1,7 +1,7 @@
 <template>
   <div class="SignUpForm">
     <v-form
-      @submit.prevent="submit"
+      @submit.prevent="isFormValid() && submit()"
     >
       <v-container>
         <v-row>
@@ -19,44 +19,55 @@
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.firstName"
+              :error-messages="getFieldErrorMessage('form.firstName')"
               :label="'sign-up-form.first-name-lbl' | globalize"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.firstName')"
             />
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.lastName"
+              :error-messages="getFieldErrorMessage('form.lastName')"
               :label="'sign-up-form.last-name-lbl' | globalize"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.lastName')"
             />
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.email"
+              :error-messages="getFieldErrorMessage('form.email')"
               :label="'sign-up-form.email-lbl' | globalize"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.email')"
             />
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.password"
+              :error-messages="getFieldErrorMessage('form.password')"
               type="password"
               :label="'sign-up-form.password-lbl' | globalize"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.password')"
             />
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.repeatPassword"
+              :error-messages="getFieldErrorMessage('form.repeatPassword')"
               type="password"
               :label="'sign-up-form.repeat-password-lbl' | globalize"
               :disabled="formMixin.isDisabled"
+              @blur="touchField('form.repeatPassword')"
             />
           </v-col>
           <v-col cols="12" md="12">
             <v-btn
               type="submit"
               color="primary"
+              :disabled="formMixin.isDisabled"
             >
               {{ 'sign-up-form.submit-btn' | globalize }}
             </v-btn>
@@ -80,6 +91,7 @@
   import { vuexTypes } from '@/vuex'
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
+  import { email, required, sameAs } from 'vuelidate/lib/validators'
 
   export default {
     name: 'SignUpForm',
@@ -97,6 +109,18 @@
         vueRoutes,
         USER_ROLES,
       }
+    },
+    validations: {
+      form: {
+        firstName: { required },
+        lastName: { required },
+        email: { required, email },
+        password: { required },
+        repeatPassword: {
+          required,
+          sameAs: sameAs('form.password'),
+        },
+      },
     },
     methods: {
       ...mapActions({

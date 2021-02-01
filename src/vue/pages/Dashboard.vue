@@ -9,7 +9,7 @@
         cols="12"
         lg="4"
       >
-        <base-material-chart-card
+        <material-chart-card
           :data="emailsSubscriptionChart.data"
           :options="emailsSubscriptionChart.options"
           :responsive-options="emailsSubscriptionChart.responsiveOptions"
@@ -68,16 +68,18 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 10 minutes ago</span>
+            <span class="caption grey--text font-weight-light">
+              updated 10 minutes ago
+            </span>
           </template>
-        </base-material-chart-card>
+        </material-chart-card>
       </v-col>
 
       <v-col
         cols="12"
         lg="4"
       >
-        <base-material-chart-card
+        <material-chart-card
           :data="dailySalesChart.data"
           :options="dailySalesChart.options"
           color="success"
@@ -142,16 +144,18 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
+            <span class="caption grey--text font-weight-light">
+              updated 4 minutes ago
+            </span>
           </template>
-        </base-material-chart-card>
+        </material-chart-card>
       </v-col>
 
       <v-col
         cols="12"
         lg="4"
       >
-        <base-material-chart-card
+        <material-chart-card
           :data="dataCompletedTasksChart.data"
           :options="dataCompletedTasksChart.options"
           hover-reveal
@@ -209,9 +213,11 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light">
+              campaign sent 26 minutes ago
+            </span>
           </template>
-        </base-material-chart-card>
+        </material-chart-card>
       </v-col>
 
       <v-col
@@ -219,7 +225,7 @@
         sm="6"
         lg="3"
       >
-        <base-material-stats-card
+        <material-stats-card
           color="info"
           icon="mdi-twitter"
           title="Followers"
@@ -234,7 +240,7 @@
         sm="6"
         lg="3"
       >
-        <base-material-stats-card
+        <material-stats-card
           color="primary"
           icon="mdi-poll"
           title="Website Visits"
@@ -249,7 +255,7 @@
         sm="6"
         lg="3"
       >
-        <base-material-stats-card
+        <material-stats-card
           color="success"
           icon="mdi-store"
           title="Revenue"
@@ -264,7 +270,7 @@
         sm="6"
         lg="3"
       >
-        <base-material-stats-card
+        <material-stats-card
           color="orange"
           icon="mdi-sofa"
           title="Bookings"
@@ -279,7 +285,7 @@
         cols="12"
         md="6"
       >
-        <base-material-card
+        <material-card
           color="warning"
           class="px-5 py-3"
         >
@@ -298,14 +304,14 @@
               :items="items"
             />
           </v-card-text>
-        </base-material-card>
+        </material-card>
       </v-col>
 
       <v-col
         cols="12"
         md="6"
       >
-        <base-material-card class="px-5 py-3">
+        <material-card class="px-5 py-3">
           <template v-slot:heading>
             <v-tabs
               v-model="tabs"
@@ -386,16 +392,20 @@
               </v-card-text>
             </v-tab-item>
           </v-tabs-items>
-        </base-material-card>
+        </material-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+  import MaterialChartCard from '@/vue/common/base/MaterialChartCard'
+  import MaterialStatsCard from '@/vue/common/base/MaterialStatsCard'
+  import MaterialCard from '@/vue/common/base/MaterialCard'
+
   export default {
     name: 'DashboardDashboard',
-
+    components: { MaterialCard, MaterialStatsCard, MaterialChartCard },
     data () {
       return {
         dailySalesChart: {
@@ -410,7 +420,7 @@
               tension: 0,
             }),
             low: 0,
-            high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            high: 50,
             chartPadding: {
               top: 0,
               right: 0,
@@ -431,7 +441,7 @@
               tension: 0,
             }),
             low: 0,
-            high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            high: 1000,
             chartPadding: {
               top: 0,
               right: 0,

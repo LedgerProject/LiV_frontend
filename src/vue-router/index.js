@@ -30,36 +30,6 @@ export default new Router({
                     component: () => import('@/vue/pages/SignUp'),
                     beforeEnter: authPageGuard,
                 },
-                {
-                    name: 'Notifications',
-                    path: 'components/notifications',
-                    component: () => import('@/vue/pages/Notifications'),
-                    beforeEnter: authPageGuard,
-                },
-                {
-                    name: 'Icons',
-                    path: 'components/icons',
-                    component: () => import('@/vue/pages/Icons'),
-                    beforeEnter: authPageGuard,
-                },
-                {
-                    name: 'Typography',
-                    path: 'components/typography',
-                    component: () => import('@/vue/pages/Typography'),
-                    beforeEnter: authPageGuard,
-                },
-                {
-                    name: 'Regular Tables',
-                    path: 'tables/regular-tables',
-                    component: () => import('@/vue/pages/RegularTables'),
-                    beforeEnter: authPageGuard,
-                },
-                {
-                    name: 'Google Maps',
-                    path: 'maps/google-maps',
-                    component: () => import('@/vue/pages/GoogleMaps'),
-                    beforeEnter: authPageGuard,
-                },
             ],
         },
         {

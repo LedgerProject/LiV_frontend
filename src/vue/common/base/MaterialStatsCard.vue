@@ -1,5 +1,5 @@
 <template>
-  <base-material-card
+  <material-card
     :icon="icon"
     class="v-card--material-stats"
     v-bind="$attrs"
@@ -38,15 +38,16 @@
       class="caption grey--text font-weight-light"
       v-text="subText"
     />
-  </base-material-card>
+  </material-card>
 </template>
 
 <script>
   import Card from './Card'
+  import MaterialCard from '@/vue/common/base/MaterialCard'
 
   export default {
     name: 'MaterialStatsCard',
-
+    components: { MaterialCard },
     inheritAttrs: false,
 
     props: {

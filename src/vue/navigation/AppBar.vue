@@ -133,16 +133,17 @@
           <app-bar-item
             :to="vueRoutes.profile"
           >
-            <v-list-item-title>
+            <v-btn text>
               {{ 'app-bar.profile-link' | globalize }}
-            </v-list-item-title>
+            </v-btn>
           </app-bar-item>
           <app-bar-item>
-            <v-list-item-title
-              @click="logOut"
+            <v-btn
+              text
+              @click.stop.prevent="logOut"
             >
               {{ 'app-bar.log-out' | globalize }}
-            </v-list-item-title>
+            </v-btn>
           </app-bar-item>
         </div>
       </v-list>

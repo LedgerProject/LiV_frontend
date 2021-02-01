@@ -1,5 +1,5 @@
 <template>
-  <base-material-card
+  <material-card
     class="v-card--material-chart"
     v-bind="$attrs"
     v-on="$listeners"
@@ -27,13 +27,15 @@
       slot="actions"
       name="actions"
     />
-  </base-material-card>
+  </material-card>
 </template>
 
 <script>
+  import MaterialCard from '@/vue/common/base/MaterialCard'
+
   export default {
     name: 'MaterialChartCard',
-
+    components: { MaterialCard },
     inheritAttrs: false,
 
     props: {

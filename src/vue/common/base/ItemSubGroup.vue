@@ -1,5 +1,5 @@
 <template>
-  <base-item-group
+  <item-group
     :item="item"
     text
     sub-group
@@ -7,9 +7,11 @@
 </template>
 
 <script>
+  import ItemGroup from '@/vue/common/base/ItemGroup'
+
   export default {
     name: 'ItemSubGroup',
-
+    components: { ItemGroup },
     props: {
       item: {
         type: Object,
