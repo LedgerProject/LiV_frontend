@@ -4,12 +4,38 @@
       v-model="snackbar"
       :color="color"
       :timeout="timeout"
-      absolute
       top
       right
       multi-line
     >
+      <template>
+        <v-icon class="notification__icon">
+          <template v-if="color === COLORS.error">
+            mdi-alert
+          </template>
+          <template v-else-if="color === COLORS.success">
+            mdi-check-circle
+          </template>
+          <template v-else-if="color === COLORS.warning">
+            mdi-comment-alert
+          </template>
+          <template v-else-if="color === COLORS.info">
+            mdi-information
+          </template>
+        </v-icon>
+      </template>
       {{ $t(message) }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </template>
     </v-snackbar>
   </div>
 </template>
@@ -32,6 +58,7 @@
         color: COLORS.info,
         timeout: 5000,
         message: '',
+        COLORS,
       }
     },
     created () {
@@ -58,3 +85,9 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+.notification__icon {
+  margin-right: 0.5rem;
+}
+</style>

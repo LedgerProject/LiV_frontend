@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import account from './modules/account.module'
+import kyc from './modules/kyc.module'
 import auth from './modules/auth.module'
 import Vuex from 'vuex'
 import { vuexTypes } from '@/vuex/types'
@@ -45,6 +46,7 @@ function buildStore () {
         ...rootModule,
         modules: {
             account,
+            kyc,
             auth,
         },
         plugins: [sessionStoragePlugin],
