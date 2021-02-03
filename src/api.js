@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 export const api = Axios.create({
-  baseURL: 'http://18.192.22.193:8081',
+  baseURL: 'https://platform.livpoc.com:8081',
 })
 
 api.generateKeyPair = (secret) => {
