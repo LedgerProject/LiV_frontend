@@ -1,51 +1,52 @@
 <template>
-  <div class="sign-in">
-    <material-card>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col>
-              <div class="sign-in__wrapper">
-                <div
-                  class="sign-in__info"
-                  :style="{
-                    backgroundImage: infoBackground,
-                  }"
-                >
-                  <h1 class="sign-in__title display-3">
-                    {{ title }}
-                  </h1>
-                  <div class="sign-in__subtitle blockquote">
-                    {{ subtitle }}
-                  </div>
-                  <v-btn
-                    depressed
-                    color="primary"
-                    :to="vueRoutes.signUp"
+  <v-container class="sign-in">
+    <v-row>
+      <v-col cols="12" md="12">
+        <v-card>
+          <v-container>
+            <v-row>
+              <v-col>
+                <div class="sign-in__wrapper">
+                  <div
+                    class="sign-in__info"
+                    :style="{
+                      backgroundImage: infoBackground,
+                    }"
                   >
-                    {{ 'sign-up.sign-in-link' | globalize }}
-                  </v-btn>
+                    <h1 class="sign-in__title display-3">
+                      {{ title }}
+                    </h1>
+                    <div class="sign-in__subtitle blockquote">
+                      {{ subtitle }}
+                    </div>
+                    <v-btn
+                      depressed
+                      color="primary"
+                      :to="vueRoutes.signUp"
+                    >
+                      {{ 'sign-up.sign-in-link' | globalize }}
+                    </v-btn>
+                  </div>
+                  <div class="sign-in__form">
+                    <sign-in-form />
+                  </div>
                 </div>
-                <div class="sign-in__form">
-                  <sign-in-form />
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </material-card>
-  </div>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-  import { vueRoutes } from '@/vue-router/routes'
   import SignInForm from '@/vue/forms/SignInForm'
-  import MaterialCard from '@/vue/common/base/MaterialCard'
+  import { vueRoutes } from '@/vue-router/routes'
 
   export default {
     name: 'SignIn',
-    components: { MaterialCard, SignInForm },
+    components: { SignInForm },
     data () {
       return {
         title: 'lorem ipsum dolor sit amet',
