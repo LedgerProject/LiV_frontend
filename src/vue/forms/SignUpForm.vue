@@ -18,24 +18,6 @@
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
-              v-model="form.firstName"
-              :error-messages="getFieldErrorMessage('form.firstName')"
-              :label="'sign-up-form.first-name-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-              @blur="touchField('form.firstName')"
-            />
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-text-field
-              v-model="form.lastName"
-              :error-messages="getFieldErrorMessage('form.lastName')"
-              :label="'sign-up-form.last-name-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-              @blur="touchField('form.lastName')"
-            />
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-text-field
               v-model="form.email"
               :error-messages="getFieldErrorMessage('form.email')"
               :label="'sign-up-form.email-lbl' | globalize"

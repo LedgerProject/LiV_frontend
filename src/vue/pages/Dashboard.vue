@@ -128,7 +128,7 @@
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
             <v-icon
-              color="green"
+              color="primary"
               small
             >
               mdi-arrow-up

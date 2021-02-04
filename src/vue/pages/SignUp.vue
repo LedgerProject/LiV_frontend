@@ -2,7 +2,7 @@
   <v-container class="sign-up">
     <v-row>
       <v-col>
-        <v-card>
+        <v-card elevation="10">
           <v-container>
             <v-row>
               <v-col>
@@ -14,10 +14,10 @@
                     }"
                   >
                     <h1 class="sign-in__title display-3">
-                      {{ title }}
+                      {{ 'sign-up.title' | globalize }}
                     </h1>
                     <div class="sign-in__subtitle blockquote">
-                      {{ subtitle }}
+                      {{ 'sign-up.subtitle' | globalize }}
                     </div>
                     <v-btn
                       depressed
@@ -63,6 +63,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 
   &__wrapper {
     display: flex;

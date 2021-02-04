@@ -2,7 +2,7 @@
   <v-container class="sign-in">
     <v-row>
       <v-col cols="12" md="12">
-        <v-card>
+        <v-card elevation="10">
           <v-container>
             <v-row>
               <v-col>
@@ -14,17 +14,17 @@
                     }"
                   >
                     <h1 class="sign-in__title display-3">
-                      {{ title }}
+                      {{ 'sign-in.title' | globalize }}
                     </h1>
                     <div class="sign-in__subtitle blockquote">
-                      {{ subtitle }}
+                      {{ 'sign-in.subtitle' | globalize }}
                     </div>
                     <v-btn
                       depressed
                       color="primary"
                       :to="vueRoutes.signUp"
                     >
-                      {{ 'sign-up.sign-in-link' | globalize }}
+                      {{ 'sign-in.sign-up-link' | globalize }}
                     </v-btn>
                   </div>
                   <div class="sign-in__form">
@@ -49,8 +49,6 @@
     components: { SignInForm },
     data () {
       return {
-        title: 'lorem ipsum dolor sit amet',
-        subtitle: 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
         infoBackground: `url(${require('@/assets/login.jpg')})`,
         vueRoutes,
       }
@@ -63,6 +61,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 
   &__wrapper {
     display: flex;
