@@ -9,6 +9,7 @@ export const state = {
 export const mutations = {
     [vuexTypes.SET_ACCOUNT] (state, account) {
         state.account = account
+      console.log(state.account)
     },
 }
 export const actions = {
@@ -28,11 +29,11 @@ export const actions = {
 export const getters = {
     [vuexTypes.account]: state => new AccountRecord(state.account),
     [vuexTypes.isAccountGeneral]: (_, getters) =>
-        +getters[vuexTypes.account].roleId === USER_ROLES.general,
+        +getters[vuexTypes.account].role === USER_ROLES.general,
     [vuexTypes.isAccountNotary]: (_, getters) =>
-        +getters[vuexTypes.account].roleId === USER_ROLES.notary,
+        +getters[vuexTypes.account].role === USER_ROLES.notary,
     [vuexTypes.isAccountRegistry]: (_, getters) =>
-        +getters[vuexTypes.account].roleId === USER_ROLES.registry,
+        +getters[vuexTypes.account].role === USER_ROLES.registry,
 }
 
 export default {

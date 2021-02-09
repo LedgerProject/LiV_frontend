@@ -80,7 +80,7 @@
             email: this.form.login,
             password: this.form.password,
           })
-          await this.$router.push(vueRoutes.dashboard)
+          await this.$router.push(vueRoutes.willRequests)
         } catch (error) {
           Bus.error('sign-in-form.error-on-sign-in')
         }

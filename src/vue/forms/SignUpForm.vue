@@ -129,7 +129,7 @@
             email: this.form.email,
             password: this.form.password,
           })
-          await this.$router.push(vueRoutes.dashboard)
+          await this.$router.push(vueRoutes.willRequests)
         } catch (error) {
           Bus.error('sign-up-form.error-submit')
         }

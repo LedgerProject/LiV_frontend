@@ -13,7 +13,7 @@
                 text
                 disabled
               >
-                {{ former._initAttrs.statusId | globalizeWillRequest }}
+                {{ former._initAttrs.statusId | globalizeWillRequestStatus }}
               </v-btn>
             </h1>
           </template>

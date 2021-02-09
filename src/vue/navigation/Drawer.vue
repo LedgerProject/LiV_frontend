@@ -114,11 +114,11 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'pages-names.dashboard',
-          to: vueRoutes.dashboard,
-        },
+        // {
+        //   icon: 'mdi-view-dashboard',
+        //   title: 'pages-names.dashboard',
+        //   to: vueRoutes.dashboard,
+        // },
         {
           icon: 'mdi-book',
           title: 'pages-names.will-requests',

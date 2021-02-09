@@ -32,3 +32,17 @@ $headings: (
   'subtitle-2': ( 'size': 1rem ),
   'overline': ( 'letter-spacing': 0 )
 );
+
+// global z-indexes
+
+// colors
+$_white: #ffffff;
+
+// sign-in
+$sign-in-col-backdrop: rgba(0, 0, 0, .5);
+$sign-in-col-text: $_white;
+
+
+// sign-up
+$sign-up-col-backdrop: rgba(0, 0, 0, .5);
+$sign-up-col-text: $_white;

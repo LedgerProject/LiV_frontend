@@ -25,7 +25,7 @@ import 'chartist/dist/chartist.min.css'
 import { buildStore } from './vuex'
 import { globalize } from '@/vue/filters/globalize'
 import { globalizeUserRole } from '@/vue/filters/globalizeUserRole'
-import { globalizeWillRequest } from '@/vue/filters/globalizeWillRequest'
+import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
 
 const store = buildStore()
 
@@ -35,7 +35,7 @@ Vue.use(Vuelidate)
 
 Vue.filter('globalize', globalize)
 Vue.filter('globalizeUserRole', globalizeUserRole)
-Vue.filter('globalizeWillRequest', globalizeWillRequest)
+Vue.filter('globalizeWillRequestStatus', globalizeWillRequestStatus)
 
 const vuetify = new Vuetify({
   lang: {

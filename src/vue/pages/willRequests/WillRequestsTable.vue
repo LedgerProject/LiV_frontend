@@ -44,7 +44,7 @@
             {{ item.passportId }}
           </td>
           <td>
-            {{ item.statusId | globalizeWillRequest }}
+            {{ item.statusId | globalizeWillRequestStatus }}
           </td>
           <td
             @click.stop

@@ -86,7 +86,7 @@ function redirectRouteGuard (to, from, next) {
     const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
     if (isLoggedIn) {
         if (to.name === vueRoutes.app.name) {
-            next(vueRoutes.dashboard)
+            next(vueRoutes.willRequests)
         } else {
             next()
         }
