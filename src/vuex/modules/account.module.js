@@ -9,7 +9,6 @@ export const state = {
 export const mutations = {
     [vuexTypes.SET_ACCOUNT] (state, account) {
         state.account = account
-      console.log(state.account)
     },
 }
 export const actions = {

@@ -73,7 +73,8 @@
   import { vuexTypes } from '@/vuex'
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
-  import { email, required, sameAs } from 'vuelidate/lib/validators'
+  import { email, required } from 'vuelidate/lib/validators'
+  import _pbkdf2 from 'crypto-js/pbkdf2'
 
   export default {
     name: 'SignUpForm',
@@ -81,8 +82,6 @@
     data () {
       return {
         form: {
-          firstName: '',
-          lastName: '',
           email: '',
           password: '',
           repeatPassword: '',
@@ -94,13 +93,11 @@
     },
     validations: {
       form: {
-        firstName: { required },
-        lastName: { required },
         email: { required, email },
         password: { required },
         repeatPassword: {
           required,
-          sameAs: sameAs('form.password'),
+          // sameAs: sameAs('form.password'),
         },
       },
     },
@@ -111,12 +108,12 @@
       async submit () {
         this.disableForm()
         try {
+          this.createKeyPair()
+          if (this.form.password) return
           const endpoint = this.form.userRole === USER_ROLES.general
             ? '/users/signup'
             : '/users/signup-notary-registry'
           await api.post(endpoint, {
-            firstName: this.form.firstName,
-            lastName: this.form.lastName,
             email: this.form.email,
             password: this.form.password,
             ...(
@@ -134,6 +131,12 @@
           Bus.error('sign-up-form.error-submit')
         }
         this.enableForm()
+      },
+      createKeyPair () {
+        return _pbkdf2(this.form.password, 'salt', 2, 64, 'sha512', (err, derivedKey) => {
+          if (err) throw err
+          console.log(derivedKey.toString('hex'))
+        })
       },
     },
   }

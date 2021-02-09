@@ -62,9 +62,7 @@
                 </h4>
 
                 <p class="font-weight-light grey--text">
-                  Don't be scared of the truth because we need to restart the human
-                  foundation in truth And I love you like Kanye loves Kanye I love
-                  Rick Owens’ bed design but the back is...
+                  Lorem ipsum dolor sit amet.
                 </p>
               </v-card-text>
             </material-card>

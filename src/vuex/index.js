@@ -35,7 +35,7 @@ export const rootModule = {
     },
     getters: {
         [vuexTypes.isLoggedIn]:
-            (_, getters) => true, // Boolean(getters[vuexTypes.account].id),
+            (_, getters) => Boolean(getters[vuexTypes.account].id),
     },
 }
 
