@@ -74,7 +74,9 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { email, required } from 'vuelidate/lib/validators'
-  import _pbkdf2 from 'crypto-js/pbkdf2'
+  // import _pbkdf2 from 'crypto-js/pbkdf2'
+  // import sha512 from 'crypto-js/sha512'
+  import pbkdf2 from 'pbkdf2'
 
   export default {
     name: 'SignUpForm',
@@ -82,10 +84,11 @@
     data () {
       return {
         form: {
-          email: '',
-          password: '',
-          repeatPassword: '',
+          email: 'qwerty@gmail.com',
+          password: 'qwerty',
+          repeatPassword: 'qwerty',
           userRole: USER_ROLES.general,
+          salt: '',
         },
         vueRoutes,
         USER_ROLES,
@@ -108,7 +111,8 @@
       async submit () {
         this.disableForm()
         try {
-          this.createKeyPair()
+          const derivedKey = this.createKeyPair()
+          console.log(derivedKey)
           if (this.form.password) return
           const endpoint = this.form.userRole === USER_ROLES.general
             ? '/users/signup'
@@ -133,10 +137,8 @@
         this.enableForm()
       },
       createKeyPair () {
-        return _pbkdf2(this.form.password, 'salt', 2, 64, 'sha512', (err, derivedKey) => {
-          if (err) throw err
-          console.log(derivedKey.toString('hex'))
-        })
+        this.form.salt = 'salt'
+        return pbkdf2.pbkdf2(this.form.password, this.form.salt)
       },
     },
   }
