@@ -1,7 +1,13 @@
 <template>
-  <transition name="auth-transition">
-    <router-view />
-  </transition>
+  <v-container class="auth d-flex align-center justify-center">
+    <v-row>
+      <v-col>
+        <transition name="auth-transition" mode="out-in">
+          <router-view />
+        </transition>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -11,22 +17,26 @@
 </script>
 
 <style lang="scss" scoped>
+.auth {
+  height: 100%;
+}
+
 .auth-transition-enter-active {
-  animation: auth-transition 0.5s ease-in-out;
+  animation: auth-transition 0.35s ease-in-out;
 }
 
 .auth-transition-leave-active {
-  animation: auth-transition 0.5s ease-in-out reverse;
+  animation: auth-transition 0.35s ease-in-out reverse;
 }
 
 @keyframes auth-transition {
   0% {
     opacity: 0;
-    margin-top: -10rem;
+    transform: translateY(-25%);
   }
   100% {
     opacity: 1;
-    margin-top: 0;
+    transform: translateY(0);
   }
 }
 </style>

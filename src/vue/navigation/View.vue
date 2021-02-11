@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <transition name="auth-transition">
+    <transition name="auth-transition" mode="out-in">
       <router-view />
     </transition>
   </v-main>

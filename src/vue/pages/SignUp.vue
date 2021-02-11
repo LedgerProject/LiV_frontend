@@ -1,45 +1,39 @@
 <template>
-  <v-container class="sign-up">
-    <v-row>
-      <v-col>
-        <v-card elevation="10">
-          <v-container>
-            <v-row>
-              <v-col>
-                <div class="sign-up__wrapper">
-                  <div
-                    class="sign-up__info"
-                    :style="{
-                      backgroundImage: infoBackground,
-                    }"
-                  >
-                    <div class="sign-up__info-backdrop" />
-                    <h1 class="sign-up__title display-3">
-                      {{ 'sign-up.title' | globalize }}
-                    </h1>
-                    <div class="sign-up__subtitle">
-                      {{ 'sign-up.subtitle' | globalize }}
-                    </div>
-                    <v-btn
-                      class="mx-0 mt-2"
-                      depressed
-                      color="primary"
-                      :to="vueRoutes.signIn"
-                    >
-                      {{ 'sign-up.sign-in-link' | globalize }}
-                    </v-btn>
-                  </div>
-                  <div class="sign-up__form">
-                    <sign-up-form />
-                  </div>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-card class="sign-up" elevation="10">
+    <v-container>
+      <v-row>
+        <v-col>
+          <div class="sign-up__wrapper">
+            <div
+              class="sign-up__info"
+              :style="{
+                backgroundImage: infoBackground,
+              }"
+            >
+              <div class="sign-up__info-backdrop" />
+              <h1 class="sign-up__title display-3">
+                {{ 'sign-up.title' | globalize }}
+              </h1>
+              <div class="sign-up__subtitle">
+                {{ 'sign-up.subtitle' | globalize }}
+              </div>
+              <v-btn
+                class="mx-0 mt-2"
+                depressed
+                color="primary"
+                :to="vueRoutes.signIn"
+              >
+                {{ 'sign-up.sign-in-link' | globalize }}
+              </v-btn>
+            </div>
+            <div class="sign-up__form">
+              <sign-up-form />
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
