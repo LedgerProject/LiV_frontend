@@ -8,6 +8,9 @@ const mutations = {
 
   // account
   SET_ACCOUNT: 'SET_ACCOUNT',
+
+  // kyc
+  SET_KYC: 'SET_KYC',
 }
 
 const actions = {
@@ -20,6 +23,9 @@ const actions = {
 
   // account
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
+
+  // kyc
+  LOAD_KYC: 'LOAD_KYC',
 }
 
 const getters = {
@@ -34,6 +40,9 @@ const getters = {
   isAccountGeneral: 'isAccountGeneral',
   isAccountNotary: 'isAccountNotary',
   isAccountRegistry: 'isAccountRegistry',
+
+  // account
+  kyc: 'kyc',
 }
 
 export const vuexTypes = {

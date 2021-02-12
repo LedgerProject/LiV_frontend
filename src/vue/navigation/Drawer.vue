@@ -39,8 +39,9 @@
         <v-list-item-content>
           <v-list-item-title
             class="display-1"
-            v-text="profile.title"
-          />
+          >
+            {{ CONFIG.APP_NAME }}
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -96,12 +97,10 @@
 <script>
   import ItemGroup from '@/vue/common/base/ItemGroup'
   import Item from '@/vue/common/base/Item'
-  // Utilities
-  import {
-    mapState,
-  } from 'vuex'
+  import { mapState } from 'vuex'
   import { vueRoutes } from '@/vue-router/routes'
   import { globalize } from '@/vue/filters/globalize'
+  import { CONFIG } from '@/config'
 
   export default {
     name: 'DashboardCoreDrawer',
@@ -125,32 +124,8 @@
           title: 'pages-names.will-requests',
           to: vueRoutes.willRequests,
         },
-        // {
-        //   title: 'rtables',
-        //   icon: 'mdi-clipboard-outline',
-        //   to: '/tables/regular-tables',
-        // },
-        // {
-        //   title: 'typography',
-        //   icon: 'mdi-format-font',
-        //   to: '/components/typography',
-        // },
-        // {
-        //   title: 'icons',
-        //   icon: 'mdi-chart-bubble',
-        //   to: '/components/icons',
-        // },
-        // {
-        //   title: 'google',
-        //   icon: 'mdi-map-marker',
-        //   to: '/maps/google-maps',
-        // },
-        // {
-        //   title: 'notifications',
-        //   icon: 'mdi-bell',
-        //   to: '/components/notifications',
-        // },
       ],
+      CONFIG,
     }),
 
     computed: {
