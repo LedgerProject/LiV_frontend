@@ -9,9 +9,9 @@
             <v-btn
               v-for="role in USER_ROLES"
               :key="`account-tole-${role}`"
-              :color="form.userRole === role ? 'primary' : ''"
+              :color="form.role === role ? 'primary' : ''"
               :disabled="formMixin.isDisabled"
-              @click="form.userRole = role"
+              @click="form.role = role"
             >
               {{ role | globalizeUserRole }}
             </v-btn>
@@ -73,10 +73,7 @@
   import { vuexTypes } from '@/vuex'
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
-  import { email, required } from 'vuelidate/lib/validators'
-  // import _pbkdf2 from 'crypto-js/pbkdf2'
-  // import sha512 from 'crypto-js/sha512'
-  import pbkdf2 from 'pbkdf2'
+  import { email, required, sameAs } from 'vuelidate/lib/validators'
 
   export default {
     name: 'SignUpForm',
@@ -84,11 +81,10 @@
     data () {
       return {
         form: {
-          email: 'qwerty@gmail.com',
-          password: 'qwerty',
-          repeatPassword: 'qwerty',
-          userRole: USER_ROLES.general,
-          salt: '',
+          email: '',
+          password: '',
+          repeatPassword: '',
+          role: USER_ROLES.general,
         },
         vueRoutes,
         USER_ROLES,
@@ -100,8 +96,9 @@
         password: { required },
         repeatPassword: {
           required,
-          // sameAs: sameAs('form.password'),
+          sameAs: sameAs('password'),
         },
+        role: { required },
       },
     },
     methods: {
@@ -111,20 +108,10 @@
       async submit () {
         this.disableForm()
         try {
-          const derivedKey = this.createKeyPair()
-          console.log(derivedKey)
-          if (this.form.password) return
-          const endpoint = this.form.userRole === USER_ROLES.general
-            ? '/users/signup'
-            : '/users/signup-notary-registry'
-          await api.post(endpoint, {
+          await api.post('/users/signup', {
             email: this.form.email,
             password: this.form.password,
-            ...(
-              this.form.userRole !== USER_ROLES.general
-                ? {}
-                : {}
-            ),
+            role: this.form.role,
           })
           await this.loginAccount({
             email: this.form.email,
@@ -135,10 +122,6 @@
           Bus.error('sign-up-form.error-submit')
         }
         this.enableForm()
-      },
-      createKeyPair () {
-        this.form.salt = 'salt'
-        return pbkdf2.pbkdf2(this.form.password, this.form.salt)
       },
     },
   }

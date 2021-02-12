@@ -5,8 +5,8 @@ export class AccountRecord {
   constructor (record) {
     this._record = record
 
-    this.id = _get(record, 'id', '')
+    this.id = _get(record, 'user_id', '')
     this.email = _get(record, 'email', '')
-    this.role = _get(record, 'role', USER_ROLES.general)
+    this.role = _get(record, 'account_Type_id', USER_ROLES.general)
   }
 }

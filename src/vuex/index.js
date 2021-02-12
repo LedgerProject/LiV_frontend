@@ -3,6 +3,7 @@ import account from './modules/account.module'
 import kyc from './modules/kyc.module'
 import auth from './modules/auth.module'
 import { sessionStoragePlugin } from './plugins/session-storage'
+import _isEmpty from 'lodash/isEmpty'
 import Vuex from 'vuex'
 import { vuexTypes } from '@/vuex/types'
 
@@ -34,8 +35,8 @@ export const rootModule = {
         },
     },
     getters: {
-        [vuexTypes.isLoggedIn]:
-            (_, getters) => Boolean(getters[vuexTypes.account].id),
+        [vuexTypes.isLoggedIn]: (_, getters) =>
+          !_isEmpty(getters[vuexTypes.account]),
     },
 }
 

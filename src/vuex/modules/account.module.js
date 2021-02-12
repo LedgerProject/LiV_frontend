@@ -18,7 +18,7 @@ export const actions = {
             const { data } = await api.post('/users/verifyJWT', {
                 jwt: token,
             })
-            result = data
+            result = new AccountRecord(data)
         } catch (error) {
             result = {}
         }
@@ -26,7 +26,7 @@ export const actions = {
     },
 }
 export const getters = {
-    [vuexTypes.account]: state => new AccountRecord(state.account),
+    [vuexTypes.account]: state => state.account,
     [vuexTypes.isAccountGeneral]: (_, getters) =>
         +getters[vuexTypes.account].role === USER_ROLES.general,
     [vuexTypes.isAccountNotary]: (_, getters) =>
