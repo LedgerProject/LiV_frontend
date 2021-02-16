@@ -8,7 +8,7 @@ export class WillRequestRecord {
         this.id = _get(record, 'id', '')
 
         this.address = _get(record, 'address', '')
-        this.blockchainId = _get(record, 'blockchain_id', '')
+        this.did = _get(record, 'did', '')
         this.documentHash = _get(record, 'documentHash', '')
         this.documentLink = _get(record, 'documentLink', '')
         this.email = _get(record, 'email', '')
