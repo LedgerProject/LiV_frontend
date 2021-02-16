@@ -1,36 +1,44 @@
 <template>
-  <v-card class="sign-in" elevation="10">
-    <v-container>
-      <v-row>
-        <v-col>
-          <div class="sign-in__wrapper">
-            <div
-              class="sign-in__info"
-            >
-              <div class="sign-in__info-backdrop" />
-              <h1 class="sign-in__title display-3 text--lighten-1">
-                {{ 'sign-in.title' | globalize }}
-              </h1>
-              <div class="sign-in__subtitle">
-                {{ 'sign-in.subtitle' | globalize }}
-              </div>
-              <v-btn
-                class="mx-0 mt-2"
-                color="primary"
-                depressed
-                :to="vueRoutes.signUp"
-              >
-                {{ 'sign-in.sign-up-link' | globalize }}
-              </v-btn>
-            </div>
-            <div class="sign-in__form">
-              <sign-in-form />
-            </div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+  <v-container class="sign-in">
+    <v-row>
+      <v-col>
+        <transition name="auth-transition" mode="out-in">
+          <v-card elevation="10">
+            <v-container>
+              <v-row>
+                <v-col>
+                  <div class="sign-in__wrapper">
+                    <div
+                      class="sign-in__info"
+                    >
+                      <div class="sign-in__info-backdrop" />
+                      <h1 class="sign-in__title text-h2 text--lighten-1">
+                        {{ 'sign-in.title' | globalize }}
+                      </h1>
+                      <div class="sign-in__subtitle">
+                        {{ 'sign-in.subtitle' | globalize }}
+                      </div>
+                      <v-btn
+                        class="mx-0 mt-2"
+                        color="primary"
+                        depressed
+                        :to="vueRoutes.signUp"
+                      >
+                        {{ 'sign-in.sign-up-link' | globalize }}
+                      </v-btn>
+                    </div>
+                    <div class="sign-in__form">
+                      <sign-in-form />
+                    </div>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </transition>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

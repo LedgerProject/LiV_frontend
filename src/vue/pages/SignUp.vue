@@ -1,35 +1,43 @@
 <template>
-  <v-card class="sign-up" elevation="10">
-    <v-container>
-      <v-row>
-        <v-col>
-          <div class="sign-up__wrapper">
-            <div
-              class="sign-up__info"
-            >
-              <div class="sign-up__info-backdrop" />
-              <h1 class="sign-up__title display-3">
-                {{ 'sign-up.title' | globalize }}
-              </h1>
-              <div class="sign-up__subtitle">
-                {{ 'sign-up.subtitle' | globalize }}
-              </div>
-              <v-btn
-                class="mx-0 mt-2"
-                depressed
-                :to="vueRoutes.signIn"
-              >
-                {{ 'sign-up.sign-in-link' | globalize }}
-              </v-btn>
-            </div>
-            <div class="sign-up__form">
-              <sign-up-form />
-            </div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+  <v-container class="sign-up">
+    <v-row>
+      <v-col>
+        <transition name="auth-transition" mode="out-in">
+          <v-card elevation="10">
+            <v-container>
+              <v-row>
+                <v-col>
+                  <div class="sign-up__wrapper">
+                    <div
+                      class="sign-up__info"
+                    >
+                      <div class="sign-up__info-backdrop" />
+                      <h1 class="sign-up__title text-h2">
+                        {{ 'sign-up.title' | globalize }}
+                      </h1>
+                      <div class="sign-up__subtitle">
+                        {{ 'sign-up.subtitle' | globalize }}
+                      </div>
+                      <v-btn
+                        class="mx-0 mt-2"
+                        depressed
+                        :to="vueRoutes.signIn"
+                      >
+                        {{ 'sign-up.sign-in-link' | globalize }}
+                      </v-btn>
+                    </div>
+                    <div class="sign-up__form">
+                      <sign-up-form />
+                    </div>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </transition>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -41,8 +49,6 @@
     components: { SignUpForm },
     data () {
       return {
-        title: 'lorem ipsum dolor sit amet',
-        subtitle: 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
         vueRoutes,
       }
     },

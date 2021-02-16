@@ -10,34 +10,22 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: vueRoutes.app,
-    },
-    {
-      path: '/auth',
-      name: vueRoutes.auth.name,
+      name: vueRoutes.app.name,
       redirect: vueRoutes.signIn,
-      component: () => import('@/vue/pages/Auth'),
+      component: () => import('@/vue/navigation/View'),
       children: [
-        {
-          path: '/sign-up',
-          name: vueRoutes.signUp.name,
-          component: () => import('@/vue/pages/SignUp'),
-          beforeEnter: authPageGuard,
-        },
         {
           path: '/sign-in',
           name: vueRoutes.signIn.name,
           component: () => import('@/vue/pages/SignIn'),
           beforeEnter: authPageGuard,
         },
-      ],
-    },
-    {
-      path: '/',
-      name: vueRoutes.app.name,
-      component: () => import('@/vue/AppContent'),
-      beforeEnter: redirectRouteGuard,
-      children: [
+        {
+          path: '/sign-up',
+          name: vueRoutes.signUp.name,
+          component: () => import('@/vue/pages/SignUp'),
+          beforeEnter: authPageGuard,
+        },
         {
           name: vueRoutes.profile.name,
           path: '/profile',
@@ -76,23 +64,10 @@ export default new Router({
   ],
 })
 
-function redirectRouteGuard (to, from, next) {
-  const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
-  if (isLoggedIn) {
-    if (to.name === vueRoutes.app.name) {
-      next(vueRoutes.willRequests)
-    } else {
-      next()
-    }
-  } else {
-    next(vueRoutes.signIn)
-  }
-}
-
 function authPageGuard (to, from, next) {
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   if (isLoggedIn) {
-    next(vueRoutes.app)
+    next(vueRoutes.willRequests)
   } else {
     next()
   }
@@ -103,6 +78,6 @@ function inAppRouteGuard (to, from, next) {
   if (isLoggedIn) {
     next()
   } else {
-    next(vueRoutes.app)
+    next(vueRoutes.signIn)
   }
 }
