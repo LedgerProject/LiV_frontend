@@ -106,7 +106,6 @@
           <template v-else>
             <v-btn
               type="submit"
-              color="primary"
               :disabled="formMixin.isDisabled"
             >
               {{ 'will-request-form.submit-btn' | globalize }}
@@ -115,7 +114,6 @@
           <v-progress-circular
             v-if="formMixin.isDisabled"
             indeterminate
-            color="primary"
           />
         </v-col>
       </v-row>

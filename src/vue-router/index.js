@@ -45,12 +45,6 @@ export default new Router({
           beforeEnter: inAppRouteGuard,
         },
         {
-          path: '/dashboard',
-          name: vueRoutes.dashboard.name,
-          component: () => import('@/vue/pages/Dashboard'),
-          beforeEnter: inAppRouteGuard,
-        },
-        {
           path: '/will-requests',
           name: vueRoutes.willRequests.name,
           component: () => import('@/vue/pages/WillRequests'),

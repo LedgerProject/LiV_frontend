@@ -6,9 +6,6 @@
           <div class="sign-in__wrapper">
             <div
               class="sign-in__info"
-              :style="{
-                backgroundImage: infoBackground,
-              }"
             >
               <div class="sign-in__info-backdrop" />
               <h1 class="sign-in__title display-3 text--lighten-1">
@@ -19,8 +16,8 @@
               </div>
               <v-btn
                 class="mx-0 mt-2"
-                depressed
                 color="primary"
+                depressed
                 :to="vueRoutes.signUp"
               >
                 {{ 'sign-in.sign-up-link' | globalize }}
@@ -45,7 +42,6 @@
     components: { SignInForm },
     data () {
       return {
-        infoBackground: `url(${require('@/assets/login.jpg')})`,
         vueRoutes,
       }
     },

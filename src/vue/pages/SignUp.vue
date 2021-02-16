@@ -6,9 +6,6 @@
           <div class="sign-up__wrapper">
             <div
               class="sign-up__info"
-              :style="{
-                backgroundImage: infoBackground,
-              }"
             >
               <div class="sign-up__info-backdrop" />
               <h1 class="sign-up__title display-3">
@@ -20,7 +17,6 @@
               <v-btn
                 class="mx-0 mt-2"
                 depressed
-                color="primary"
                 :to="vueRoutes.signIn"
               >
                 {{ 'sign-up.sign-in-link' | globalize }}
@@ -47,7 +43,6 @@
       return {
         title: 'lorem ipsum dolor sit amet',
         subtitle: 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
-        infoBackground: `url(${require('@/assets/register.jpg')})`,
         vueRoutes,
       }
     },

@@ -9,7 +9,8 @@
             <v-btn
               v-for="role in USER_ROLES"
               :key="`account-tole-${role}`"
-              :color="form.role === role ? 'primary' : ''"
+              class="mr-3"
+              :color="form.role === role ? 'secondary' : ''"
               :disabled="formMixin.isDisabled"
               @click="form.role = role"
             >
@@ -48,7 +49,6 @@
           <v-col cols="12" md="12">
             <v-btn
               type="submit"
-              color="primary"
               :disabled="formMixin.isDisabled"
             >
               {{ 'sign-up-form.submit-btn' | globalize }}
@@ -56,7 +56,6 @@
             <v-progress-circular
               v-if="formMixin.isDisabled"
               indeterminate
-              color="primary"
             />
           </v-col>
         </v-row>

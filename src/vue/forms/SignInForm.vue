@@ -27,7 +27,6 @@
           <v-col cols="12" md="12">
             <v-btn
               type="submit"
-              color="primary"
               :disabled="formMixin.isDisabled"
             >
               {{ 'sign-in-form.submit-btn' | globalize }}
@@ -35,7 +34,6 @@
             <v-progress-circular
               v-if="formMixin.isDisabled"
               indeterminate
-              color="primary"
             />
           </v-col>
         </v-row>
