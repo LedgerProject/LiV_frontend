@@ -41,6 +41,7 @@
     },
     async created () {
       await this.initApp()
+      this.$vuetify.theme.dark = true
     },
     methods: {
       ...mapMutations({

@@ -20,91 +20,56 @@
 
     <v-divider class="mb-1" />
 
-    <v-list
-      dense
-      nav
-    >
-      <v-list-item>
-        <v-list-item-avatar
-          class="align-self-center"
-          color="white"
-          contain
-        >
-          <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
-          />
-        </v-list-item-avatar>
+    <v-list-item>
+      <v-list-item-avatar
+        class="align-self-center"
+        color="white"
+        contain
+      >
+        <v-img
+          src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
+          max-height="30"
+        />
+      </v-list-item-avatar>
 
-        <v-list-item-content>
-          <v-list-item-title
-            class="text-h4"
-          >
-            {{ CONFIG.APP_NAME }}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+      <v-list-item-content>
+        <v-list-item-title>
+          {{ CONFIG.APP_NAME }}
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
 
     <v-divider class="mb-2" />
 
     <v-list
       expand
+      dense
       nav
     >
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
-      <div />
-
-      <template
-        v-for="(item, i) in computedItems"
+      <v-list-item
+        :to="vueRoutes.willRequests"
       >
-        <item-group
-          v-if="item.children"
-          :key="`group-${i}`"
-          :item="item"
-        >
-          <!--  -->
-        </item-group>
+        <v-list-item-icon>
+          <v-icon>mdi-book</v-icon>
+        </v-list-item-icon>
 
-        <item
-          v-else
-          :key="`item-${i}`"
-          :item="item"
-        />
-      </template>
-
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
-      <div />
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ 'pages-names.will-requests' | globalize }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
-
-    <template
-      v-if="false"
-      v-slot:append
-    >
-      <item
-        :item="{
-          title: 'upgrade' | globalize,
-          icon: 'mdi-package-up',
-          to: '/upgrade',
-        }"
-      />
-    </template>
   </v-navigation-drawer>
 </template>
 
 <script>
-  import ItemGroup from '@/vue/common/base/ItemGroup'
-  import Item from '@/vue/common/base/Item'
   import { mapState } from 'vuex'
   import { vueRoutes } from '@/vue-router/routes'
-  import { globalize } from '@/vue/filters/globalize'
   import { CONFIG } from '@/config'
 
   export default {
     name: 'DashboardCoreDrawer',
-    components: { Item, ItemGroup },
     props: {
       expandOnHover: {
         type: Boolean,
@@ -113,18 +78,7 @@
     },
 
     data: () => ({
-      items: [
-        // {
-        //   icon: 'mdi-view-dashboard',
-        //   title: 'pages-names.dashboard',
-        //   to: vueRoutes.dashboard,
-        // },
-        {
-          icon: 'mdi-book',
-          title: 'pages-names.will-requests',
-          to: vueRoutes.willRequests,
-        },
-      ],
+      vueRoutes,
       CONFIG,
     }),
 
@@ -138,82 +92,10 @@
           this.$store.commit('SET_DRAWER', val)
         },
       },
-      computedItems () {
-        return this.items.map(this.mapItem)
-      },
-      profile () {
-        return {
-          avatar: true,
-          title: globalize('avatar'),
-        }
-      },
-    },
-
-    methods: {
-      mapItem (item) {
-        return {
-          ...item,
-          children: item.children ? item.children.map(this.mapItem) : undefined,
-          title: this.$t(item.title),
-        }
-      },
     },
   }
 </script>
 
-<style lang="sass">
-  @import '~vuetify/src/styles/tools/_rtl.sass'
+<style lang="scss">
 
-  #core-navigation-drawer
-    .v-list-group__header.v-list-item--active:before
-      opacity: .24
-
-    .v-list-item
-      &__icon--text,
-      &__icon:first-child
-        justify-content: center
-        text-align: center
-        width: 20px
-
-        +ltr()
-          margin-right: 24px
-          margin-left: 12px !important
-
-        +rtl()
-          margin-left: 24px
-          margin-right: 12px !important
-
-    .v-list--dense
-      .v-list-item
-        &__icon--text,
-        &__icon:first-child
-          margin-top: 10px
-
-    .v-list-group--sub-group
-      .v-list-item
-        +ltr()
-          padding-left: 8px
-
-        +rtl()
-          padding-right: 8px
-
-      .v-list-group__header
-        +ltr()
-          padding-right: 0
-
-        +rtl()
-          padding-right: 0
-
-        .v-list-item__icon--text
-          margin-top: 19px
-          order: 0
-
-        .v-list-group__header__prepend-icon
-          order: 2
-
-          +ltr()
-            margin-right: 8px
-
-          +rtl()
-            margin-left: 8px
 </style>

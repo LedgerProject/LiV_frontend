@@ -56,6 +56,17 @@
           {{ 'app-bar.profile-link' | globalize }}
         </v-list-item>
         <v-list-item
+          @click.stop="true"
+        >
+          <v-switch
+            v-model="$vuetify.theme.dark"
+            inset
+          />
+          <v-icon class="ml-auto">
+            {{ `mdi-brightness-${$vuetify.theme.dark ? 3 : 5}` }}
+          </v-icon>
+        </v-list-item>
+        <v-list-item
           @click="logOut"
         >
           {{ 'app-bar.log-out' | globalize }}

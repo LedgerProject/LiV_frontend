@@ -31,6 +31,7 @@ Vue.filter('globalize', globalize)
 Vue.filter('globalizeUserRole', globalizeUserRole)
 Vue.filter('globalizeWillRequestStatus', globalizeWillRequestStatus)
 
+// Vue.config.productionTip = false
 const vuetify = new Vuetify({
   theme: {
     themes: {
@@ -44,13 +45,13 @@ const vuetify = new Vuetify({
         warning: '#FFC107',
       },
       dark: {
-        primary: '#1976D2',
+        primary: '#FFC107',
         secondary: '#424242',
         accent: '#82B1FF',
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107',
+        warning: '#1976D2',
       },
     },
   },
