@@ -38,7 +38,7 @@
 
         <v-list-item-content>
           <v-list-item-title
-            class="display-1"
+            class="text-h4"
           >
             {{ CONFIG.APP_NAME }}
           </v-list-item-title>

@@ -72,48 +72,48 @@ export class WillRequestFormer extends Former {
     }
 
     _buildOpCreate () {
-        // const fd = new FormData()
-        // fd.append('email', this.attrs.email)
-        // fd.append('firstName', this.attrs.firstName)
-        // fd.append('middleName', this.attrs.middleName)
-        // fd.append('lastName', this.attrs.lastName)
-        // fd.append('address', this.attrs.address)
-        // fd.append('passportNumber', this.attrs.passportNumber)
-        // fd.append('document', 'this.attrs.document')
-        // return fd
-        let opts = {}
-        opts = {
-            email: this.attrs.email,
-            firstName: this.attrs.firstName,
-            middleName: this.attrs.middleName,
-            lastName: this.attrs.lastName,
-            address: this.attrs.address,
-            passportNumber: this.attrs.passportNumber,
-            document: 'this.attrs.document',
-        }
-        return opts
+        const fd = new FormData()
+        fd.append('email', this.attrs.email)
+        fd.append('firstName', this.attrs.firstName)
+        fd.append('middleName', this.attrs.middleName)
+        fd.append('lastName', this.attrs.lastName)
+        fd.append('address', this.attrs.address)
+        fd.append('passportNumber', this.attrs.passportNumber)
+        fd.append('document', 'this.attrs.document')
+        return fd
+        // let opts = {}
+        // opts = {
+        //     email: this.attrs.email,
+        //     firstName: this.attrs.firstName,
+        //     middleName: this.attrs.middleName,
+        //     lastName: this.attrs.lastName,
+        //     address: this.attrs.address,
+        //     passportNumber: this.attrs.passportNumber,
+        //     document: 'this.attrs.document',
+        // }
+        // return opts
     }
 
     _buildOpUpdate () {
-        // const fd = new FormData()
-        // fd.append('email', this.attrs.email)
-        // fd.append('firstName', this.attrs.firstName)
-        // fd.append('middleName', this.attrs.middleName)
-        // fd.append('lastName', this.attrs.lastName)
-        // fd.append('address', this.attrs.address)
-        // fd.append('passportNumber', this.attrs.passportNumber)
-        // fd.append('document', 'this.attrs.document')
-        // return fd
-        let opts = {}
-        opts = {
-            email: this.attrs.email,
-            firstName: this.attrs.firstName,
-            middleName: this.attrs.middleName,
-            lastName: this.attrs.lastName,
-            address: this.attrs.address,
-            passportNumber: this.attrs.passportNumber,
-            document: 'this.attrs.document',
-        }
-        return opts
+        const fd = new FormData()
+        fd.append('email', this.attrs.email)
+        fd.append('firstName', this.attrs.firstName)
+        fd.append('middleName', this.attrs.middleName)
+        fd.append('lastName', this.attrs.lastName)
+        fd.append('address', this.attrs.address)
+        fd.append('passportNumber', this.attrs.passportNumber)
+        fd.append('document', 'this.attrs.document')
+        return fd
+        // let opts = {}
+        // opts = {
+        //     email: this.attrs.email,
+        //     firstName: this.attrs.firstName,
+        //     middleName: this.attrs.middleName,
+        //     lastName: this.attrs.lastName,
+        //     address: this.attrs.address,
+        //     passportNumber: this.attrs.passportNumber,
+        //     document: 'this.attrs.document',
+        // }
+        // return opts
     }
 }

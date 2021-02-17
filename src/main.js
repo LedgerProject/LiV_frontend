@@ -13,7 +13,7 @@
 // * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
+import Vuetify from 'vuetify/lib/framework'
 import Vuelidate from 'vuelidate'
 import i18n from '@/i18n'
 import App from '@/vue/App.vue'
