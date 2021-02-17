@@ -10,8 +10,7 @@
             v-model="form.email"
             :error-messages="getFieldErrorMessage('form.email')"
             :label="'will-request-form.email-lbl' | globalize"
-            :disabled="formMixin.isDisabled || former.isUpdateOpBuilder"
-            @change="former.setAttr('email', form.email)"
+            :disabled="formMixin.isDisabled"
             @blur="touchField('form.email')"
           />
         </v-col>
@@ -20,8 +19,7 @@
             v-model="form.document"
             :error-messages="getFieldErrorMessage('form.document')"
             :label="'will-request-form.document-lbl' | globalize"
-            :disabled="formMixin.isDisabled || former.isUpdateOpBuilder"
-            @change="former.setAttr('document', form.document)"
+            :disabled="formMixin.isDisabled"
             @blur="touchField('form.document')"
           />
         </v-col>
@@ -44,12 +42,12 @@
 
 <script>
   import FormMixin from '@/vue/mixins/form.mixin'
-  import { WillRequestFormer } from '@/js/formers/WillRequestFormer'
   import { Bus } from '@/js/helpers/event-bus'
-  import { api } from '@/api'
   import { vueRoutes } from '@/vue-router/routes'
-  import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
   import { email, required } from 'vuelidate/lib/validators'
+  import { mapGetters } from 'vuex'
+  import { vuexTypes } from '@/vuex'
+  import { api } from '@/api'
 
   const EVENTS = {
     submitted: 'submitted',
@@ -58,19 +56,12 @@
   export default {
     name: 'WillRequestForm',
     mixins: [FormMixin],
-    props: {
-      former: {
-        type: WillRequestFormer,
-        default: () => new WillRequestFormer(),
-      },
-    },
     data () {
       return {
         form: {
-          email: this.former.attrs.email,
-          document: this.former.attrs.document,
+          email: '',
+          document: null,
         },
-        WILL_REQUEST_STATUSES,
       }
     },
     validations: {
@@ -79,40 +70,27 @@
         document: { required },
       },
     },
+    computed: {
+      ...mapGetters([
+        vuexTypes.account,
+      ]),
+    },
     methods: {
       async submit () {
         this.disableForm()
         try {
-          const willRequest = await this.former.buildOps()
-          await api.post('/will-requests/create', willRequest, {
+          const formData = new FormData()
+          formData.append('sender_id', this.account.id)
+          formData.append('recipient_email', this.form.email)
+          formData.append('file', this.form.document)
+          await api.post('/will-requests/create', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           })
-          await this.$router.push(vueRoutes.willRequestsList)
-        } catch (error) {
-          Bus.error('will-request-form.error-sending')
-        }
-        this.enableForm()
-      },
-      selectFile (value) {
-        this.form.document = value
-      },
-      async approveWillRequest () {
-        this.disableForm()
-        try {
-          await api.post(`/will-requests/approve/${this.former.attrs.id}`)
-          await this.$router.push(vueRoutes.willRequestsList)
-        } catch (error) {
-          Bus.error('will-request-form.error-sending')
-        }
-        this.enableForm()
-      },
-      async rejectWillRequest () {
-        this.disableForm()
-        try {
-          await api.get(`/will-requests/reject/${this.former.attrs.id}`)
+          Bus.success('will-request-form.created-success-msg')
           this.$emit(EVENTS.submitted)
+          await this.$router.push(vueRoutes.willRequestsList)
         } catch (error) {
           Bus.error('will-request-form.error-sending')
         }

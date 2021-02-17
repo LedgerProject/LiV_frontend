@@ -99,15 +99,9 @@
   },
   "will-request-form": {
     "error-sending": "Something went wrong, please try again",
-    "first-name-lbl": "First Name",
-    "middle-name-lbl": "Middle Name",
-    "last-name-lbl": "Last Name",
     "email-lbl": "Email",
-    "address-lbl": "Address",
-    "passport-number-lbl": "Passport Number",
     "document-lbl": "Document",
     "submit-btn": "Create",
-    "approve-btn": "Approve",
-    "reject-btn": "Reject"
+    "created-success-msg": "Created Success!"
   }
 }

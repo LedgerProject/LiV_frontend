@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import account from './modules/account.module'
-import kyc from './modules/kyc.module'
 import auth from './modules/auth.module'
 import { sessionStoragePlugin } from './plugins/session-storage'
 import _isEmpty from 'lodash/isEmpty'
@@ -47,7 +46,6 @@ function buildStore () {
         ...rootModule,
         modules: {
             account,
-            kyc,
             auth,
         },
         plugins: [sessionStoragePlugin],

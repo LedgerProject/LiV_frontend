@@ -144,11 +144,7 @@
               ? { recipient_id: this.filters.recipientId }
               : {}
           ),
-          ...(
-            this.filters.status
-              ? { status: this.filters.status }
-              : {}
-          ),
+          status: this.filters.status,
           ...(
             this.isAccountRegistry
               ? { status: WILL_REQUEST_STATUSES.approved }
@@ -161,12 +157,8 @@
         this.isLoadFalse = false
         try {
           const { data } = await api.get('/will-requests/', {
-            page: {
-              limit: 100,
-              order: 'ASC',
-            },
-            filter: {
-              ...this.getFilters(),
+            params: {
+              filter: this.getFilters(),
             },
           })
           this.willRequests = data.map(el => new WillRequestRecord(el))
