@@ -10,6 +10,9 @@
                   <div class="sign-up__wrapper">
                     <div
                       class="sign-up__info"
+                      :style="{
+                        backgroundImage: infoBackground,
+                      }"
                     >
                       <div class="sign-up__info-backdrop" />
                       <h1 class="sign-up__title text-h2">
@@ -49,6 +52,7 @@
     components: { SignUpForm },
     data () {
       return {
+        infoBackground: `url(${require('@/assets/images/register.jpg')})`,
         vueRoutes,
       }
     },
@@ -79,6 +83,7 @@
   }
 
   &__info {
+    overflow: hidden;
     position: relative;
     background-size: cover;
     background-position: center center;

@@ -1,74 +1,76 @@
 <template>
-  <material-card>
-    <template v-slot:heading>
-      <v-row
-        class="align-center"
-      >
-        <template v-if="isAccountGeneral || isAccountNotary">
-          <v-select
-            v-model="filters.status"
-            class="will-requests-list__select-status"
-            :label="'will-requests-list.select-status-lbl' | globalize"
-            :items="WILL_REQUEST_STATUSES_SELECT"
-            @change="reloadList"
-          />
-        </template>
-        <template v-if="isAccountGeneral">
-          <v-select
-            v-model="filters.recipientId"
-            class="will-requests-list__select-owner mx-5"
-            :label="'will-requests-list.select-owner-lbl' | globalize"
-            :items="OWNER_SELECT"
-            @change="reloadList"
-          />
-        </template>
-        <v-btn
-          class="ml-auto"
-          color="info"
-          :to="vueRoutes.createWillRequest"
+  <v-container fluid>
+    <material-card>
+      <template v-slot:heading>
+        <v-row
+          class="align-center"
         >
-          {{ 'will-requests-list.create-will-request-btn' | globalize }}
-        </v-btn>
-      </v-row>
-    </template>
-    <v-card-text>
-      <v-row class="will-requests-list">
-        <v-col cols="12" lg="12">
-          <template v-if="isLoaded">
-            <template v-if="isLoadFalse">
-              <v-alert
-                border="right"
-                colored-border
-                type="error"
-                elevation="2"
-              >
-                {{ 'will-requests-list.loading-error' | globalize }}
-              </v-alert>
-            </template>
-            <template v-else-if="willRequests.length">
-              <will-requests-table
-                :will-requests="willRequests"
-                @submitted="loadWillRequests"
-              />
+          <template v-if="isAccountGeneral || isAccountNotary">
+            <v-select
+              v-model="filters.status"
+              class="will-requests-list__select-status"
+              :label="'will-requests-list.select-status-lbl' | globalize"
+              :items="WILL_REQUEST_STATUSES_SELECT"
+              @change="reloadList"
+            />
+          </template>
+          <template v-if="isAccountGeneral">
+            <v-select
+              v-model="filters.recipientId"
+              class="will-requests-list__select-owner mx-5"
+              :label="'will-requests-list.select-owner-lbl' | globalize"
+              :items="OWNER_SELECT"
+              @change="reloadList"
+            />
+          </template>
+          <v-btn
+            class="ml-auto"
+            color="info"
+            :to="vueRoutes.createWillRequest"
+          >
+            {{ 'will-requests-list.create-will-request-btn' | globalize }}
+          </v-btn>
+        </v-row>
+      </template>
+      <v-card-text>
+        <v-row class="will-requests-list">
+          <v-col cols="12" lg="12">
+            <template v-if="isLoaded">
+              <template v-if="isLoadFalse">
+                <v-alert
+                  border="right"
+                  colored-border
+                  type="error"
+                  elevation="2"
+                >
+                  {{ 'will-requests-list.loading-error' | globalize }}
+                </v-alert>
+              </template>
+              <template v-else-if="willRequests.length">
+                <will-requests-table
+                  :will-requests="willRequests"
+                  @submitted="loadWillRequests"
+                />
+              </template>
+              <template v-else>
+                <v-alert
+                  border="right"
+                  colored-border
+                  type="info"
+                  elevation="2"
+                >
+                  {{ 'will-requests-list.no-data-message' | globalize }}
+                </v-alert>
+              </template>
             </template>
             <template v-else>
-              <v-alert
-                border="right"
-                colored-border
-                type="info"
-                elevation="2"
-              >
-                {{ 'will-requests-list.no-data-message' | globalize }}
-              </v-alert>
+              <v-progress-linear indeterminate />
             </template>
-          </template>
-          <template v-else>
-            <v-progress-linear indeterminate />
-          </template>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </material-card>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </material-card>
+  </v-container>
 </template>
 
 <script>

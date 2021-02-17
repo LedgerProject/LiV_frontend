@@ -45,12 +45,6 @@ export default new Router({
               beforeEnter: inAppRouteGuard,
             },
             {
-              path: '/will-requests/list/:id',
-              name: vueRoutes.updateWillRequest.name,
-              component: () => import('@/vue/pages/willRequests/UpdateWillRequest'),
-              beforeEnter: inAppRouteGuard,
-            },
-            {
               path: '/will-requests/create',
               name: vueRoutes.createWillRequest.name,
               component: () => import('@/vue/pages/willRequests/CreateWillRequest'),

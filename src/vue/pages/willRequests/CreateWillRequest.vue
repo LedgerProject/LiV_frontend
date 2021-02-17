@@ -1,5 +1,5 @@
 <template>
-  <v-container class="CreateWillRequest">
+  <v-container fluid>
     <v-row>
       <v-col cols="12" md="12">
         <material-card>

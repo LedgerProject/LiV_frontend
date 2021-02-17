@@ -10,6 +10,9 @@
                   <div class="sign-in__wrapper">
                     <div
                       class="sign-in__info"
+                      :style="{
+                        backgroundImage: infoBackground,
+                      }"
                     >
                       <div class="sign-in__info-backdrop" />
                       <h1 class="sign-in__title text-h2 text--lighten-1">
@@ -50,6 +53,7 @@
     components: { SignInForm },
     data () {
       return {
+        infoBackground: `url(${require('@/assets/images/login.jpg')})`,
         vueRoutes,
       }
     },
@@ -82,6 +86,7 @@
   }
 
   &__info {
+    overflow: hidden;
     position: relative;
     background-size: cover;
     background-position: center center;
