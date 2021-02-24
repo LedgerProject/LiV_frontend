@@ -38,7 +38,7 @@
               </template>
 
               <v-form>
-                <kyc-form
+                <account-form
                   :former="former"
                 />
               </v-form>
@@ -54,15 +54,15 @@
             >
               <v-card-text class="text-center">
                 <h6 class="text-h4 mb-1 grey--text">
-                  CEO / CO-FOUNDER
+                  {{ account.role | globalizeUserRole }}
                 </h6>
 
                 <h4 class="text-h3 font-weight-light mb-3 black--text">
-                  Alec Thompson
+                  {{ account.fullName }}
                 </h4>
 
                 <p class="font-weight-light grey--text">
-                  Lorem ipsum dolor sit amet.
+                  {{ account.passportNumber }}
                 </p>
               </v-card-text>
             </material-card>
@@ -93,8 +93,8 @@
 
 <script>
   import MaterialCard from '@/vue/common/base/MaterialCard'
-  import KycForm from '@/vue/forms/KycForm'
-  import { KycFormer } from '@/js/formers/KycFormer'
+  import AccountForm from '@/vue/forms/AccountForm'
+  import { AccountFormer } from '@/js/formers/AccountFormer'
   import { mapActions, mapGetters } from 'vuex'
   import { vuexTypes } from '@/vuex'
   import { Bus } from '@/js/helpers/event-bus'
@@ -102,43 +102,43 @@
   export default {
     name: 'UserProfile',
     components: {
-      KycForm,
+      AccountForm,
       MaterialCard,
     },
     data () {
       return {
         isLoaded: false,
         isLoadFailed: false,
-        former: new KycFormer(),
+        former: new AccountFormer(),
       }
     },
     computed: {
       ...mapGetters([
+        vuexTypes.jwtToken,
         vuexTypes.account,
-        vuexTypes.kyc,
       ]),
     },
     async created () {
-      await this.loadKyc()
+      await this.loadAccount()
     },
     methods: {
       ...mapActions({
-        loadKycAction: vuexTypes.LOAD_KYC,
+        loadAccountStore: vuexTypes.LOAD_ACCOUNT,
       }),
-      async loadKyc () {
+      async loadAccount () {
         this.isLoaded = false
         this.isLoadFailed = false
         try {
-          await this.loadKycAction()
-          this.former = new KycFormer(this.kyc)
+          await this.loadAccountStore(this.jwtToken)
+          this.former = new AccountFormer(this.account)
         } catch (error) {
           Bus.error('user-profile.loading-error')
           this.isLoadFailed = true
         }
         this.isLoaded = true
       },
-      reloadKyc () {
-        this.loadKyc()
+      reloadAccount () {
+        this.loadAccount()
       },
     },
   }

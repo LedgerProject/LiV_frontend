@@ -12,17 +12,19 @@ export const mutations = {
     },
 }
 export const actions = {
-    async [vuexTypes.LOAD_ACCOUNT] ({ commit }, token) {
-        let result = {}
-        try {
-            const { data } = await api.post('/users/verifyJWT', {
-                jwt: token,
-            })
-            result = new AccountRecord(data)
-        } catch (error) {
-            result = {}
-        }
-        commit(vuexTypes.SET_ACCOUNT, result)
+    async [vuexTypes.VERIFY_JWT] ({ commit }, token) {
+      const { data } = await api.post('/users/verifyJWT', {
+        jwt: token,
+      })
+      return data
+    },
+    async [vuexTypes.LOAD_ACCOUNT] ({ commit, dispatch }, token) {
+      const verifyJwtResponse = await dispatch(vuexTypes.VERIFY_JWT, token)
+      const { data } = await api.get(`/users/${verifyJwtResponse.user_id}`)
+      commit(vuexTypes.SET_ACCOUNT, new AccountRecord({
+        ...data,
+        ...verifyJwtResponse,
+      }))
     },
 }
 export const getters = {

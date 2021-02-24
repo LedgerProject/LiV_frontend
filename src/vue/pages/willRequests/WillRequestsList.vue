@@ -96,7 +96,7 @@
         willRequests: [],
         filters: {
           status: WILL_REQUEST_STATUSES.submitted,
-          recipientId: '',
+          recipientId: 0,
         },
         vueRoutes,
         WILL_REQUEST_STATUSES,
@@ -118,12 +118,12 @@
       OWNER_SELECT () {
         return [
           {
-            text: globalize('will-requests-list.for-me-opt'),
-            value: this.account.id,
+            text: globalize('will-requests-list.from-me-opt'),
+            value: 0,
           },
           {
-            text: globalize('will-requests-list.from-me-opt'),
-            value: false,
+            text: globalize('will-requests-list.for-me-opt'),
+            value: this.account.id,
           },
         ]
       },
@@ -136,14 +136,15 @@
         return {
           ...(
             this.isAccountGeneral
-              ? { creator_id: this.account.id }
+              ? { creatorId: this.account.id }
               : {}
           ),
           ...(
             this.filters.recipientId
-              ? { recipient_id: this.filters.recipientId }
+              ? { recipientId: this.filters.recipientId }
               : {}
           ),
+          // REFACTOR!!!
           status: this.filters.status,
           ...(
             this.isAccountRegistry
@@ -158,7 +159,13 @@
         try {
           const { data } = await api.get('/will-requests/', {
             params: {
-              filter: this.getFilters(),
+              pageDto: {
+                order: 'desc',
+                limit: 100,
+              },
+              filterDto: {
+                ...this.getFilters(),
+              },
             },
           })
           this.willRequests = data.map(el => new WillRequestRecord(el))

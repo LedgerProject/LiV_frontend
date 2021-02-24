@@ -16,6 +16,7 @@ export class WillRequestRecord {
         this.middleName = _get(record, 'middleName', '')
         this.lastName = _get(record, 'lastName', '')
         this.passportId = _get(record, 'passportId', '')
+        this.recipientId = _get(record, 'recipientId', '')
         this.statusId = _get(record, 'statusId', WILL_REQUEST_STATUSES.submitted)
         this.userId = _get(record, 'userId', '')
     }

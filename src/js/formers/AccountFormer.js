@@ -1,23 +1,19 @@
 import { Former } from '@/js/formers/Former'
-import { KycRecord } from '@/js/records/kyc.record'
-import _cloneDeep from 'lodash/cloneDeep'
+import { AccountRecord } from '@/js/records/account.record'
 
-export class KycFormer extends Former {
+export class AccountFormer extends Former {
   attrs = this.attrs || this._defaultAttrs
-  _initAttrs = _cloneDeep(this.attrs)
 
   get _defaultAttrs () {
     return {
       id: '',
+      email: '',
+      role: '',
+      address: '',
       firstName: '',
       middleName: '',
       lastName: '',
-      address: '',
-      country: '',
-      city: '',
-      postalCode: '',
       passportNumber: '',
-      about: '',
     }
   }
 
@@ -48,7 +44,7 @@ export class KycFormer extends Former {
 
   populate (source) {
     switch (source.constructor) {
-      case KycRecord:
+      case AccountRecord:
         this._populateFromRecord(source)
         break
       default:
@@ -59,52 +55,25 @@ export class KycFormer extends Former {
 
   _populateFromRecord (source) {
     this.useUpdateOpBuilder()
-
     this.attrs = this.attrs || this._defaultAttrs
 
     this.attrs.id = source.id
+    this.attrs.email = source.email
+    this.attrs.role = source.role
+    this.attrs.address = source.address
     this.attrs.firstName = source.firstName
     this.attrs.middleName = source.middleName
     this.attrs.lastName = source.lastName
-    this.attrs.address = source.address
-    this.attrs.country = source.country
-    this.attrs.city = source.city
-    this.attrs.postalCode = source.postalCode
     this.attrs.passportNumber = source.passportNumber
-    this.attrs.about = source.about
   }
 
   _buildOpCreate () {
-    let opts = {}
-    opts = {
-      id: this.attrs.id,
-      first_name: this.attrs.firstName,
-      middle_name: this.attrs.middleName,
-      last_name: this.attrs.lastName,
-      address: this.attrs.address,
-      country: this.attrs.country,
-      city: this.attrs.city,
-      postal_code: this.attrs.postalCode,
-      passport_number: this.attrs.passportNumber,
-      about: this.attrs.about,
-    }
+    const opts = {}
     return opts
   }
 
   _buildOpUpdate () {
-    let opts = {}
-    opts = {
-      id: this.attrs.id,
-      first_name: this.attrs.firstName,
-      middle_name: this.attrs.middleName,
-      last_name: this.attrs.lastName,
-      address: this.attrs.address,
-      country: this.attrs.country,
-      city: this.attrs.city,
-      postal_code: this.attrs.postalCode,
-      passport_number: this.attrs.passportNumber,
-      about: this.attrs.about,
-    }
+    const opts = {}
     return opts
   }
 }

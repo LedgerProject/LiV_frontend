@@ -19,6 +19,7 @@
 <script>
   import { mapActions, mapGetters, mapMutations } from 'vuex'
   import { vuexTypes } from '@/vuex'
+  import { Bus } from '@/js/helpers/event-bus'
 
   export default {
     name: 'App',
@@ -52,7 +53,11 @@
         loadAccount: vuexTypes.LOAD_ACCOUNT,
       }),
       async initApp () {
-        await this.loadAccount(this.jwtToken)
+        try {
+          await this.loadAccount(this.jwtToken)
+        } catch (error) {
+          Bus.error('app.init-app-error-msg')
+        }
         this.isAppInitialized = true
       },
     },

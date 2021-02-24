@@ -1,35 +1,16 @@
 <template>
   <v-form
-    class="kyc-form"
-    @submit.prevent="submit"
+    class="AccountForm"
+    @submit.prevent="isFormValid() && submit()"
   >
     <v-container class="py-0">
       <v-row>
         <v-col
           cols="12"
-          md="4"
+          md="12"
         >
           <v-text-field
-            label="Company (disabled)"
-            disabled
-          />
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            class="purple-input"
-            label="User Name"
-          />
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
+            v-model="form.email"
             label="Email Address"
             class="purple-input"
           />
@@ -37,9 +18,10 @@
 
         <v-col
           cols="12"
-          md="6"
+          md="4"
         >
           <v-text-field
+            v-model="form.firstName"
             label="First Name"
             class="purple-input"
           />
@@ -47,9 +29,21 @@
 
         <v-col
           cols="12"
-          md="6"
+          md="4"
         >
           <v-text-field
+            v-model="form.middleName"
+            label="Middle Name"
+            class="purple-input"
+          />
+        </v-col>
+
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="form.lastName"
             label="Last Name"
             class="purple-input"
           />
@@ -57,7 +51,8 @@
 
         <v-col cols="12">
           <v-text-field
-            label="Adress"
+            v-model="form.address"
+            label="Address"
             class="purple-input"
           />
         </v-col>
@@ -67,37 +62,9 @@
           md="4"
         >
           <v-text-field
-            label="City"
+            v-model="form.passportNumber"
+            label="Passport Number"
             class="purple-input"
-          />
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            label="Country"
-            class="purple-input"
-          />
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            class="purple-input"
-            label="Postal Code"
-            type="number"
-          />
-        </v-col>
-
-        <v-col cols="12">
-          <v-textarea
-            class="purple-input"
-            label="About Me"
-            value="Lorem ipsum dolor sit amet, adipiscing elit."
           />
         </v-col>
 
@@ -108,6 +75,8 @@
           <v-btn
             color="success"
             class="mr-0"
+            type="submit"
+            :disabled="!isFieldsValid"
           >
             Update Profile
           </v-btn>
@@ -119,35 +88,41 @@
 
 <script>
   import FormMixin from '@/vue/mixins/form.mixin'
-  import { KycFormer } from '@/js/formers/KycFormer'
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
+  import { AccountFormer } from '@/js/formers/AccountFormer'
+  import { required } from 'vuelidate/lib/validators'
 
   export default {
-    name: 'KycForm',
+    name: 'AccountForm',
     mixins: [FormMixin],
     props: {
       former: {
-        type: KycFormer,
-        default: new KycFormer(),
+        type: AccountFormer,
+        default: new AccountFormer(),
       },
     },
     data () {
       return {
         form: {
+          email: this.former.attrs.email,
+          address: this.former.attrs.address,
           firstName: this.former.attrs.firstName,
           middleName: this.former.attrs.middleName,
           lastName: this.former.attrs.lastName,
-          address: this.former.attrs.address,
-          country: this.former.attrs.country,
-          city: this.former.attrs.city,
-          postalCode: this.former.attrs.postalCode,
           passportNumber: this.former.attrs.passportNumber,
-          about: this.former.attrs.about,
         },
       }
     },
-    computed: {
+    validations: {
+      form: {
+        email: { required },
+        address: { required },
+        firstName: { required },
+        middleName: { required },
+        lastName: { required },
+        passportNumber: { required },
+      },
     },
     methods: {
       async submit () {
@@ -155,7 +130,7 @@
         try {
           await api.post(`/${this.account.id}/kyc`, this.former.buildOps())
         } catch (error) {
-          Bus.error('kyc-form.submit-error')
+          Bus.error('account-form.submit-error')
         }
         this.enableForm()
       },
