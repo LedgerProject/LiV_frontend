@@ -83,7 +83,7 @@
   import { vueRoutes } from '@/vue-router/routes'
 
   export default {
-    name: 'DashboardCoreAppBar',
+    name: 'dashboard-core-app-bar',
     data: () => ({
       vueRoutes,
     }),

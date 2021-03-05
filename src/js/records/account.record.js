@@ -5,14 +5,14 @@ export class AccountRecord {
   constructor (record) {
     this._record = record
 
-    this.id = _get(record, 'user_id', '')
+    this.id = _get(record, 'id', '')
     this.email = _get(record, 'email', '')
-    this.role = _get(record, 'account_type_id', USER_ROLES.general)
+    this.role = _get(record, 'role', USER_ROLES.general)
     this.address = _get(record, 'address')
-    this.firstName = _get(record, 'first_name')
-    this.middleName = _get(record, 'middle_name')
-    this.lastName = _get(record, 'last_name')
-    this.passportNumber = _get(record, 'passport_number')
+    this.firstName = _get(record, 'firstName')
+    this.middleName = _get(record, 'middleName')
+    this.lastName = _get(record, 'lastName')
+    this.passportNumber = _get(record, 'passportNumber')
   }
 
   get fullName () {

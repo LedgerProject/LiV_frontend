@@ -8,6 +8,6 @@ export const vueRoutes = Object.freeze({
   willRequests: { name: 'app.will-requests' },
   willRequestsList: { name: 'app.will-requests-list' },
   willRequestsTable: { name: 'app.will-requests-table' },
+  willRequestDetails: { name: 'app.will-request-details' },
   createWillRequest: { name: 'app.create-will-request' },
-  updateWillRequest: { name: 'app.update-will-request' },
 })

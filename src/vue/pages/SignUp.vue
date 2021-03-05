@@ -48,7 +48,7 @@
   import { vueRoutes } from '@/vue-router/routes'
 
   export default {
-    name: 'SignUp',
+    name: 'sign-up',
     components: { SignUpForm },
     data () {
       return {

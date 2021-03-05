@@ -190,7 +190,7 @@
   import { mapMutations, mapState } from 'vuex'
 
   export default {
-    name: 'DashboardCoreSettings',
+    name: 'dashboard-core-settings',
 
     mixins: [Proxyable],
 

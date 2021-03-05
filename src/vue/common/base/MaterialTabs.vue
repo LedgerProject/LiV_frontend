@@ -17,7 +17,7 @@
   import Proxyable from 'vuetify/lib/mixins/proxyable'
 
   export default {
-    name: 'MaterialTabs',
+    name: 'material-tabs',
 
     mixins: [Proxyable],
 

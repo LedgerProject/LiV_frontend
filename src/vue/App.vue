@@ -22,7 +22,7 @@
   import { Bus } from '@/js/helpers/event-bus'
 
   export default {
-    name: 'App',
+    name: 'app',
     components: {
       Notification: () => import('@/vue/common/Notification'),
       DashboardCoreAppBar: () => import('@/vue/navigation/AppBar'),

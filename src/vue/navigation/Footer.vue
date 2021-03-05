@@ -39,7 +39,7 @@
 
 <script>
   export default {
-    name: 'DashboardCoreFooter',
+    name: 'dashboard-core-footer',
     data: () => ({
       links: [
         {

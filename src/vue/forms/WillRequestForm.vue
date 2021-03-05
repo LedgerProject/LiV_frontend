@@ -54,7 +54,7 @@
   }
 
   export default {
-    name: 'WillRequestForm',
+    name: 'will-request-form',
     mixins: [FormMixin],
     data () {
       return {

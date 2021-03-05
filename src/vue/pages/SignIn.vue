@@ -49,7 +49,7 @@
   import { vueRoutes } from '@/vue-router/routes'
 
   export default {
-    name: 'SignIn',
+    name: 'sign-in',
     components: { SignInForm },
     data () {
       return {

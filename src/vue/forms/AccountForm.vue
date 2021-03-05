@@ -94,7 +94,7 @@
   import { required } from 'vuelidate/lib/validators'
 
   export default {
-    name: 'AccountForm',
+    name: 'account-form',
     mixins: [FormMixin],
     props: {
       former: {

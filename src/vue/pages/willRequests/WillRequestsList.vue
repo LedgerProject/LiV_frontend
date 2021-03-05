@@ -87,7 +87,7 @@
   import { api } from '@/api'
 
   export default {
-    name: 'WillRequestsList',
+    name: 'will-requests-list',
     components: { MaterialCard, WillRequestsTable },
     data () {
       return {
@@ -132,40 +132,25 @@
       await this.loadWillRequests()
     },
     methods: {
-      getFilters () {
-        return {
-          ...(
-            this.isAccountGeneral
-              ? { creatorId: this.account.id }
-              : {}
-          ),
-          ...(
-            this.filters.recipientId
-              ? { recipientId: this.filters.recipientId }
-              : {}
-          ),
-          // REFACTOR!!!
-          status: this.filters.status,
-          ...(
-            this.isAccountRegistry
-              ? { status: WILL_REQUEST_STATUSES.approved }
-              : {}
-          ),
-        }
-      },
       async loadWillRequests () {
         this.isLoaded = false
         this.isLoadFalse = false
         try {
           const { data } = await api.get('/will-requests/', {
             params: {
-              pageDto: {
-                order: 'desc',
-                limit: 100,
-              },
-              filterDto: {
-                ...this.getFilters(),
-              },
+              pageOrder: 'desc',
+              pageLimit: 100,
+              ...(
+                this.isAccountGeneral
+                  ? { ownerId: this.account.id }
+                  : {}
+              ),
+              ...(
+                this.filters.recipientId
+                  ? { recipientId: this.filters.recipientId }
+                  : {}
+              ),
+              status: this.filters.status,
             },
           })
           this.willRequests = data.map(el => new WillRequestRecord(el))

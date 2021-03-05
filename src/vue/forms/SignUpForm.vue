@@ -75,7 +75,7 @@
   import { email, required, sameAs } from 'vuelidate/lib/validators'
 
   export default {
-    name: 'SignUpForm',
+    name: 'sign-up-form',
     mixins: [FormMixin],
     data () {
       return {

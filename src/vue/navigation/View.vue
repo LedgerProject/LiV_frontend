@@ -13,7 +13,7 @@
   import { vueRoutes } from '@/vue-router/routes'
 
   export default {
-    name: 'DashboardCoreView',
+    name: 'dashboard-core-view',
     computed: {
       isAuthPages () {
         return this.$route.name === vueRoutes.signIn.name ||

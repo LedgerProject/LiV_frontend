@@ -100,7 +100,7 @@
   import { Bus } from '@/js/helpers/event-bus'
 
   export default {
-    name: 'UserProfile',
+    name: 'user-profile',
     components: {
       AccountForm,
       MaterialCard,

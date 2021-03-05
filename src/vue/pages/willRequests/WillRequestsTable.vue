@@ -4,19 +4,19 @@
       <thead>
         <tr>
           <th class="primary--text">
-            ID
+            {{ 'will-requests-table.id-th' | globalize }}
           </th>
           <th class="primary--text">
-            Name
+            {{ 'will-requests-table.creator-th' | globalize }}
           </th>
           <th class="primary--text">
-            Passport ID
+            {{ 'will-requests-table.recipient-th' | globalize }}
           </th>
           <th class="primary--text">
-            Status
+            {{ 'will-requests-table.status-th' | globalize }}
           </th>
           <th class="text-right primary--text">
-            Action
+            {{ 'will-requests-table.action-th' | globalize }}
           </th>
         </tr>
       </thead>
@@ -27,7 +27,7 @@
           :key="item.id"
           class="will-request-table"
           :to="{
-            ...vueRoutes.updateWillRequest,
+            ...vueRoutes.willRequestDetails,
             params: {
               id: item.id
             }
@@ -38,10 +38,10 @@
             {{ item.id }}
           </td>
           <td>
-            {{ item.fullName }}
+            {{ item.creator.fullName }}
           </td>
           <td>
-            {{ item.passportId }}
+            {{ item.recipient.fullName }}
           </td>
           <td>
             {{ item.statusId | globalizeWillRequestStatus }}
@@ -110,7 +110,7 @@
   }
 
   export default {
-    name: 'WillRequestsTable',
+    name: 'will-requests-table',
     mixins: [FormMixin],
     props: {
       willRequests: {

@@ -88,7 +88,7 @@
 
 <script>
   export default {
-    name: 'MaterialCard',
+    name: 'material-card',
 
     props: {
       avatar: {

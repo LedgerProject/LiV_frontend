@@ -34,7 +34,7 @@
   import MaterialCard from '@/vue/common/base/MaterialCard'
 
   export default {
-    name: 'MaterialChartCard',
+    name: 'material-chart-card',
     components: { MaterialCard },
     inheritAttrs: false,
 

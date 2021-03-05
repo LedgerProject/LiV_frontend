@@ -69,7 +69,7 @@
   import { CONFIG } from '@/config'
 
   export default {
-    name: 'DashboardCoreDrawer',
+    name: 'dashboard-core-drawer',
     props: {
       expandOnHover: {
         type: Boolean,
