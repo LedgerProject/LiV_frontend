@@ -15,7 +15,7 @@
           <th class="primary--text">
             {{ 'will-requests-table.status-th' | globalize }}
           </th>
-          <th class="text-right primary--text">
+          <th class="text-right primary--text" v-if="isAccountRegistry || isAccountNotary">
             {{ 'will-requests-table.action-th' | globalize }}
           </th>
         </tr>
@@ -50,7 +50,7 @@
             @click.stop
           >
             <v-menu left>
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ on, attrs }" v-if="isAccountRegistry || isAccountNotary">
                 <v-btn
                   class="float-right"
                   icon
@@ -104,6 +104,8 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+  import { vuexTypes } from '@/vuex'
+  import { mapGetters } from 'vuex'
 
   const EVENTS = {
     submitted: 'submitted',
@@ -123,6 +125,12 @@
         vueRoutes,
         WILL_REQUEST_STATUSES,
       }
+    },
+    computed: {
+      ...mapGetters([
+        vuexTypes.isAccountNotary,
+        vuexTypes.isAccountRegistry,
+      ])
     },
     methods: {
       async rejectWillRequest (willRequestId) {

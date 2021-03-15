@@ -86,6 +86,7 @@
                           {{ willRequest.recipient.role | globalizeUserRole }}
                         </td>
                       </tr>
+                      <template v-if="isAccountRegistry || isAccountNotary">
                       <tr>
                         <td>
                           {{ `will-request-details.address` | globalize }}
@@ -111,13 +112,14 @@
                           {{ willRequest.recipient.passportNumber }}
                         </td>
                       </tr>
+                      </template>
                     </tbody>
                   </template>
                 </v-simple-table>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" md="12">
+              <v-col cols="12" md="12" v-if="isAccountRegistry || isAccountNotary">
                 <a
                   :href="willRequest.documentLink"
                   target="_blank"
@@ -132,7 +134,7 @@
                   </v-btn>
                 </a>
                 <template
-                  v-if="!isWillRequestApproved && !isWillRequestRejected"
+                  v-if="!isWillRequestApproved && !isWillRequestRejected && isAccountNotary || isAccountRegistry"
                 >
                   <v-btn
                     class="mr-3"
@@ -170,6 +172,8 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+  import { vuexTypes } from '@/vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'will-request-details',
@@ -190,6 +194,10 @@
       }
     },
     computed: {
+      ...mapGetters([
+        vuexTypes.isAccountNotary,
+        vuexTypes.isAccountRegistry,
+      ]),
       isWillRequestApproved () {
         return this.willRequest.statusId ===
           String(WILL_REQUEST_STATUSES.approved)
