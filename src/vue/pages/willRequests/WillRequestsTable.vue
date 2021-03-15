@@ -4,19 +4,19 @@
       <thead>
         <tr>
           <th class="primary--text">
-            ID
+            {{ 'will-requests-table.id-th' | globalize }}
           </th>
           <th class="primary--text">
-            Name
+            {{ 'will-requests-table.creator-th' | globalize }}
           </th>
           <th class="primary--text">
-            Passport ID
+            {{ 'will-requests-table.recipient-th' | globalize }}
           </th>
           <th class="primary--text">
-            Status
+            {{ 'will-requests-table.status-th' | globalize }}
           </th>
-          <th class="text-right primary--text">
-            Action
+          <th class="text-right primary--text" v-if="isAccountRegistry || isAccountNotary">
+            {{ 'will-requests-table.action-th' | globalize }}
           </th>
         </tr>
       </thead>
@@ -27,7 +27,7 @@
           :key="item.id"
           class="will-request-table"
           :to="{
-            ...vueRoutes.updateWillRequest,
+            ...vueRoutes.willRequestDetails,
             params: {
               id: item.id
             }
@@ -38,19 +38,19 @@
             {{ item.id }}
           </td>
           <td>
-            {{ item.fullName }}
+            {{ item.creator.fullName }}
           </td>
           <td>
-            {{ item.passportId }}
+            {{ item.recipient.fullName }}
           </td>
           <td>
-            {{ item.statusId | globalizeWillRequest }}
+            {{ item.statusId | globalizeWillRequestStatus }}
           </td>
           <td
             @click.stop
           >
             <v-menu left>
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ on, attrs }" v-if="isAccountRegistry || isAccountNotary">
                 <v-btn
                   class="float-right"
                   icon
@@ -104,13 +104,15 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+  import { vuexTypes } from '@/vuex'
+  import { mapGetters } from 'vuex'
 
   const EVENTS = {
     submitted: 'submitted',
   }
 
   export default {
-    name: 'WillRequestsTable',
+    name: 'will-requests-table',
     mixins: [FormMixin],
     props: {
       willRequests: {
@@ -123,6 +125,12 @@
         vueRoutes,
         WILL_REQUEST_STATUSES,
       }
+    },
+    computed: {
+      ...mapGetters([
+        vuexTypes.isAccountNotary,
+        vuexTypes.isAccountRegistry,
+      ])
     },
     methods: {
       async rejectWillRequest (willRequestId) {

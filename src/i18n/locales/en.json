@@ -51,6 +51,8 @@
     "log-out": "Log Out"
   },
   "sign-up": {
+    "title": "LIV",
+    "subtitle": "Life is Vibrant",
     "sign-in-link": "Sign In"
   },
   "sign-up-form": {
@@ -63,6 +65,8 @@
     "submit-btn": "Sign Up"
   },
   "sign-in": {
+    "title": "LIV",
+    "subtitle": "Life is Vibrant",
     "sign-up-link": "Sign Up"
   },
   "sign-in-form": {
@@ -74,32 +78,47 @@
   "will-requests-list": {
     "loading-error": "Error while loading, please try reload page.",
     "no-data-message": "Empty will requests",
-    "create-will-request-btn": "Create"
+    "create-will-request-btn": "Create",
+    "select-status-lbl": "Status",
+    "select-owner-lbl": "Creator / Recipient",
+    "for-me-opt": "Will Requests for me",
+    "from-me-opt": "Will Requests from me"
   },
   "will-requests-table": {
     "approve-error": "Error while approving! Please try again",
     "reject-error": "Error while rejecting! Please try again",
     "approve-btn": "Approve",
-    "reject-btn": "Reject"
+    "reject-btn": "Reject",
+    "id-th": "ID",
+    "creator-th": "Creator",
+    "recipient-th": "Recipient",
+    "passport-id-th": "Passport ID",
+    "status-th": "Status",
+    "action-th": "Action"
   },
   "create-will-request": {
+    "loading-error": "Error while loading, please try reload page.",
     "title": "Create Will Request"
   },
-  "update-will-request": {
-    "title": "Update Will Request",
-    "loading-error": "Error while loading, please try reload page."
+  "will-request-details": {
+    "loading-error": "Error while loading, please try reload page.",
+    "creator-title": "Creator",
+    "recipient-title": "Recipient",
+    "approve-btn": "Approve",
+    "reject-btn": "Reject",
+    "id": "Id",
+    "email": "Email",
+    "role": "Role",
+    "address": "Address",
+    "full-name": "Full Name",
+    "passport-number": "Passport Number",
+    "load-file": "Load File"
   },
   "will-request-form": {
     "error-sending": "Something went wrong, please try again",
-    "first-name-lbl": "First Name",
-    "middle-name-lbl": "Middle Name",
-    "last-name-lbl": "Last Name",
     "email-lbl": "Email",
-    "address-lbl": "Address",
-    "passport-number-lbl": "Passport Number",
     "document-lbl": "Document",
     "submit-btn": "Create",
-    "approve-btn": "Approve",
-    "reject-btn": "Reject"
+    "created-success-msg": "Created Success!"
   }
 }

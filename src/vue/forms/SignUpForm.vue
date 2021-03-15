@@ -9,30 +9,13 @@
             <v-btn
               v-for="role in USER_ROLES"
               :key="`account-tole-${role}`"
-              :color="form.userRole === role ? 'primary' : ''"
+              class="mr-3"
+              :color="form.role === role ? 'secondary' : ''"
               :disabled="formMixin.isDisabled"
-              @click="form.userRole = role"
+              @click="form.role = role"
             >
               {{ role | globalizeUserRole }}
             </v-btn>
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-text-field
-              v-model="form.firstName"
-              :error-messages="getFieldErrorMessage('form.firstName')"
-              :label="'sign-up-form.first-name-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-              @blur="touchField('form.firstName')"
-            />
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-text-field
-              v-model="form.lastName"
-              :error-messages="getFieldErrorMessage('form.lastName')"
-              :label="'sign-up-form.last-name-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-              @blur="touchField('form.lastName')"
-            />
           </v-col>
           <v-col cols="12" md="12">
             <v-text-field
@@ -66,7 +49,6 @@
           <v-col cols="12" md="12">
             <v-btn
               type="submit"
-              color="primary"
               :disabled="formMixin.isDisabled"
             >
               {{ 'sign-up-form.submit-btn' | globalize }}
@@ -74,7 +56,6 @@
             <v-progress-circular
               v-if="formMixin.isDisabled"
               indeterminate
-              color="primary"
             />
           </v-col>
         </v-row>
@@ -94,17 +75,15 @@
   import { email, required, sameAs } from 'vuelidate/lib/validators'
 
   export default {
-    name: 'SignUpForm',
+    name: 'sign-up-form',
     mixins: [FormMixin],
     data () {
       return {
         form: {
-          firstName: '',
-          lastName: '',
           email: '',
           password: '',
           repeatPassword: '',
-          userRole: USER_ROLES.general,
+          role: USER_ROLES.general,
         },
         vueRoutes,
         USER_ROLES,
@@ -112,14 +91,13 @@
     },
     validations: {
       form: {
-        firstName: { required },
-        lastName: { required },
         email: { required, email },
         password: { required },
         repeatPassword: {
           required,
-          sameAs: sameAs('form.password'),
+          sameAs: sameAs('password'),
         },
+        role: { required },
       },
     },
     methods: {
@@ -129,25 +107,16 @@
       async submit () {
         this.disableForm()
         try {
-          const endpoint = this.form.userRole === USER_ROLES.general
-            ? '/users/signup'
-            : '/users/signup-notary-registry'
-          await api.post(endpoint, {
-            firstName: this.form.firstName,
-            lastName: this.form.lastName,
+          await api.post('/users/signup', {
             email: this.form.email,
             password: this.form.password,
-            ...(
-              this.form.userRole !== USER_ROLES.general
-                ? {}
-                : {}
-            ),
+            role: this.form.role,
           })
           await this.loginAccount({
             email: this.form.email,
             password: this.form.password,
           })
-          await this.$router.push(vueRoutes.dashboard)
+          await this.$router.push(vueRoutes.willRequests)
         } catch (error) {
           Bus.error('sign-up-form.error-submit')
         }

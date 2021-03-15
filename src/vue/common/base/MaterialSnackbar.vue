@@ -22,7 +22,7 @@
 <script>
   import MaterialAlert from '@/vue/common/base/MaterialAlert'
   export default {
-    name: 'MaterialSnackbar',
+    name: 'material-snackbar',
     components: { MaterialAlert },
     props: {
       dismissible: {

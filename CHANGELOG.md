@@ -1,5 +1,12 @@
 # Change Log
 
+## [Unreleased]
+#### Added
+- Vuex
+
+#### Changed
+- Structure
+
 ## [2.1.0] 2020-02-29
 - refactor: all the product was changed and now it's the same version with PRO version and also the structure it's the same 
 

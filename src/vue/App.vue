@@ -4,30 +4,29 @@
       <dashboard-core-app-bar />
 
       <dashboard-core-drawer />
+    </template>
 
-      <dashboard-core-view />
+    <router-view />
 
+    <template v-if="isLoggedIn">
       <dashboard-core-footer />
     </template>
-    <template v-else>
-      <router-view />
-    </template>
+
     <notification />
   </v-app>
 </template>
 
 <script>
-  import Notification from '@/vue/common/Notification'
   import { mapActions, mapGetters, mapMutations } from 'vuex'
   import { vuexTypes } from '@/vuex'
+  import { Bus } from '@/js/helpers/event-bus'
 
   export default {
-    name: 'App',
+    name: 'app',
     components: {
-      Notification,
+      Notification: () => import('@/vue/common/Notification'),
       DashboardCoreAppBar: () => import('@/vue/navigation/AppBar'),
       DashboardCoreDrawer: () => import('@/vue/navigation/Drawer'),
-      DashboardCoreView: () => import('@/vue/navigation/View'),
       DashboardCoreFooter: () => import('@/vue/navigation/Footer'),
     },
     data () {
@@ -43,6 +42,7 @@
     },
     async created () {
       await this.initApp()
+      this.$vuetify.theme.dark = true
     },
     methods: {
       ...mapMutations({
@@ -53,7 +53,11 @@
         loadAccount: vuexTypes.LOAD_ACCOUNT,
       }),
       async initApp () {
-        await this.loadAccount(this.jwtToken)
+        try {
+          await this.loadAccount(this.jwtToken)
+        } catch (error) {
+          Bus.error('app.init-app-error-msg')
+        }
         this.isAppInitialized = true
       },
     },

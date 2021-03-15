@@ -10,7 +10,7 @@
   import ItemGroup from '@/vue/common/base/ItemGroup'
 
   export default {
-    name: 'ItemSubGroup',
+    name: 'item-sub-group',
     components: { ItemGroup },
     props: {
       item: {
