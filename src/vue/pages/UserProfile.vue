@@ -50,20 +50,20 @@
           >
             <material-card
               class="v-card-profile"
-              avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
+              avatar="https://elasticbeanstalk-eu-west-1-454319366185.s3-eu-west-1.amazonaws.com/Portrait_Placeholder.png"
             >
               <v-card-text class="text-center">
                 <h6 class="text-h4 mb-1 grey--text">
                   {{ account.role | globalizeUserRole }}
                 </h6>
 
-                <h4 class="text-h3 font-weight-light mb-3 black--text">
+                <h4 class="text-h3 font-weight-light mb-3">
                   {{ account.fullName }}
                 </h4>
 
-                <p class="font-weight-light grey--text">
+                <h6 class="text-h6 mb-1 grey--text">
                   {{ account.passportNumber }}
-                </p>
+                </h6>
               </v-card-text>
             </material-card>
           </v-col>
