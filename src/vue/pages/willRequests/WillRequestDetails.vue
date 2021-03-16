@@ -132,7 +132,11 @@
                   </v-btn>
                 </a>
                 <template
-                  v-if="!isWillRequestApproved && !isWillRequestRejected"
+                  v-if="
+                    isAccountNotary &&
+                      !isWillRequestApproved &&
+                      !isWillRequestRejected
+                  "
                 >
                   <v-btn
                     class="mr-3"
@@ -170,6 +174,8 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+  import { mapGetters } from 'vuex'
+  import { vuexTypes } from '@/vuex'
 
   export default {
     name: 'will-request-details',
@@ -190,6 +196,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        vuexTypes.isAccountNotary,
+      ]),
       isWillRequestApproved () {
         return this.willRequest.statusId ===
           String(WILL_REQUEST_STATUSES.approved)
