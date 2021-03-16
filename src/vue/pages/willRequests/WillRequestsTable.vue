@@ -15,7 +15,10 @@
           <th class="primary--text">
             {{ 'will-requests-table.status-th' | globalize }}
           </th>
-          <th class="text-right primary--text" v-if="isAccountRegistry || isAccountNotary">
+          <th
+            v-if="isAccountRegistry || isAccountNotary"
+            class="text-right primary--text"
+          >
             {{ 'will-requests-table.action-th' | globalize }}
           </th>
         </tr>
@@ -50,7 +53,10 @@
             @click.stop
           >
             <v-menu left>
-              <template v-slot:activator="{ on, attrs }" v-if="isAccountRegistry || isAccountNotary">
+              <template
+                v-if="isAccountRegistry || isAccountNotary"
+                v-slot:activator="{ on, attrs }"
+              >
                 <v-btn
                   class="float-right"
                   icon
@@ -130,7 +136,7 @@
       ...mapGetters([
         vuexTypes.isAccountNotary,
         vuexTypes.isAccountRegistry,
-      ])
+      ]),
     },
     methods: {
       async rejectWillRequest (willRequestId) {

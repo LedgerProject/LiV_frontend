@@ -1,7 +1,10 @@
 <template>
   <v-container class="will-request-details">
     <v-row>
-      <v-col cols="12" md="12">
+      <v-col
+        cols="12"
+        md="12"
+      >
         <material-card>
           <template v-slot:heading>
             <h1 class="heading-2">
@@ -10,7 +13,10 @@
           </template>
           <v-card-text>
             <v-row>
-              <v-col cols="12" md="5">
+              <v-col
+                cols="12"
+                md="5"
+              >
                 <div class="text-h4 mb-5">
                   {{ 'will-request-details.creator-title' | globalize }}
                 </div>
@@ -62,8 +68,14 @@
                   </template>
                 </v-simple-table>
               </v-col>
-              <v-col cols="12" md="2" />
-              <v-col cols="12" md="5">
+              <v-col
+                cols="12"
+                md="2"
+              />
+              <v-col
+                cols="12"
+                md="5"
+              >
                 <div class="text-h4 mb-5">
                   {{ 'will-request-details.recipient-title' | globalize }}
                 </div>
@@ -86,32 +98,34 @@
                           {{ willRequest.recipient.role | globalizeUserRole }}
                         </td>
                       </tr>
-                      <template v-if="isAccountRegistry || isAccountNotary">
-                      <tr>
-                        <td>
-                          {{ `will-request-details.address` | globalize }}
-                        </td>
-                        <td>
-                          {{ willRequest.recipient.address }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{ `will-request-details.full-name` | globalize }}
-                        </td>
-                        <td>
-                          {{ willRequest.recipient.fullName }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{ `will-request-details.passport-number` |
-                            globalize }}
-                        </td>
-                        <td>
-                          {{ willRequest.recipient.passportNumber }}
-                        </td>
-                      </tr>
+                      <template
+                        v-if="isAccountRegistry || isAccountNotary"
+                      >
+                        <tr>
+                          <td>
+                            {{ `will-request-details.address` | globalize }}
+                          </td>
+                          <td>
+                            {{ willRequest.recipient.address }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            {{ `will-request-details.full-name` | globalize }}
+                          </td>
+                          <td>
+                            {{ willRequest.recipient.fullName }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            {{ `will-request-details.passport-number` |
+                              globalize }}
+                          </td>
+                          <td>
+                            {{ willRequest.recipient.passportNumber }}
+                          </td>
+                        </tr>
                       </template>
                     </tbody>
                   </template>
@@ -119,7 +133,10 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" md="12">
+              <v-col
+                cols="12"
+                md="12"
+              >
                 <a
                   :href="willRequest.documentLink"
                   target="_blank"
