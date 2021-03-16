@@ -13,55 +13,53 @@
 // * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 import Vue from 'vue'
+import Vuetify from 'vuetify/lib/framework'
+import Vuelidate from 'vuelidate'
+import i18n from '@/i18n'
 import App from '@/vue/App.vue'
 import router from '@/vue-router'
-import i18n from '@/i18n'
-import Vuetify from 'vuetify/lib'
-import Vuelidate from 'vuelidate'
-
-import '@/scss/overrides.sass'
-import 'chartist/dist/chartist.min.css'
-
 import { buildStore } from './vuex'
+
 import { globalize } from '@/vue/filters/globalize'
 import { globalizeUserRole } from '@/vue/filters/globalizeUserRole'
-import { globalizeWillRequest } from '@/vue/filters/globalizeWillRequest'
+import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
 
-const store = buildStore()
-
-Vue.use(require('vue-chartist'))
-Vue.use(Vuetify)
 Vue.use(Vuelidate)
+Vue.use(Vuetify)
 
 Vue.filter('globalize', globalize)
 Vue.filter('globalizeUserRole', globalizeUserRole)
-Vue.filter('globalizeWillRequest', globalizeWillRequest)
+Vue.filter('globalizeWillRequestStatus', globalizeWillRequestStatus)
 
+// Vue.config.productionTip = false
 const vuetify = new Vuetify({
+  theme: {
+    themes: {
+      light: {
+        primary: '#1976D2',
+        secondary: '#424242',
+        accent: '#82B1FF',
+        error: '#FF5252',
+        info: '#2196F3',
+        success: '#4CAF50',
+        warning: '#FFC107',
+      },
+      dark: {
+        primary: '#FFC107',
+        secondary: '#424242',
+        accent: '#82B1FF',
+        error: '#FF5252',
+        info: '#2196F3',
+        success: '#4CAF50',
+        warning: '#1976D2',
+      },
+    },
+  },
   lang: {
     t: (key, ...params) => i18n.t(key, params),
   },
-  themes: {
-    light: {
-      primary: '#4CAF50',
-      secondary: '#9C27b0',
-      accent: '#9C27b0',
-      info: '#00CAE3',
-      error: '#FF5252',
-      success: '#4CAF50',
-      warning: '#FFC107',
-    },
-    dark: {
-      primary: '#4CAF50',
-      secondary: '#9C27b0',
-      accent: '#9C27b0',
-      info: '#00CAE3',
-      error: '#FF5252',
-      success: '#4CAF50',
-      warning: '#FFC107',
-    },
-  },
 })
+const store = buildStore()
 
 new Vue({
   router,

@@ -22,6 +22,7 @@ const actions = {
   LOAD_JWT_TOKEN: 'LOAD_JWT_TOKEN',
 
   // account
+  VERIFY_JWT: 'VERIFY_JWT',
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
 
   // kyc

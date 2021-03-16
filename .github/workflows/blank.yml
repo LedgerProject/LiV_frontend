@@ -1,6 +1,10 @@
 name: Frontend CI
 
-on: [push]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   setup:

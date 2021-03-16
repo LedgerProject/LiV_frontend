@@ -12,27 +12,29 @@ export const mutations = {
     },
 }
 export const actions = {
-    async [vuexTypes.LOAD_ACCOUNT] ({ commit }, token) {
-        let result = {}
-        try {
-            const { data } = await api.post('/users/verifyJWT', {
-                jwt: token,
-            })
-            result = data
-        } catch (error) {
-            result = {}
-        }
-        commit(vuexTypes.SET_ACCOUNT, result)
+    async [vuexTypes.VERIFY_JWT] ({ commit }, token) {
+      const { data } = await api.post('/users/verifyJWT', {
+        jwt: token,
+      })
+      return data
+    },
+    async [vuexTypes.LOAD_ACCOUNT] ({ commit, dispatch }, token) {
+      const verifyJwtResponse = await dispatch(vuexTypes.VERIFY_JWT, token)
+      const { data } = await api.get(`/users/${verifyJwtResponse.user_id}`)
+      commit(vuexTypes.SET_ACCOUNT, new AccountRecord({
+        ...data,
+        ...verifyJwtResponse,
+      }))
     },
 }
 export const getters = {
-    [vuexTypes.account]: state => new AccountRecord(state.account),
+    [vuexTypes.account]: state => state.account,
     [vuexTypes.isAccountGeneral]: (_, getters) =>
-        +getters[vuexTypes.account].roleId === USER_ROLES.general,
+        +getters[vuexTypes.account].role === USER_ROLES.general,
     [vuexTypes.isAccountNotary]: (_, getters) =>
-        +getters[vuexTypes.account].roleId === USER_ROLES.notary,
+        +getters[vuexTypes.account].role === USER_ROLES.notary,
     [vuexTypes.isAccountRegistry]: (_, getters) =>
-        +getters[vuexTypes.account].roleId === USER_ROLES.registry,
+        +getters[vuexTypes.account].role === USER_ROLES.registry,
 }
 
 export default {

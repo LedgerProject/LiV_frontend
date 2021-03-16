@@ -1,7 +1,7 @@
 import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
 import { globalize } from '@/vue/filters/globalize'
 
-export function globalizeWillRequest (value) {
+export function globalizeWillRequestStatus (value) {
   let translationId = ''
   switch (+value) {
     case WILL_REQUEST_STATUSES.approved: {

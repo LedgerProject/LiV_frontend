@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import account from './modules/account.module'
-import kyc from './modules/kyc.module'
 import auth from './modules/auth.module'
+import { sessionStoragePlugin } from './plugins/session-storage'
+import _isEmpty from 'lodash/isEmpty'
 import Vuex from 'vuex'
 import { vuexTypes } from '@/vuex/types'
-import { sessionStoragePlugin } from './plugins/session-storage'
 
 Vue.use(Vuex)
 
@@ -34,8 +34,8 @@ export const rootModule = {
         },
     },
     getters: {
-        [vuexTypes.isLoggedIn]:
-            (_, getters) => Boolean(getters[vuexTypes.account].email),
+        [vuexTypes.isLoggedIn]: (_, getters) =>
+          !_isEmpty(getters[vuexTypes.account]),
     },
 }
 
@@ -46,7 +46,6 @@ function buildStore () {
         ...rootModule,
         modules: {
             account,
-            kyc,
             auth,
         },
         plugins: [sessionStoragePlugin],

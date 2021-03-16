@@ -53,7 +53,7 @@
   import { mapState } from 'vuex'
 
   export default {
-    name: 'ItemGroup',
+    name: 'item-group',
     components: { Item, ItemSubGroup },
     inheritAttrs: false,
 

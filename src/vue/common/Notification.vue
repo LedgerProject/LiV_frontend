@@ -51,7 +51,7 @@
   }
 
   export default {
-    name: 'Notification',
+    name: 'notification',
     data () {
       return {
         snackbar: false,

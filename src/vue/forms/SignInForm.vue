@@ -27,7 +27,6 @@
           <v-col cols="12" md="12">
             <v-btn
               type="submit"
-              color="primary"
               :disabled="formMixin.isDisabled"
             >
               {{ 'sign-in-form.submit-btn' | globalize }}
@@ -35,7 +34,6 @@
             <v-progress-circular
               v-if="formMixin.isDisabled"
               indeterminate
-              color="primary"
             />
           </v-col>
         </v-row>
@@ -53,7 +51,7 @@
   import { email, required } from 'vuelidate/lib/validators'
 
   export default {
-    name: 'SignInForm',
+    name: 'sign-in-form',
     mixins: [FormMixin],
     data () {
       return {
@@ -80,7 +78,7 @@
             email: this.form.login,
             password: this.form.password,
           })
-          await this.$router.push(vueRoutes.dashboard)
+          await this.$router.push(vueRoutes.willRequests)
         } catch (error) {
           Bus.error('sign-in-form.error-on-sign-in')
         }

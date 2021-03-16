@@ -28,7 +28,7 @@
           cols="12"
           md="auto"
         >
-          <div class="body-1 font-weight-light pt-6 pt-md-0 text-center">
+          <div class="text-body-1 font-weight-light pt-6 pt-md-0 text-center">
             &copy; {{ currentYear }}, Liv
           </div>
         </v-col>
@@ -39,7 +39,7 @@
 
 <script>
   export default {
-    name: 'DashboardCoreFooter',
+    name: 'dashboard-core-footer',
     data: () => ({
       links: [
         {
