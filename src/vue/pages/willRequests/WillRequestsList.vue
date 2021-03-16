@@ -24,6 +24,7 @@
             />
           </template>
           <v-btn
+            v-if="isAccountGeneral"
             class="ml-auto"
             color="info"
             :to="vueRoutes.createWillRequest"

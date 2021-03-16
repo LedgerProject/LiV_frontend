@@ -54,7 +54,9 @@
       }),
       async initApp () {
         try {
-          await this.loadAccount(this.jwtToken)
+          if (this.isLoggedIn) {
+            await this.loadAccount(this.jwtToken)
+          }
         } catch (error) {
           Bus.error('app.init-app-error-msg')
         }

@@ -119,7 +119,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" md="12" v-if="isAccountRegistry || isAccountNotary">
+              <v-col cols="12" md="12">
                 <a
                   :href="willRequest.documentLink"
                   target="_blank"
@@ -134,7 +134,11 @@
                   </v-btn>
                 </a>
                 <template
-                  v-if="!isWillRequestApproved && !isWillRequestRejected && isAccountNotary || isAccountRegistry"
+                  v-if="
+                    isAccountNotary &&
+                      !isWillRequestApproved &&
+                      !isWillRequestRejected
+                  "
                 >
                   <v-btn
                     class="mr-3"
@@ -172,8 +176,8 @@
   import { Bus } from '@/js/helpers/event-bus'
   import { api } from '@/api'
   import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
-  import { vuexTypes } from '@/vuex'
   import { mapGetters } from 'vuex'
+  import { vuexTypes } from '@/vuex'
 
   export default {
     name: 'will-request-details',
@@ -196,7 +200,6 @@
     computed: {
       ...mapGetters([
         vuexTypes.isAccountNotary,
-        vuexTypes.isAccountRegistry,
       ]),
       isWillRequestApproved () {
         return this.willRequest.statusId ===
