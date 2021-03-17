@@ -7,9 +7,15 @@
       >
         <material-card>
           <template v-slot:heading>
-            <h1 class="heading-2">
-              {{ willRequest.documentHash }}
+            <h1 class="heading-1">
+              Request #{{ willRequest.id }}
             </h1>
+            <h2 class="heading-2">
+              {{ willRequest.documentHash }}
+            </h2>
+            <h3 class="heading-3">
+              {{ willRequest.statusId | globalizeWillRequestStatus }}
+            </h3>
           </template>
           <v-card-text>
             <v-row>
@@ -145,6 +151,7 @@
                     class="v-btn mr-3"
                     color="primary"
                     :href="willRequest.documentLink"
+                    :disabled="formMixin.isDisabled"
                     target="_blank"
                   >
                     {{ 'will-request-details.load-file' | globalize }}
@@ -154,7 +161,9 @@
                   v-if="
                     isAccountNotary &&
                       !isWillRequestApproved &&
-                      !isWillRequestRejected
+                      !isWillRequestRejected &&
+                      !isWillRequestNotified &&
+                      !isWillRequestReleased
                   "
                 >
                   <v-btn
@@ -176,6 +185,32 @@
                     v-if="formMixin.isDisabled"
                     indeterminate
                   />
+                </template>
+                <template
+                  v-if="isAccountRegistry"
+                >
+                  <v-btn
+                    class="mr-3"
+                    color="success"
+                    :disabled="formMixin.isDisabled ||
+                      willRequest.statusId == 2"
+                    @click="notifyWillRequest"
+                  >
+                    {{ 'will-request-details.notify-btn' | globalize }}
+                  </v-btn>
+                </template>
+                <template
+                  v-if="isAccountNotary && willRequest.statusId == 2"
+                >
+                  <v-btn
+                    class="mr-3"
+                    color="success"
+                    :disabled="formMixin.isDisabled ||
+                      willRequest.statusId == 3"
+                    @click="releaseWillRequest"
+                  >
+                    {{ 'will-request-details.release-btn' | globalize }}
+                  </v-btn>
                 </template>
               </v-col>
             </v-row>
@@ -217,6 +252,7 @@
     computed: {
       ...mapGetters([
         vuexTypes.isAccountNotary,
+        vuexTypes.isAccountRegistry,
       ]),
       isWillRequestApproved () {
         return this.willRequest.statusId ===
@@ -225,6 +261,14 @@
       isWillRequestRejected () {
         return this.willRequest.statusId ===
           String(WILL_REQUEST_STATUSES.rejected)
+      },
+      isWillRequestNotified () {
+        return this.willRequest.statusId ===
+          String(WILL_REQUEST_STATUSES.notified)
+      },
+      isWillRequestReleased () {
+        return this.willRequest.statusId ===
+          String(WILL_REQUEST_STATUSES.released)
       },
     },
     async created () {
@@ -266,6 +310,28 @@
           Bus.success('will-request-details.reject-success')
         } catch (error) {
           Bus.error('will-request-details.reject-error')
+        }
+        this.enableForm()
+      },
+      async notifyWillRequest () {
+        this.disableForm()
+        try {
+          await api.get(`/will-requests/notify/${this.id}`)
+          await this.loadWillRequest()
+          Bus.success('will-request-details.notify-success')
+        } catch (error) {
+          Bus.error('will-request-details.notify-error')
+        }
+        this.enableForm()
+      },
+      async releaseWillRequest () {
+        this.disableForm()
+        try {
+          await api.get(`/will-requests/release/${this.id}`)
+          await this.loadWillRequest()
+          Bus.success('will-request-details.notify-success')
+        } catch (error) {
+          Bus.error('will-request-details.notify-error')
         }
         this.enableForm()
       },

@@ -70,8 +70,8 @@
               <v-list>
                 <template
                   v-if="
-                    +item.statusId !== WILL_REQUEST_STATUSES.rejected &&
-                      +item.statusId !== WILL_REQUEST_STATUSES.approved
+                    isAccountNotary &&
+                      +item.statusId == WILL_REQUEST_STATUSES.submitted
                   "
                 >
                   <v-list-item>
@@ -91,6 +91,37 @@
                         @click="rejectWillRequest(item.id)"
                       >
                         {{ 'will-requests-table.reject-btn' | globalize }}
+                      </v-btn>
+                    </v-list-item-title>
+                  </v-list-item>
+                </template>
+                <template
+                  v-if="isAccountRegistry"
+                >
+                  <v-list-item>
+                    <v-list-item-title>
+                      <v-btn
+                        text
+                        @click="notifyWillRequest(item.id)"
+                      >
+                        {{ 'will-requests-table.notify-btn' | globalize }}
+                      </v-btn>
+                    </v-list-item-title>
+                  </v-list-item>
+                </template>
+                <template
+                  v-if="
+                    +item.statusId == WILL_REQUEST_STATUSES.notified &&
+                      isAccountNotary
+                  "
+                >
+                  <v-list-item>
+                    <v-list-item-title>
+                      <v-btn
+                        text
+                        @click="releaseWillRequest(item.id)"
+                      >
+                        {{ 'will-requests-table.release-btn' | globalize }}
                       </v-btn>
                     </v-list-item-title>
                   </v-list-item>
@@ -153,6 +184,26 @@
         this.disableForm()
         try {
           await api.get(`/will-requests/approve/${willRequestId}`)
+          this.$emit(EVENTS.submitted)
+        } catch (error) {
+          Bus.error('will-request-table.approve-error')
+        }
+        this.enableForm()
+      },
+      async notifyWillRequest (willRequestId) {
+        this.disableForm()
+        try {
+          await api.get(`/will-requests/notify/${willRequestId}`)
+          this.$emit(EVENTS.submitted)
+        } catch (error) {
+          Bus.error('will-request-table.approve-error')
+        }
+        this.enableForm()
+      },
+      async releaseWillRequest (willRequestId) {
+        this.disableForm()
+        try {
+          await api.get(`/will-requests/release/${willRequestId}`)
           this.$emit(EVENTS.submitted)
         } catch (error) {
           Bus.error('will-request-table.approve-error')

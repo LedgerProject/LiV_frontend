@@ -14,6 +14,15 @@
               @change="reloadList"
             />
           </template>
+          <template v-if="isAccountRegistry">
+            <v-select
+              v-model="registry_filters.status"
+              class="will-requests-list__select-status"
+              :label="'will-requests-list.select-status-lbl' | globalize"
+              :items="REGISTRY_STATUSES_SELECT"
+              @change="reloadList"
+            />
+          </template>
           <template v-if="isAccountGeneral">
             <v-select
               v-model="filters.recipientId"
@@ -99,6 +108,10 @@
           status: WILL_REQUEST_STATUSES.submitted,
           recipientId: 0,
         },
+        registry_filters: {
+          status: WILL_REQUEST_STATUSES.approved,
+          recipientId: 0,
+        },
         vueRoutes,
         WILL_REQUEST_STATUSES,
       }
@@ -115,6 +128,12 @@
           text: globalizeWillRequestStatus(status),
           value: status,
         }))
+      },
+      REGISTRY_STATUSES_SELECT () {
+        return Object.values(this.WILL_REQUEST_STATUSES).map(status => ({
+          text: globalizeWillRequestStatus(status),
+          value: status,
+        })).slice(2, 5)
       },
       OWNER_SELECT () {
         return [
@@ -152,6 +171,11 @@
                   : {}
               ),
               status: this.filters.status,
+              ...(
+                this.isAccountRegistry
+                  ? { status: this.registry_filters.status }
+                  : {}
+              ),
             },
           })
           this.willRequests = data.map(el => new WillRequestRecord(el))
