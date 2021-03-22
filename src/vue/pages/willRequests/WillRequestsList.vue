@@ -75,97 +75,97 @@
 </template>
 
 <script>
-  import MaterialCard from '@/vue/common/base/MaterialCard'
-  import WillRequestsTable from '@/vue/pages/willRequests/WillRequestsTable'
-  import { WillRequestRecord } from '@/js/records/will-request.record'
-  import { globalize } from '@/vue/filters/globalize'
-  import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
-  import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
-  import { vueRoutes } from '@/vue-router/routes'
-  import { mapGetters } from 'vuex'
-  import { vuexTypes } from '@/vuex'
-  import { Bus } from '@/js/helpers/event-bus'
-  import { api } from '@/api'
+import MaterialCard from '@/vue/common/base/MaterialCard'
+import WillRequestsTable from '@/vue/pages/willRequests/WillRequestsTable'
+import { WillRequestRecord } from '@/js/records/will-request.record'
+import { globalize } from '@/vue/filters/globalize'
+import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
+import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+import { vueRoutes } from '@/vue-router/routes'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
+import { Bus } from '@/js/helpers/event-bus'
+import { api } from '@/api'
 
-  export default {
-    name: 'will-requests-list',
-    components: { MaterialCard, WillRequestsTable },
-    data () {
-      return {
-        isLoaded: false,
-        isLoadFalse: false,
-        willRequests: [],
-        filters: {
-          status: WILL_REQUEST_STATUSES.submitted,
-          recipientId: 0,
+export default {
+  name: 'will-requests-list',
+  components: { MaterialCard, WillRequestsTable },
+  data () {
+    return {
+      isLoaded: false,
+      isLoadFalse: false,
+      willRequests: [],
+      filters: {
+        status: WILL_REQUEST_STATUSES.submitted,
+        recipientId: 0
+      },
+      vueRoutes,
+      WILL_REQUEST_STATUSES
+    }
+  },
+  computed: {
+    ...mapGetters([
+      vuexTypes.account,
+      vuexTypes.isAccountGeneral,
+      vuexTypes.isAccountNotary,
+      vuexTypes.isAccountRegistry
+    ]),
+    WILL_REQUEST_STATUSES_SELECT () {
+      return Object.values(this.WILL_REQUEST_STATUSES).map(status => ({
+        text: globalizeWillRequestStatus(status),
+        value: status
+      }))
+    },
+    OWNER_SELECT () {
+      return [
+        {
+          text: globalize('will-requests-list.from-me-opt'),
+          value: 0
         },
-        vueRoutes,
-        WILL_REQUEST_STATUSES,
-      }
-    },
-    computed: {
-      ...mapGetters([
-        vuexTypes.account,
-        vuexTypes.isAccountGeneral,
-        vuexTypes.isAccountNotary,
-        vuexTypes.isAccountRegistry,
-      ]),
-      WILL_REQUEST_STATUSES_SELECT () {
-        return Object.values(this.WILL_REQUEST_STATUSES).map(status => ({
-          text: globalizeWillRequestStatus(status),
-          value: status,
-        }))
-      },
-      OWNER_SELECT () {
-        return [
-          {
-            text: globalize('will-requests-list.from-me-opt'),
-            value: 0,
-          },
-          {
-            text: globalize('will-requests-list.for-me-opt'),
-            value: this.account.id,
-          },
-        ]
-      },
-    },
-    async created () {
-      await this.loadWillRequests()
-    },
-    methods: {
-      async loadWillRequests () {
-        this.isLoaded = false
-        this.isLoadFalse = false
-        try {
-          const { data } = await api.get('/will-requests/', {
-            params: {
-              pageOrder: 'desc',
-              pageLimit: 100,
-              ...(
-                this.isAccountGeneral
-                  ? { ownerId: this.account.id }
-                  : {}
-              ),
-              ...(
-                this.filters.recipientId
-                  ? { recipientId: this.filters.recipientId }
-                  : {}
-              ),
-              status: this.filters.status,
-            },
-          })
-          this.willRequests = data.map(el => new WillRequestRecord(el))
-        } catch (error) {
-          Bus.error('will-requests-list.loading-error')
-          this.isLoadFalse = true
+        {
+          text: globalize('will-requests-list.for-me-opt'),
+          value: this.account.id
         }
-        this.isLoaded = true
-      },
-      reloadList () {
-        this.loadWillRequests()
-      },
+      ]
+    }
+  },
+  async created () {
+    await this.loadWillRequests()
+  },
+  methods: {
+    async loadWillRequests () {
+      this.isLoaded = false
+      this.isLoadFalse = false
+      try {
+        const { data } = await api.get('/will-requests/', {
+          params: {
+            pageOrder: 'desc',
+            pageLimit: 100,
+            ...(
+              this.isAccountGeneral
+                ? { ownerId: this.account.id }
+                : {}
+            ),
+            ...(
+              this.filters.recipientId
+                ? { recipientId: this.filters.recipientId }
+                : {}
+            ),
+            status: this.filters.status
+          }
+        })
+        this.willRequests = data.map(el => new WillRequestRecord(el))
+      } catch (error) {
+        Bus.error('will-requests-list.loading-error')
+        this.isLoadFalse = true
+      }
+      this.isLoaded = true
     },
+    reloadList () {
+      this.loadWillRequests()
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

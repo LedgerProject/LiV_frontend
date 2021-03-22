@@ -105,62 +105,62 @@
 </template>
 
 <script>
-  import FormMixin from '@/vue/mixins/form.mixin'
-  import { vueRoutes } from '@/vue-router/routes'
-  import { Bus } from '@/js/helpers/event-bus'
-  import { api } from '@/api'
-  import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
-  import { vuexTypes } from '@/vuex'
-  import { mapGetters } from 'vuex'
+import FormMixin from '@/vue/mixins/form.mixin'
+import { vueRoutes } from '@/vue-router/routes'
+import { Bus } from '@/js/helpers/event-bus'
+import { api } from '@/api'
+import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
 
-  const EVENTS = {
-    submitted: 'submitted',
-  }
+const EVENTS = {
+  submitted: 'submitted'
+}
 
-  export default {
-    name: 'will-requests-table',
-    mixins: [FormMixin],
-    props: {
-      willRequests: {
-        type: Array, /** {@link WillRequestRecord} **/
-        required: true,
-      },
-    },
-    data () {
-      return {
-        vueRoutes,
-        WILL_REQUEST_STATUSES,
+export default {
+  name: 'will-requests-table',
+  mixins: [FormMixin],
+  props: {
+    willRequests: {
+      type: Array, /** {@link WillRequestRecord} **/
+      required: true
+    }
+  },
+  data () {
+    return {
+      vueRoutes,
+      WILL_REQUEST_STATUSES
+    }
+  },
+  computed: {
+    ...mapGetters([
+      vuexTypes.isAccountNotary,
+      vuexTypes.isAccountRegistry
+    ])
+  },
+  methods: {
+    async rejectWillRequest (willRequestId) {
+      this.disableForm()
+      try {
+        await api.get(`/will-requests/reject/${willRequestId}`)
+        this.$emit(EVENTS.submitted)
+      } catch (error) {
+        Bus.error('will-request-table.reject-error')
       }
+      this.enableForm()
     },
-    computed: {
-      ...mapGetters([
-        vuexTypes.isAccountNotary,
-        vuexTypes.isAccountRegistry,
-      ]),
-    },
-    methods: {
-      async rejectWillRequest (willRequestId) {
-        this.disableForm()
-        try {
-          await api.get(`/will-requests/reject/${willRequestId}`)
-          this.$emit(EVENTS.submitted)
-        } catch (error) {
-          Bus.error('will-request-table.reject-error')
-        }
-        this.enableForm()
-      },
-      async approveWillRequest (willRequestId) {
-        this.disableForm()
-        try {
-          await api.get(`/will-requests/approve/${willRequestId}`)
-          this.$emit(EVENTS.submitted)
-        } catch (error) {
-          Bus.error('will-request-table.approve-error')
-        }
-        this.enableForm()
-      },
-    },
+    async approveWillRequest (willRequestId) {
+      this.disableForm()
+      try {
+        await api.get(`/will-requests/approve/${willRequestId}`)
+        this.$emit(EVENTS.submitted)
+      } catch (error) {
+        Bus.error('will-request-table.approve-error')
+      }
+      this.enableForm()
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

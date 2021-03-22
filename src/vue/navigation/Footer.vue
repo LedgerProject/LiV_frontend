@@ -38,22 +38,22 @@
 </template>
 
 <script>
-  export default {
-    name: 'dashboard-core-footer',
-    data: () => ({
-      links: [
-        {
-          href: 'http://livpoc.com/Landing/',
-          text: 'About Us',
-        },
-      ],
-    }),
-    computed: {
-      currentYear () {
-        return new Date().getFullYear()
-      },
-    },
+export default {
+  name: 'dashboard-core-footer',
+  data: () => ({
+    links: [
+      {
+        href: 'http://livpoc.com/Landing/',
+        text: 'About Us'
+      }
+    ]
+  }),
+  computed: {
+    currentYear () {
+      return new Date().getFullYear()
+    }
   }
+}
 </script>
 
 <style lang="sass">

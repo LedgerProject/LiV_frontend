@@ -9,5 +9,5 @@ export const vueRoutes = Object.freeze({
   willRequestsList: { name: 'app.will-requests-list' },
   willRequestsTable: { name: 'app.will-requests-table' },
   willRequestDetails: { name: 'app.will-request-details' },
-  createWillRequest: { name: 'app.create-will-request' },
+  createWillRequest: { name: 'app.create-will-request' }
 })

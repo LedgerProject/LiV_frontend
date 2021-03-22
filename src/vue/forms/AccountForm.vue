@@ -87,55 +87,55 @@
 </template>
 
 <script>
-  import FormMixin from '@/vue/mixins/form.mixin'
-  import { Bus } from '@/js/helpers/event-bus'
-  import { api } from '@/api'
-  import { AccountFormer } from '@/js/formers/AccountFormer'
-  import { required } from 'vuelidate/lib/validators'
+import FormMixin from '@/vue/mixins/form.mixin'
+import { Bus } from '@/js/helpers/event-bus'
+import { api } from '@/api'
+import { AccountFormer } from '@/js/formers/AccountFormer'
+import { required } from 'vuelidate/lib/validators'
 
-  export default {
-    name: 'account-form',
-    mixins: [FormMixin],
-    props: {
-      former: {
-        type: AccountFormer,
-        default: new AccountFormer(),
-      },
-    },
-    data () {
-      return {
-        form: {
-          email: this.former.attrs.email,
-          address: this.former.attrs.address,
-          firstName: this.former.attrs.firstName,
-          middleName: this.former.attrs.middleName,
-          lastName: this.former.attrs.lastName,
-          passportNumber: this.former.attrs.passportNumber,
-        },
-      }
-    },
-    validations: {
+export default {
+  name: 'account-form',
+  mixins: [FormMixin],
+  props: {
+    former: {
+      type: AccountFormer,
+      default: new AccountFormer()
+    }
+  },
+  data () {
+    return {
       form: {
-        email: { required },
-        address: { required },
-        firstName: { required },
-        middleName: { required },
-        lastName: { required },
-        passportNumber: { required },
-      },
-    },
-    methods: {
-      async submit () {
-        this.disableForm()
-        try {
-          await api.post(`/${this.account.id}/kyc`, this.former.buildOps())
-        } catch (error) {
-          Bus.error('account-form.submit-error')
-        }
-        this.enableForm()
-      },
-    },
+        email: this.former.attrs.email,
+        address: this.former.attrs.address,
+        firstName: this.former.attrs.firstName,
+        middleName: this.former.attrs.middleName,
+        lastName: this.former.attrs.lastName,
+        passportNumber: this.former.attrs.passportNumber
+      }
+    }
+  },
+  validations: {
+    form: {
+      email: { required },
+      address: { required },
+      firstName: { required },
+      middleName: { required },
+      lastName: { required },
+      passportNumber: { required }
+    }
+  },
+  methods: {
+    async submit () {
+      this.disableForm()
+      try {
+        await api.post(`/${this.account.id}/kyc`, this.former.buildOps())
+      } catch (error) {
+        Bus.error('account-form.submit-error')
+      }
+      this.enableForm()
+    }
   }
+}
 </script>
 
 <style scoped>

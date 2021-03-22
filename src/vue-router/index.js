@@ -18,19 +18,19 @@ export default new Router({
           path: '/sign-in',
           name: vueRoutes.signIn.name,
           component: () => import('@/vue/pages/SignIn'),
-          beforeEnter: authPageGuard,
+          beforeEnter: authPageGuard
         },
         {
           path: '/sign-up',
           name: vueRoutes.signUp.name,
           component: () => import('@/vue/pages/SignUp'),
-          beforeEnter: authPageGuard,
+          beforeEnter: authPageGuard
         },
         {
           name: vueRoutes.profile.name,
           path: '/profile',
           component: () => import('@/vue/pages/UserProfile'),
-          beforeEnter: inAppRouteGuard,
+          beforeEnter: inAppRouteGuard
         },
         {
           path: '/will-requests',
@@ -42,27 +42,27 @@ export default new Router({
               path: '/will-requests/list',
               name: vueRoutes.willRequestsList.name,
               component: () => import('@/vue/pages/willRequests/WillRequestsList'),
-              beforeEnter: inAppRouteGuard,
+              beforeEnter: inAppRouteGuard
             },
             {
               path: '/will-requests/:id',
               name: vueRoutes.willRequestDetails.name,
               component: () => import('@/vue/pages/willRequests/WillRequestDetails'),
               props: true,
-              beforeEnter: inAppRouteGuard,
+              beforeEnter: inAppRouteGuard
             },
             {
               path: '/will-requests/create',
               name: vueRoutes.createWillRequest.name,
               component: () => import('@/vue/pages/willRequests/CreateWillRequest'),
               beforeEnter: inAppRouteGuard,
-              props: true,
-            },
-          ],
-        },
-      ],
-    },
-  ],
+              props: true
+            }
+          ]
+        }
+      ]
+    }
+  ]
 })
 
 function authPageGuard (to, from, next) {

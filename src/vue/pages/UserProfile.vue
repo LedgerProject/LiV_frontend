@@ -92,54 +92,54 @@
 </template>
 
 <script>
-  import MaterialCard from '@/vue/common/base/MaterialCard'
-  import AccountForm from '@/vue/forms/AccountForm'
-  import { AccountFormer } from '@/js/formers/AccountFormer'
-  import { mapActions, mapGetters } from 'vuex'
-  import { vuexTypes } from '@/vuex'
-  import { Bus } from '@/js/helpers/event-bus'
+import MaterialCard from '@/vue/common/base/MaterialCard'
+import AccountForm from '@/vue/forms/AccountForm'
+import { AccountFormer } from '@/js/formers/AccountFormer'
+import { mapActions, mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
+import { Bus } from '@/js/helpers/event-bus'
 
-  export default {
-    name: 'user-profile',
-    components: {
-      AccountForm,
-      MaterialCard,
-    },
-    data () {
-      return {
-        isLoaded: false,
-        isLoadFailed: false,
-        former: new AccountFormer(),
+export default {
+  name: 'user-profile',
+  components: {
+    AccountForm,
+    MaterialCard
+  },
+  data () {
+    return {
+      isLoaded: false,
+      isLoadFailed: false,
+      former: new AccountFormer()
+    }
+  },
+  computed: {
+    ...mapGetters([
+      vuexTypes.jwtToken,
+      vuexTypes.account
+    ])
+  },
+  async created () {
+    await this.loadAccount()
+  },
+  methods: {
+    ...mapActions({
+      loadAccountStore: vuexTypes.LOAD_ACCOUNT
+    }),
+    async loadAccount () {
+      this.isLoaded = false
+      this.isLoadFailed = false
+      try {
+        await this.loadAccountStore(this.jwtToken)
+        this.former = new AccountFormer(this.account)
+      } catch (error) {
+        Bus.error('user-profile.loading-error')
+        this.isLoadFailed = true
       }
+      this.isLoaded = true
     },
-    computed: {
-      ...mapGetters([
-        vuexTypes.jwtToken,
-        vuexTypes.account,
-      ]),
-    },
-    async created () {
-      await this.loadAccount()
-    },
-    methods: {
-      ...mapActions({
-        loadAccountStore: vuexTypes.LOAD_ACCOUNT,
-      }),
-      async loadAccount () {
-        this.isLoaded = false
-        this.isLoadFailed = false
-        try {
-          await this.loadAccountStore(this.jwtToken)
-          this.former = new AccountFormer(this.account)
-        } catch (error) {
-          Bus.error('user-profile.loading-error')
-          this.isLoadFailed = true
-        }
-        this.isLoaded = true
-      },
-      reloadAccount () {
-        this.loadAccount()
-      },
-    },
+    reloadAccount () {
+      this.loadAccount()
+    }
   }
+}
 </script>

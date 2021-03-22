@@ -11,6 +11,9 @@ const mutations = {
 
   // kyc
   SET_KYC: 'SET_KYC',
+
+  // sidebar
+  SET_SIDEBAR: 'SET_SIDEBAR'
 }
 
 const actions = {
@@ -26,7 +29,7 @@ const actions = {
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
 
   // kyc
-  LOAD_KYC: 'LOAD_KYC',
+  LOAD_KYC: 'LOAD_KYC'
 }
 
 const getters = {
@@ -43,11 +46,11 @@ const getters = {
   isAccountRegistry: 'isAccountRegistry',
 
   // account
-  kyc: 'kyc',
+  kyc: 'kyc'
 }
 
 export const vuexTypes = {
   ...mutations,
   ...actions,
-  ...getters,
+  ...getters
 }

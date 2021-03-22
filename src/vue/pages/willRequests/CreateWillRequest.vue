@@ -20,13 +20,13 @@
 </template>
 
 <script>
-  import MaterialCard from '@/vue/common/base/MaterialCard'
-  import WillRequestForm from '@/vue/forms/WillRequestForm'
+import MaterialCard from '@/vue/common/base/MaterialCard'
+import WillRequestForm from '@/vue/forms/WillRequestForm'
 
-  export default {
-    name: 'create-will-request',
-    components: { MaterialCard, WillRequestForm },
-  }
+export default {
+  name: 'create-will-request',
+  components: { MaterialCard, WillRequestForm }
+}
 </script>
 
 <style scoped>

@@ -1,12 +1,10 @@
-// global z-indexes
-
 // colors
 $_white: #ffffff;
 
 // sign-in
-$sign-in-col-backdrop: rgba(0, 0, 0, .5);
-$sign-in-col-text: $_white;
+$col-sign-in-info-backdrop: rgba(0, 0, 0, .5);
+$col-sign-in-info-txt: $_white;
 
 // sign-up
-$sign-up-col-backdrop: rgba(0, 0, 0, .5);
-$sign-up-col-text: $_white;
+$col-sign-up-info-backdrop: rgba(0, 0, 0, .5);
+$col-sign-up-info-txt: $_white;

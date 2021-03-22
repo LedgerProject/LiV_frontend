@@ -6,7 +6,7 @@ export default {
   computed: {
     isFieldsValid () {
       return !this.$v.$invalid
-    },
+    }
   },
   methods: {
     /**
@@ -88,7 +88,7 @@ export default {
         if (!field[rule]) {
           return globalize('validation.field-error', {
             context: rule,
-            ...options,
+            ...options
           })
         }
       }
@@ -118,8 +118,8 @@ export default {
 
       if (this.$children && this.$children.length) {
         this.$children
-            .filter(item => item.$v)
-            .forEach(item => item.$v.$reset())
+          .filter(item => item.$v)
+          .forEach(item => item.$v.$reset())
       }
     },
 
@@ -132,10 +132,10 @@ export default {
 
     _extractVuelidateField (fieldPath = '') {
       const resultFieldPath = fieldPath.trim().replace(
-          /(\w+)(\[\d+\])/, // path like "array[12]"
-          '$1.$each$2', // replace with "array.$each[12]"
+        /(\w+)(\[\d+\])/, // path like "array[12]"
+        '$1.$each$2' // replace with "array.$each[12]"
       ) // all the others path should be treated unmodified
       return safeGet(this.$v, resultFieldPath)
-    },
-  },
+    }
+  }
 }

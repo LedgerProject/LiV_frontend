@@ -13,7 +13,7 @@ export class AccountFormer extends Former {
       firstName: '',
       middleName: '',
       lastName: '',
-      passportNumber: '',
+      passportNumber: ''
     }
   }
 

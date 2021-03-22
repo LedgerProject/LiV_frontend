@@ -40,9 +40,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'material-alert',
-  }
+export default {
+  name: 'material-alert'
+}
 </script>
 
 <style lang="sass">

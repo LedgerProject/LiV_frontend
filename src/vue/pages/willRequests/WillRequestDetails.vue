@@ -187,90 +187,90 @@
 </template>
 
 <script>
-  import MaterialCard from '@/vue/common/base/MaterialCard'
-  import FormMixin from '@/vue/mixins/form.mixin'
-  import { WillRequestRecord } from '@/js/records/will-request.record'
-  import { Bus } from '@/js/helpers/event-bus'
-  import { api } from '@/api'
-  import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
-  import { mapGetters } from 'vuex'
-  import { vuexTypes } from '@/vuex'
+import MaterialCard from '@/vue/common/base/MaterialCard'
+import FormMixin from '@/vue/mixins/form.mixin'
+import { WillRequestRecord } from '@/js/records/will-request.record'
+import { Bus } from '@/js/helpers/event-bus'
+import { api } from '@/api'
+import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
-  export default {
-    name: 'will-request-details',
-    components: { MaterialCard },
-    mixins: [FormMixin],
-    props: {
-      id: {
-        type: String,
-        required: true,
-      },
-    },
-    data () {
-      return {
-        isLoaded: false,
-        isLoadFailed: false,
-        willRequest: new WillRequestRecord(),
-        WILL_REQUEST_STATUSES,
-      }
-    },
-    computed: {
-      ...mapGetters([
-        vuexTypes.isAccountNotary,
-      ]),
-      isWillRequestApproved () {
-        return this.willRequest.statusId ===
+export default {
+  name: 'will-request-details',
+  components: { MaterialCard },
+  mixins: [FormMixin],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  data () {
+    return {
+      isLoaded: false,
+      isLoadFailed: false,
+      willRequest: new WillRequestRecord(),
+      WILL_REQUEST_STATUSES
+    }
+  },
+  computed: {
+    ...mapGetters([
+      vuexTypes.isAccountNotary
+    ]),
+    isWillRequestApproved () {
+      return this.willRequest.statusId ===
           String(WILL_REQUEST_STATUSES.approved)
-      },
-      isWillRequestRejected () {
-        return this.willRequest.statusId ===
+    },
+    isWillRequestRejected () {
+      return this.willRequest.statusId ===
           String(WILL_REQUEST_STATUSES.rejected)
-      },
+    }
+  },
+  async created () {
+    await this.loadWillRequest()
+  },
+  methods: {
+    async loadWillRequest () {
+      this.isLoaded = false
+      this.isLoadFailed = false
+      try {
+        const { data } = await api.get(`/will-requests/${this.id}`)
+        this.willRequest = new WillRequestRecord(data)
+      } catch (error) {
+        Bus.error(error)
+        this.isLoadFailed = true
+      }
+      this.isLoaded = true
     },
-    async created () {
-      await this.loadWillRequest()
+    async approveWillRequest () {
+      this.disableForm()
+      try {
+        await api.post('/will-requests/approve', [{
+          willRequestId: this.id
+        }])
+        await this.loadWillRequest()
+        Bus.success('will-request-details.approve-success')
+      } catch (error) {
+        Bus.error('will-request-details.approve-error')
+      }
+      this.enableForm()
     },
-    methods: {
-      async loadWillRequest () {
-        this.isLoaded = false
-        this.isLoadFailed = false
-        try {
-          const { data } = await api.get(`/will-requests/${this.id}`)
-          this.willRequest = new WillRequestRecord(data)
-        } catch (error) {
-          Bus.error(error)
-          this.isLoadFailed = true
-        }
-        this.isLoaded = true
-      },
-      async approveWillRequest () {
-        this.disableForm()
-        try {
-          await api.post('/will-requests/approve', [{
-            willRequestId: this.id,
-          }])
-          await this.loadWillRequest()
-          Bus.success('will-request-details.approve-success')
-        } catch (error) {
-          Bus.error('will-request-details.approve-error')
-        }
-        this.enableForm()
-      },
-      async rejectWillRequest () {
-        this.disableForm()
-        try {
-          await api.post('/will-requests/reject', [{
-            willRequestId: this.id,
-          }])
-          await this.loadWillRequest()
-          Bus.success('will-request-details.reject-success')
-        } catch (error) {
-          Bus.error('will-request-details.reject-error')
-        }
-        this.enableForm()
-      },
-    },
+    async rejectWillRequest () {
+      this.disableForm()
+      try {
+        await api.post('/will-requests/reject', [{
+          willRequestId: this.id
+        }])
+        await this.loadWillRequest()
+        Bus.success('will-request-details.reject-success')
+      } catch (error) {
+        Bus.error('will-request-details.reject-error')
+      }
+      this.enableForm()
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

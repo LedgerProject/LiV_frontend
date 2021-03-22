@@ -10,17 +10,17 @@
 </template>
 
 <script>
-  import { vueRoutes } from '@/vue-router/routes'
+import { vueRoutes } from '@/vue-router/routes'
 
-  export default {
-    name: 'dashboard-core-view',
-    computed: {
-      isAuthPages () {
-        return this.$route.name === vueRoutes.signIn.name ||
+export default {
+  name: 'dashboard-core-view',
+  computed: {
+    isAuthPages () {
+      return this.$route.name === vueRoutes.signIn.name ||
           this.$route.name === vueRoutes.signUp.name
-      },
-    },
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

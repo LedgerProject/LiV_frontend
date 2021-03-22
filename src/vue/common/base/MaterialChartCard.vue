@@ -31,41 +31,41 @@
 </template>
 
 <script>
-  import MaterialCard from '@/vue/common/base/MaterialCard'
+import MaterialCard from '@/vue/common/base/MaterialCard'
 
-  export default {
-    name: 'material-chart-card',
-    components: { MaterialCard },
-    inheritAttrs: false,
+export default {
+  name: 'material-chart-card',
+  components: { MaterialCard },
+  inheritAttrs: false,
 
-    props: {
-      data: {
-        type: Object,
-        default: () => ({}),
-      },
-      eventHandlers: {
-        type: Array,
-        default: () => ([]),
-      },
-      options: {
-        type: Object,
-        default: () => ({}),
-      },
-      ratio: {
-        type: String,
-        default: undefined,
-      },
-      responsiveOptions: {
-        type: Array,
-        default: () => ([]),
-      },
-      type: {
-        type: String,
-        required: true,
-        validator: v => ['Bar', 'Line', 'Pie'].includes(v),
-      },
+  props: {
+    data: {
+      type: Object,
+      default: () => ({})
     },
+    eventHandlers: {
+      type: Array,
+      default: () => ([])
+    },
+    options: {
+      type: Object,
+      default: () => ({})
+    },
+    ratio: {
+      type: String,
+      default: undefined
+    },
+    responsiveOptions: {
+      type: Array,
+      default: () => ([])
+    },
+    type: {
+      type: String,
+      required: true,
+      validator: v => ['Bar', 'Line', 'Pie'].includes(v)
+    }
   }
+}
 </script>
 
 <style lang="sass">
