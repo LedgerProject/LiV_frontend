@@ -5,15 +5,13 @@
         <v-row
           class="align-center"
         >
-          <template v-if="isAccountGeneral || isAccountNotary">
-            <v-select
-              v-model="filters.status"
-              class="will-requests-list__select-status"
-              :label="'will-requests-list.select-status-lbl' | globalize"
-              :items="WILL_REQUEST_STATUSES_SELECT"
-              @change="reloadList"
-            />
-          </template>
+          <v-select
+            v-model="filters.status"
+            class="will-requests-list__select-status"
+            :label="'will-requests-list.select-status-lbl' | globalize"
+            :items="WILL_REQUEST_STATUSES_SELECT"
+            @change="reloadList"
+          />
           <template v-if="isAccountGeneral">
             <v-select
               v-model="filters.recipientId"
@@ -24,7 +22,7 @@
             />
           </template>
           <v-btn
-            v-if="isAccountGeneral"
+            v-if="isAccountGeneral && isKycExist"
             class="ml-auto"
             color="info"
             :to="vueRoutes.createWillRequest"
@@ -65,7 +63,7 @@
               </template>
             </template>
             <template v-else>
-              <v-progress-linear indeterminate />
+              <v-progress-linear indeterminate/>
             </template>
           </v-col>
         </v-row>
@@ -108,13 +106,35 @@ export default {
       vuexTypes.account,
       vuexTypes.isAccountGeneral,
       vuexTypes.isAccountNotary,
-      vuexTypes.isAccountRegistry
+      vuexTypes.isAccountRegistry,
+      vuexTypes.isKycExist
     ]),
     WILL_REQUEST_STATUSES_SELECT () {
-      return Object.values(this.WILL_REQUEST_STATUSES).map(status => ({
-        text: globalizeWillRequestStatus(status),
-        value: status
-      }))
+      const statusesForGeneralUsers = [
+        WILL_REQUEST_STATUSES.submitted,
+        WILL_REQUEST_STATUSES.rejected,
+        WILL_REQUEST_STATUSES.approved,
+        WILL_REQUEST_STATUSES.notified,
+        WILL_REQUEST_STATUSES.released
+      ]
+      const statusesForNotaryUsers = [
+        WILL_REQUEST_STATUSES.submitted,
+        WILL_REQUEST_STATUSES.notified,
+        WILL_REQUEST_STATUSES.released
+      ]
+      const statusesForRegistryUsers = [
+        WILL_REQUEST_STATUSES.approved,
+        WILL_REQUEST_STATUSES.notified
+      ]
+      return (this.isAccountGeneral
+        ? statusesForGeneralUsers
+        : this.isAccountNotary
+          ? statusesForNotaryUsers
+          : statusesForRegistryUsers)
+        .map(status => ({
+          text: globalizeWillRequestStatus(status),
+          value: status
+        }))
     },
     OWNER_SELECT () {
       return [
@@ -130,6 +150,9 @@ export default {
     }
   },
   async created () {
+    this.filters.status = this.isAccountRegistry
+      ? WILL_REQUEST_STATUSES.approved
+      : WILL_REQUEST_STATUSES.submitted
     await this.loadWillRequests()
   },
   methods: {

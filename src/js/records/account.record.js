@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import _isEmpty from 'lodash/isEmpty'
 import { USER_ROLES } from '@/js/const/user-roles.const'
 
 export class AccountRecord {
@@ -17,5 +18,13 @@ export class AccountRecord {
 
   get fullName () {
     return `${this.firstName} ${this.middleName} ${this.lastName}`
+  }
+
+  get isKycExist () {
+    return !_isEmpty(this.address) &&
+      !_isEmpty(this.firstName) &&
+      !_isEmpty(this.middleName) &&
+      !_isEmpty(this.lastName) &&
+      !_isEmpty(this.passportNumber)
   }
 }

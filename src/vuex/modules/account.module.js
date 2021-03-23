@@ -34,7 +34,9 @@ export const getters = {
   [vuexTypes.isAccountNotary]: (_, getters) =>
     +getters[vuexTypes.account].role === USER_ROLES.notary,
   [vuexTypes.isAccountRegistry]: (_, getters) =>
-    +getters[vuexTypes.account].role === USER_ROLES.registry
+    +getters[vuexTypes.account].role === USER_ROLES.registry,
+  [vuexTypes.isKycExist]: (_, getters) =>
+    getters[vuexTypes.account].isKycExist
 }
 
 export default {

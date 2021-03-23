@@ -1,6 +1,6 @@
 <template>
-  <v-main class="view">
-    <div class="view__wrapper">
+  <v-main class="app-view">
+    <div class="app-view__wrapper">
       <template v-if="isAuthPages">
         <transition
           name="auth-transition"
@@ -17,7 +17,7 @@
           <router-view />
         </transition>
         <app-footer
-          class="view__footer"
+          class="app-view__footer"
         />
       </template>
     </div>
@@ -29,7 +29,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import AppFooter from '@/vue/navigation/Footer'
 
 export default {
-  name: 'view',
+  name: 'app-view',
   components: { AppFooter },
   computed: {
     isAuthPages () {
@@ -41,14 +41,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.view__wrapper {
+.app-view__wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
 }
 
-.view__footer {
+.app-view__footer {
   margin-top: auto;
 }
 
@@ -81,11 +81,9 @@ export default {
 
 @keyframes in-app-transition {
   0% {
-    //opacity: 0.25;
     filter: blur(1rem);
   }
   100% {
-    //opacity: 1;
     filter: blur(0rem);
   }
 }

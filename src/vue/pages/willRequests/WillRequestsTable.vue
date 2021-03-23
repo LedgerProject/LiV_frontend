@@ -16,7 +16,7 @@
             {{ 'will-requests-table.status-th' | globalize }}
           </th>
           <th
-            v-if="isAccountRegistry || isAccountNotary"
+            v-if="!isAccountGeneral"
             class="text-right primary--text"
           >
             {{ 'will-requests-table.action-th' | globalize }}
@@ -41,20 +41,20 @@
             {{ item.id }}
           </td>
           <td>
-            {{ item.creator.fullName }}
+            {{ item.creator.fullName || item.creator.email }}
           </td>
           <td>
-            {{ item.recipient.fullName }}
+            {{ item.recipient.fullName || item.recipient.email }}
           </td>
           <td>
             {{ item.statusId | globalizeWillRequestStatus }}
           </td>
           <td
+            v-if="!isAccountGeneral"
             @click.stop
           >
             <v-menu left>
               <template
-                v-if="isAccountRegistry || isAccountNotary"
                 v-slot:activator="{ on, attrs }"
               >
                 <v-btn
@@ -69,28 +69,51 @@
               </template>
               <v-list>
                 <template
-                  v-if="
-                    +item.statusId !== WILL_REQUEST_STATUSES.rejected &&
-                      +item.statusId !== WILL_REQUEST_STATUSES.approved
-                  "
+                  v-if="isAccountNotary"
                 >
+                  <template v-if="+item.statusId === WILL_REQUEST_STATUSES.submitted">
+                    <v-list-item>
+                      <v-list-item-title>
+                        <v-btn
+                          text
+                          @click="approveWillRequest(item.id)"
+                        >
+                          {{ 'will-requests-table.approve-btn' | globalize }}
+                        </v-btn>
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title>
+                        <v-btn
+                          text
+                          @click="rejectWillRequest(item.id)"
+                        >
+                          {{ 'will-requests-table.reject-btn' | globalize }}
+                        </v-btn>
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
+                  <template v-else-if="+item.statusId === WILL_REQUEST_STATUSES.notified">
+                    <v-list-item>
+                      <v-list-item-title>
+                        <v-btn
+                          text
+                          @click="releaseWillRequest(item.id)"
+                        >
+                          {{ 'will-requests-table.release-btn' | globalize }}
+                        </v-btn>
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
+                </template>
+                <template v-if="isAccountRegistry && +item.statusId === WILL_REQUEST_STATUSES.approved">
                   <v-list-item>
                     <v-list-item-title>
                       <v-btn
                         text
-                        @click="approveWillRequest(item.id)"
+                        @click="notifyWillRequest(item.id)"
                       >
-                        {{ 'will-requests-table.approve-btn' | globalize }}
-                      </v-btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title>
-                      <v-btn
-                        text
-                        @click="rejectWillRequest(item.id)"
-                      >
-                        {{ 'will-requests-table.reject-btn' | globalize }}
+                        {{ 'will-requests-table.notify-btn' | globalize }}
                       </v-btn>
                     </v-list-item-title>
                   </v-list-item>
@@ -108,10 +131,15 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import { vueRoutes } from '@/vue-router/routes'
 import { Bus } from '@/js/helpers/event-bus'
-import { api } from '@/api'
 import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
+import {
+  approveWillRequest,
+  notifyWillRequest,
+  rejectWillRequest,
+  releaseWillRequest
+} from '@/js/helpers/will-request-helper'
 
 const EVENTS = {
   submitted: 'submitted'
@@ -134,6 +162,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      vuexTypes.isAccountGeneral,
       vuexTypes.isAccountNotary,
       vuexTypes.isAccountRegistry
     ])
@@ -142,8 +171,9 @@ export default {
     async rejectWillRequest (willRequestId) {
       this.disableForm()
       try {
-        await api.get(`/will-requests/reject/${willRequestId}`)
+        rejectWillRequest(willRequestId)
         this.$emit(EVENTS.submitted)
+        Bus.success('will-requests-table.reject-success')
       } catch (error) {
         Bus.error('will-request-table.reject-error')
       }
@@ -152,12 +182,31 @@ export default {
     async approveWillRequest (willRequestId) {
       this.disableForm()
       try {
-        await api.get(`/will-requests/approve/${willRequestId}`)
+        approveWillRequest(willRequestId)
         this.$emit(EVENTS.submitted)
+        Bus.success('will-requests-table.approve-success')
       } catch (error) {
         Bus.error('will-request-table.approve-error')
       }
       this.enableForm()
+    },
+    async notifyWillRequest (willRequestId) {
+      try {
+        await notifyWillRequest(willRequestId)
+        this.$emit(EVENTS.submitted)
+        Bus.success('will-requests-table.notify-success')
+      } catch (error) {
+        Bus.error('will-requests-table.notify-error')
+      }
+    },
+    async releaseWillRequest (willRequestId) {
+      try {
+        releaseWillRequest(willRequestId)
+        this.$emit(EVENTS.submitted)
+        Bus.success('will-requests-table.release-success')
+      } catch (error) {
+        Bus.error('will-requests-table.release-error')
+      }
     }
   }
 }

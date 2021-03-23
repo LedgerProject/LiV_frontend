@@ -46,14 +46,9 @@
     "dashboard": "Dashboard",
     "will-requests": "Will Requests"
   },
-  "app-bar": {
+  "navbar": {
     "profile-link": "Profile",
     "log-out": "Log Out"
-  },
-  "sign-up": {
-    "title": "LIV",
-    "subtitle": "Life is Vibrant",
-    "sign-in-link": "Sign In"
   },
   "sign-up-form": {
     "first-name-lbl": "First Name",
@@ -64,16 +59,21 @@
     "user-role-lbl": "User Role",
     "submit-btn": "Sign Up"
   },
-  "sign-in": {
-    "title": "LIV",
-    "subtitle": "Life is Vibrant",
-    "sign-up-link": "Sign Up"
-  },
   "sign-in-form": {
     "error-on-sign-in": "Error while trying sign in! please try again!",
     "submit-btn": "Sign In",
     "login-lbl": "Login",
     "password-lbl": "Password"
+  },
+  "sign-up": {
+    "title": "LIV",
+    "subtitle": "Life is Vibrant",
+    "sign-in-link": "Sign In"
+  },
+  "sign-in": {
+    "title": "LIV",
+    "subtitle": "Life is Vibrant",
+    "sign-up-link": "Sign Up"
   },
   "will-requests-list": {
     "loading-error": "Error while loading, please try reload page.",
@@ -94,25 +94,33 @@
     "recipient-th": "Recipient",
     "passport-id-th": "Passport ID",
     "status-th": "Status",
-    "action-th": "Action"
-  },
-  "create-will-request": {
-    "loading-error": "Error while loading, please try reload page.",
-    "title": "Create Will Request"
+    "action-th": "Action",
+    "notify-btn": "Notify",
+    "release-btn": "Release",
+    "approve-success": "Will request was approved successfully!",
+    "reject-success": "Will request was rejected successfully!",
+    "notify-success": "Will request was notified successfully!",
+    "release-success": "Will request was released successfully!"
   },
   "will-request-details": {
     "loading-error": "Error while loading, please try reload page.",
     "creator-title": "Creator",
     "recipient-title": "Recipient",
-    "approve-btn": "Approve",
-    "reject-btn": "Reject",
     "id": "Id",
     "email": "Email",
     "role": "Role",
     "address": "Address",
     "full-name": "Full Name",
     "passport-number": "Passport Number",
-    "load-file": "Load File"
+    "load-file": "Load File",
+    "approve-btn": "Approve",
+    "reject-btn": "Reject",
+    "notify-btn": "Notify",
+    "release-btn": "Release",
+    "approve-success": "Will request was approved successfully!",
+    "reject-success": "Will request was rejected successfully!",
+    "notify-success": "Will request was notified successfully!",
+    "release-success": "Will request was released successfully!"
   },
   "will-request-form": {
     "error-sending": "Something went wrong, please try again",
@@ -120,5 +128,9 @@
     "document-lbl": "Document",
     "submit-btn": "Create",
     "created-success-msg": "Created Success!"
+  },
+  "create-will-request": {
+    "loading-error": "Error while loading, please try reload page.",
+    "title": "Create Will Request"
   }
 }

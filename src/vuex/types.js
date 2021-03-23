@@ -46,7 +46,8 @@ const getters = {
   isAccountRegistry: 'isAccountRegistry',
 
   // account
-  kyc: 'kyc'
+  kyc: 'kyc',
+  isKycExist: 'isKycExist'
 }
 
 export const vuexTypes = {

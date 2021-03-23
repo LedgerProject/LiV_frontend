@@ -98,35 +98,31 @@
                           {{ willRequest.recipient.role | globalizeUserRole }}
                         </td>
                       </tr>
-                      <template
-                        v-if="isAccountRegistry || isAccountNotary"
-                      >
-                        <tr>
-                          <td>
-                            {{ `will-request-details.address` | globalize }}
-                          </td>
-                          <td>
-                            {{ willRequest.recipient.address }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            {{ `will-request-details.full-name` | globalize }}
-                          </td>
-                          <td>
-                            {{ willRequest.recipient.fullName }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            {{ `will-request-details.passport-number` |
-                              globalize }}
-                          </td>
-                          <td>
-                            {{ willRequest.recipient.passportNumber }}
-                          </td>
-                        </tr>
-                      </template>
+                      <tr>
+                        <td>
+                          {{ `will-request-details.address` | globalize }}
+                        </td>
+                        <td>
+                          {{ willRequest.recipient.address }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{ `will-request-details.full-name` | globalize }}
+                        </td>
+                        <td>
+                          {{ willRequest.recipient.fullName }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{ `will-request-details.passport-number` |
+                          globalize }}
+                        </td>
+                        <td>
+                          {{ willRequest.recipient.passportNumber }}
+                        </td>
+                      </tr>
                     </tbody>
                   </template>
                 </v-simple-table>
@@ -151,32 +147,49 @@
                   </v-btn>
                 </a>
                 <template
-                  v-if="
-                    isAccountNotary &&
-                      !isWillRequestApproved &&
-                      !isWillRequestRejected
-                  "
+                  v-if="isAccountNotary"
                 >
+                  <template v-if="isWillRequestSubmitted">
+                    <v-btn
+                      class="mr-3"
+                      color="success"
+                      :disabled="formMixin.isDisabled"
+                      @click="approveWillRequest"
+                    >
+                      {{ 'will-request-details.approve-btn' | globalize }}
+                    </v-btn>
+                    <v-btn
+                      color="error"
+                      :disabled="formMixin.isDisabled"
+                      @click="rejectWillRequest"
+                    >
+                      {{ 'will-request-details.reject-btn' | globalize }}
+                    </v-btn>
+                  </template>
+                  <template v-else-if="isWillRequestNotified">
+                    <v-btn
+                      color="primary"
+                      :disabled="formMixin.isDisabled"
+                      @click="releaseWillRequest"
+                    >
+                      {{ 'will-request-details.release-btn' | globalize }}
+                    </v-btn>
+                  </template>
+                </template>
+                <template v-else-if="isAccountRegistry">
                   <v-btn
-                    class="mr-3"
+                    v-if="isWillRequestApproved"
                     color="success"
                     :disabled="formMixin.isDisabled"
-                    @click="approveWillRequest"
+                    @click="notifyWillRequest"
                   >
-                    {{ 'will-request-details.approve-btn' | globalize }}
+                    {{ 'will-request-details.notify-btn' | globalize }}
                   </v-btn>
-                  <v-btn
-                    color="error"
-                    :disabled="formMixin.isDisabled"
-                    @click="rejectWillRequest"
-                  >
-                    {{ 'will-request-details.reject-btn' | globalize }}
-                  </v-btn>
-                  <v-progress-circular
-                    v-if="formMixin.isDisabled"
-                    indeterminate
-                  />
                 </template>
+                <v-progress-circular
+                  v-if="formMixin.isDisabled"
+                  indeterminate
+                />
               </v-col>
             </v-row>
           </v-card-text>
@@ -195,6 +208,7 @@ import { api } from '@/api'
 import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { notifyWillRequest, releaseWillRequest } from '@/js/helpers/will-request-helper'
 
 export default {
   name: 'will-request-details',
@@ -216,15 +230,18 @@ export default {
   },
   computed: {
     ...mapGetters([
-      vuexTypes.isAccountNotary
+      vuexTypes.isAccountGeneral,
+      vuexTypes.isAccountNotary,
+      vuexTypes.isAccountRegistry
     ]),
-    isWillRequestApproved () {
-      return this.willRequest.statusId ===
-          String(WILL_REQUEST_STATUSES.approved)
+    isWillRequestSubmitted () {
+      return +this.willRequest.statusId === WILL_REQUEST_STATUSES.submitted
     },
-    isWillRequestRejected () {
-      return this.willRequest.statusId ===
-          String(WILL_REQUEST_STATUSES.rejected)
+    isWillRequestApproved () {
+      return +this.willRequest.statusId === WILL_REQUEST_STATUSES.approved
+    },
+    isWillRequestNotified () {
+      return +this.willRequest.statusId === WILL_REQUEST_STATUSES.notified
     }
   },
   async created () {
@@ -266,6 +283,28 @@ export default {
         Bus.success('will-request-details.reject-success')
       } catch (error) {
         Bus.error('will-request-details.reject-error')
+      }
+      this.enableForm()
+    },
+    async notifyWillRequest () {
+      this.disableForm()
+      try {
+        await notifyWillRequest(this.id)
+        await this.loadWillRequest()
+        Bus.success('will-request-details.notify-success')
+      } catch (error) {
+        Bus.error('will-request-details.notify-error')
+      }
+      this.enableForm()
+    },
+    async releaseWillRequest () {
+      this.disableForm()
+      try {
+        await releaseWillRequest(this.id)
+        await this.loadWillRequest()
+        Bus.success('will-request-details.release-success')
+      } catch (error) {
+        Bus.error('will-request-details.release-error')
       }
       this.enableForm()
     }
