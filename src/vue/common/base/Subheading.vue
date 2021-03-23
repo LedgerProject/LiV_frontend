@@ -17,18 +17,18 @@
 </template>
 
 <script>
-  export default {
-    name: 'subheading',
+export default {
+  name: 'subheading',
 
-    props: {
-      subheading: {
-        type: String,
-        default: '',
-      },
-      text: {
-        type: String,
-        default: '',
-      },
+  props: {
+    subheading: {
+      type: String,
+      default: ''
     },
+    text: {
+      type: String,
+      default: ''
+    }
   }
+}
 </script>

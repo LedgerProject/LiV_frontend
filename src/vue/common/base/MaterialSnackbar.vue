@@ -20,41 +20,41 @@
   </v-snackbar>
 </template>
 <script>
-  import MaterialAlert from '@/vue/common/base/MaterialAlert'
-  export default {
-    name: 'material-snackbar',
-    components: { MaterialAlert },
-    props: {
-      dismissible: {
-        type: Boolean,
-        default: true,
-      },
-      type: {
-        type: String,
-        default: '',
-      },
-      value: Boolean,
+import MaterialAlert from '@/vue/common/base/MaterialAlert'
+export default {
+  name: 'material-snackbar',
+  components: { MaterialAlert },
+  props: {
+    dismissible: {
+      type: Boolean,
+      default: true
     },
-
-    data () {
-      return {
-        internalValue: this.value,
-      }
+    type: {
+      type: String,
+      default: ''
     },
+    value: Boolean
+  },
 
-    watch: {
-      internalValue (val, oldVal) {
-        if (val === oldVal) return
+  data () {
+    return {
+      internalValue: this.value
+    }
+  },
 
-        this.$emit('input', val)
-      },
-      value (val, oldVal) {
-        if (val === oldVal) return
+  watch: {
+    internalValue (val, oldVal) {
+      if (val === oldVal) return
 
-        this.internalValue = val
-      },
+      this.$emit('input', val)
     },
+    value (val, oldVal) {
+      if (val === oldVal) return
+
+      this.internalValue = val
+    }
   }
+}
 </script>
 
 <style lang="sass">

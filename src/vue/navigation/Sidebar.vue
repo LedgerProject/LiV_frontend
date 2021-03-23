@@ -1,25 +1,14 @@
 <template>
   <v-navigation-drawer
-    id="core-navigation-drawer"
-    v-model="drawer"
-    :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
-    :expand-on-hover="expandOnHover"
+    class="sidebar"
+    v-model="sidebar"
+    :expand-on-hover="false"
     :right="$vuetify.rtl"
-    :src="barImage"
     mobile-break-point="960"
     app
     width="260"
     v-bind="$attrs"
   >
-    <template v-slot:img="props">
-      <v-img
-        :gradient="`to bottom, ${barColor}`"
-        v-bind="props"
-      />
-    </template>
-
-    <v-divider class="mb-1" />
-
     <v-list-item>
       <v-list-item-avatar
         class="align-self-center"
@@ -39,7 +28,7 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-divider class="mb-2" />
+    <v-divider class="mb-2 mt-2" />
 
     <v-list
       expand
@@ -64,38 +53,25 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { vueRoutes } from '@/vue-router/routes'
-  import { CONFIG } from '@/config'
+import { vueRoutes } from '@/vue-router/routes'
+import { CONFIG } from '@/config'
+import { vuexTypes } from '@/vuex'
 
-  export default {
-    name: 'dashboard-core-drawer',
-    props: {
-      expandOnHover: {
-        type: Boolean,
-        default: false,
+export default {
+  name: 'dashboard-core-drawer',
+  data: () => ({
+    vueRoutes,
+    CONFIG
+  }),
+  computed: {
+    sidebar: {
+      get () {
+        return this.$store.state.sidebar
       },
-    },
-
-    data: () => ({
-      vueRoutes,
-      CONFIG,
-    }),
-
-    computed: {
-      ...mapState(['barColor', 'barImage']),
-      drawer: {
-        get () {
-          return this.$store.state.drawer
-        },
-        set (val) {
-          this.$store.commit('SET_DRAWER', val)
-        },
-      },
-    },
+      set (val) {
+        this.$store.commit(vuexTypes.SET_SIDEBAR, val)
+      }
+    }
   }
+}
 </script>
-
-<style lang="scss">
-
-</style>

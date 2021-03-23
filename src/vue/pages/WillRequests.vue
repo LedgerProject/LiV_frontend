@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'will-requests',
-  }
+export default {
+  name: 'will-requests'
+}
 </script>
 
 <style lang="scss" scoped>

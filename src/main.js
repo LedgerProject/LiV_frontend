@@ -42,7 +42,7 @@ const vuetify = new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107',
+        warning: '#FFC107'
       },
       dark: {
         primary: '#FFC107',
@@ -51,13 +51,13 @@ const vuetify = new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#1976D2',
-      },
-    },
+        warning: '#1976D2'
+      }
+    }
   },
   lang: {
-    t: (key, ...params) => i18n.t(key, params),
-  },
+    t: (key, ...params) => i18n.t(key, params)
+  }
 })
 const store = buildStore()
 
@@ -66,5 +66,5 @@ new Vue({
   store,
   vuetify,
   i18n,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')
