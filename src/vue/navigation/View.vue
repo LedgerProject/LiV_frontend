@@ -1,19 +1,36 @@
 <template>
-  <v-main>
-    <transition
-      :name="isAuthPages ? 'auth-transition' : 'in-app-transition'"
-      mode="out-in"
-    >
-      <router-view />
-    </transition>
+  <v-main class="view">
+    <div class="view__wrapper">
+      <template v-if="isAuthPages">
+        <transition
+          name="auth-transition"
+          mode="out-in"
+        >
+          <router-view />
+        </transition>
+      </template>
+      <template v-else>
+        <transition
+          name="in-app-transition"
+          mode="out-in"
+        >
+          <router-view />
+        </transition>
+        <app-footer
+          class="view__footer"
+        />
+      </template>
+    </div>
   </v-main>
 </template>
 
 <script>
 import { vueRoutes } from '@/vue-router/routes'
+import AppFooter from '@/vue/navigation/Footer'
 
 export default {
-  name: 'dashboard-core-view',
+  name: 'view',
+  components: { AppFooter },
   computed: {
     isAuthPages () {
       return this.$route.name === vueRoutes.signIn.name ||
@@ -24,6 +41,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.view__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.view__footer {
+  margin-top: auto;
+}
+
 .auth-transition-enter-active {
   animation: auth-transition 0.15s ease-in-out;
 }

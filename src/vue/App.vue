@@ -8,10 +8,6 @@
 
     <router-view />
 
-    <template v-if="isLoggedIn">
-      <dashboard-core-footer />
-    </template>
-
     <notification />
   </v-app>
 </template>
@@ -26,8 +22,7 @@ export default {
   components: {
     Notification: () => import('@/vue/common/Notification'),
     Navbar: () => import('@/vue/navigation/Navbar'),
-    Sidebar: () => import('@/vue/navigation/Sidebar'),
-    DashboardCoreFooter: () => import('@/vue/navigation/Footer')
+    Sidebar: () => import('@/vue/navigation/Sidebar')
   },
   data () {
     return {
