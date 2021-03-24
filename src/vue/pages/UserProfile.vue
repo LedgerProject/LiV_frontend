@@ -17,7 +17,7 @@
               type="error"
               elevation="2"
             >
-              {{ 'user-profile.loading-error' | globalize }}
+              {{ 'user-profile.loading-error-msg' | globalize }}
             </v-alert>
           </v-col>
         </template>
@@ -40,6 +40,7 @@
               <v-form>
                 <account-form
                   :former="former"
+                  @submit="loadAccount"
                 />
               </v-form>
             </material-card>
@@ -132,7 +133,7 @@ export default {
         await this.loadAccountStore(this.jwtToken)
         this.former = new AccountFormer(this.account)
       } catch (error) {
-        Bus.error('user-profile.loading-error')
+        Bus.error('user-profile.loading-error-msg')
         this.isLoadFailed = true
       }
       this.isLoaded = true
