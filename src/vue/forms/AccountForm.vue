@@ -11,6 +11,7 @@
         >
           <v-text-field
             v-model="form.email"
+            @change="former.setAttr('email', form.email)"
             label="Email Address"
             class="purple-input"
           />
@@ -22,6 +23,7 @@
         >
           <v-text-field
             v-model="form.firstName"
+            @change="former.setAttr('firstName', form.firstName)"
             label="First Name"
             class="purple-input"
           />
@@ -33,6 +35,7 @@
         >
           <v-text-field
             v-model="form.middleName"
+            @change="former.setAttr('middleName', form.middleName)"
             label="Middle Name"
             class="purple-input"
           />
@@ -44,6 +47,7 @@
         >
           <v-text-field
             v-model="form.lastName"
+            @change="former.setAttr('lastName', form.lastName)"
             label="Last Name"
             class="purple-input"
           />
@@ -52,6 +56,7 @@
         <v-col cols="12">
           <v-text-field
             v-model="form.address"
+            @change="former.setAttr('address', form.address)"
             label="Address"
             class="purple-input"
           />
@@ -63,6 +68,7 @@
         >
           <v-text-field
             v-model="form.passportNumber"
+            @change="former.setAttr('passportNumber', form.passportNumber)"
             label="Passport Number"
             class="purple-input"
           />
@@ -92,6 +98,10 @@ import { Bus } from '@/js/helpers/event-bus'
 import { api } from '@/api'
 import { AccountFormer } from '@/js/formers/AccountFormer'
 import { required } from 'vuelidate/lib/validators'
+
+const EVENTS = {
+  submit: 'submit'
+}
 
 export default {
   name: 'account-form',
@@ -128,7 +138,13 @@ export default {
     async submit () {
       this.disableForm()
       try {
-        await api.post(`/${this.account.id}/kyc`, this.former.buildOps())
+        await api.post('/users/addKYC', this.former.buildOps(), {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        })
+        Bus.success('account-form.submit-success')
+        this.$emit(EVENTS.submit)
       } catch (error) {
         Bus.error('account-form.submit-error')
       }

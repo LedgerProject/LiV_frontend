@@ -65,6 +65,11 @@
     "login-lbl": "Login",
     "password-lbl": "Password"
   },
+  "account-form": {
+    "loading-error-msg": "Error while loading, please try reload page",
+    "submit-success": "User KYC update success",
+    "submit-error": "Error on submit, please try again"
+  },
   "sign-up": {
     "title": "LIV",
     "subtitle": "Life is Vibrant",
@@ -74,6 +79,9 @@
     "title": "LIV",
     "subtitle": "Life is Vibrant",
     "sign-up-link": "Sign Up"
+  },
+  "user-profile": {
+    "loading-error-msg": "Error while loading, please try reload page"
   },
   "will-requests-list": {
     "loading-error": "Error while loading, please try reload page.",
