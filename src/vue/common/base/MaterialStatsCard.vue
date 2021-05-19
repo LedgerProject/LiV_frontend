@@ -42,50 +42,50 @@
 </template>
 
 <script>
-  import Card from './Card'
-  import MaterialCard from '@/vue/common/base/MaterialCard'
+import Card from './Card'
+import MaterialCard from '@/vue/common/base/MaterialCard'
 
-  export default {
-    name: 'material-stats-card',
-    components: { MaterialCard },
-    inheritAttrs: false,
+export default {
+  name: 'material-stats-card',
+  components: { MaterialCard },
+  inheritAttrs: false,
 
-    props: {
-      ...Card.props,
-      icon: {
-        type: String,
-        required: true,
-      },
-      subIcon: {
-        type: String,
-        default: undefined,
-      },
-      subIconColor: {
-        type: String,
-        default: undefined,
-      },
-      subTextColor: {
-        type: String,
-        default: undefined,
-      },
-      subText: {
-        type: String,
-        default: undefined,
-      },
-      title: {
-        type: String,
-        default: undefined,
-      },
-      value: {
-        type: String,
-        default: undefined,
-      },
-      smallValue: {
-        type: String,
-        default: undefined,
-      },
+  props: {
+    ...Card.props,
+    icon: {
+      type: String,
+      required: true
     },
+    subIcon: {
+      type: String,
+      default: undefined
+    },
+    subIconColor: {
+      type: String,
+      default: undefined
+    },
+    subTextColor: {
+      type: String,
+      default: undefined
+    },
+    subText: {
+      type: String,
+      default: undefined
+    },
+    title: {
+      type: String,
+      default: undefined
+    },
+    value: {
+      type: String,
+      default: undefined
+    },
+    smallValue: {
+      type: String,
+      default: undefined
+    }
   }
+}
 </script>
 
 <style lang="sass">

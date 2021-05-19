@@ -23,18 +23,18 @@
 </template>
 
 <script>
-  export default {
-    name: 'v-component',
+export default {
+  name: 'v-component',
 
-    props: {
-      heading: {
-        type: String,
-        default: '',
-      },
-      link: {
-        type: String,
-        default: '',
-      },
+  props: {
+    heading: {
+      type: String,
+      default: ''
     },
+    link: {
+      type: String,
+      default: ''
+    }
   }
+}
 </script>

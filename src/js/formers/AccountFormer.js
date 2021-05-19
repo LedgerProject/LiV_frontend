@@ -13,7 +13,7 @@ export class AccountFormer extends Former {
       firstName: '',
       middleName: '',
       lastName: '',
-      passportNumber: '',
+      passportNumber: ''
     }
   }
 
@@ -37,8 +37,8 @@ export class AccountFormer extends Former {
     return this
   }
 
-  async buildOps () {
-    const op = await this._opBuilder()
+  buildOps () {
+    const op = this._opBuilder()
     return op
   }
 
@@ -68,12 +68,24 @@ export class AccountFormer extends Former {
   }
 
   _buildOpCreate () {
-    const opts = {}
-    return opts
+    const fd = new FormData()
+    fd.append('email', this.attrs.email)
+    fd.append('first_name', this.attrs.firstName)
+    fd.append('middle_name', this.attrs.middleName)
+    fd.append('last_name', this.attrs.middleName)
+    fd.append('address', this.attrs.address)
+    fd.append('passport_number', this.attrs.passportNumber)
+    return fd
   }
 
   _buildOpUpdate () {
-    const opts = {}
-    return opts
+    const fd = new FormData()
+    fd.append('email', this.attrs.email)
+    fd.append('first_name', this.attrs.firstName)
+    fd.append('middle_name', this.attrs.middleName)
+    fd.append('last_name', this.attrs.middleName)
+    fd.append('address', this.attrs.address)
+    fd.append('passport_number', this.attrs.passportNumber)
+    return fd
   }
 }

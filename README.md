@@ -10,43 +10,35 @@
 * [GitHub](https://github.com/)
 ## Side technologies
 ### Production dependencies
-* saeris/vue-spinners: vue port of React Spinners
 * axios: promise based HTTP client
-* bootstrap: front-end framework
-* bootstrap-vue: Bootstrap on Vue.js
-* chart.js: HTML5 charts
-* d3: Data-Driven Documents
-* datamaps: datamaps with d3.js
-* date-fns: date utility library
-* dropzone: drag and drop of files
-* element-ui: component Library for Vue.js
-* es6-promise: organizing asynchronous code
-* flatpickr: datetime picker
-* fuse.js: fuzzy-search
-* google-maps: async loader for google maps api
-* lodash: lodash modular utilities
-* nouislider: range slider
-* perfect-scrollbar: custom scrollbar
-* quill: rich text editor
-* sweetalert2: popup boxes
-* vee-validate: validation framework
-* vue: reactive, component-oriented view layer
-* vue-chartjs: Vue.js wrapper for chart.js
-* vue-clipboard2: Vuejs2 binding for clipboard.js
-* vue-cookies: plugin for handling browser cookies
-* vue-flatpickr-component: date-time picker
-* vue-router: Vue.js router
-* vue2-transitions: component transitions
+* lodash: Lodash modular utilities
+* vue: front-end framework
+* vue-i18n: internationalization plugin for Vue.js
+* vue-router: Vue.js page router
+* vuelidate: model-based validation for Vue.js
+* vuetify: Vue Material Component Framework 
 * vuex: state management for Vue.js
 ### Development dependencies
 * vue/cli-plugin-babel: babel plugin for vue-cli
 * vue/cli-plugin-eslint: eslint plugin for vue-cli
 * vue/cli-service: local service for vue-cli projects
-* vue/eslint-config-prettier: eslint-config-prettier for Vue CLI
-* babel-plugin-component: modular build plugin for babel
-* node-sass: wrapper around libsass
-* sass-loader: sass loader for webpack
-* vue-template-compiler: template compiler for Vue.js
+* vue/eslint-config-standard: standard linter config for Vue.js
+* vue/test-utils: utilities for testing Vue components.
+* babel-core: Babel compiler
+* babel-eslint: Babel linter
+* eslint: AST-based pattern checker for JavaScript.
+* eslint-config-prettier: turns off all rules that are unnecessary or might conflict with Prettier
+* eslint-config-vuetify: Eslint config for vue.js projects
+* eslint-plugin-prettier: runs prettier as an eslint rule
+* eslint-plugin-vue: official ESLint plugin for Vue.js
+* prettier: opinionated code formatter
+* resolve-url-loader: Webpack loader that resolves relative paths in url() statements based on the original source file
+* sass: JavaScript implementation of Sass
+* sass-loader: Sass loader for webpack
+* vue-cli-plugin-i18n: Vue CLI plugin to add vue-i18n
+* vue-cli-plugin-vuetify: Vuetify Framework Plugin for Vue CLI 3
+* vue-template-compiler: template compiler for Vue 2.0
+* vuetify-loader: a Webpack plugin for treeshaking Vuetify components and more
 ## Directory structure
 * public: high-level project assets
 * src: Vue.js source code

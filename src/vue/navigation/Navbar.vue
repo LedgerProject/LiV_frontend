@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    id="app-bar"
+    class="navbar"
     absolute
     app
     color="transparent"
@@ -12,10 +12,10 @@
       elevation="1"
       fab
       small
-      @click="setDrawer(!drawer)"
+      @click="setSidebar(!sidebar)"
     >
       <v-icon>
-        {{ `mdi-chevron-${drawer ? 'left' : 'right'}` }}
+        {{ `mdi-chevron-${sidebar ? 'left' : 'right'}` }}
       </v-icon>
     </v-btn>
 
@@ -53,7 +53,7 @@
         <v-list-item
           :to="vueRoutes.profile"
         >
-          {{ 'app-bar.profile-link' | globalize }}
+          {{ 'navbar.profile-link' | globalize }}
         </v-list-item>
         <v-list-item
           @click.stop="true"
@@ -69,7 +69,7 @@
         <v-list-item
           @click="logOut"
         >
-          {{ 'app-bar.log-out' | globalize }}
+          {{ 'navbar.log-out' | globalize }}
         </v-list-item>
       </v-list>
     </v-menu>
@@ -77,35 +77,35 @@
 </template>
 
 <script>
-  // Utilities
-  import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-  import { vuexTypes } from '@/vuex'
-  import { vueRoutes } from '@/vue-router/routes'
+// Utilities
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
+import { vueRoutes } from '@/vue-router/routes'
 
-  export default {
-    name: 'dashboard-core-app-bar',
-    data: () => ({
-      vueRoutes,
+export default {
+  name: 'navbar',
+  data: () => ({
+    vueRoutes
+  }),
+  computed: {
+    ...mapState([
+      'sidebar'
+    ]),
+    ...mapGetters([
+      vuexTypes.account
+    ])
+  },
+  methods: {
+    ...mapMutations({
+      setSidebar: vuexTypes.SET_SIDEBAR
     }),
-    computed: {
-      ...mapState([
-        'drawer',
-      ]),
-      ...mapGetters([
-        vuexTypes.account,
-      ]),
-    },
-    methods: {
-      ...mapMutations({
-        setDrawer: 'SET_DRAWER',
-      }),
-      ...mapActions({
-        logOutAccount: vuexTypes.LOG_OUT,
-      }),
-      async logOut () {
-        await this.logOutAccount()
-        window.location.reload()
-      },
-    },
+    ...mapActions({
+      logOutAccount: vuexTypes.LOG_OUT
+    }),
+    async logOut () {
+      await this.logOutAccount()
+      window.location.reload()
+    }
   }
+}
 </script>
