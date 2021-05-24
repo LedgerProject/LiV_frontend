@@ -39,6 +39,7 @@
             class="mr-3"
             color="primary"
             depressed
+            href="http://livpoc.com/index_encuesta.php"
           >
             {{ 'sign-in.sign-up-link' | globalize }}
           </v-btn>
