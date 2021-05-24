@@ -35,7 +35,15 @@
             v-if="formMixin.isDisabled"
             indeterminate
           />
+          <v-btn
+            class="mr-3"
+            color="primary"
+            depressed
+          >
+            {{ 'sign-in.sign-up-link' | globalize }}
+          </v-btn>
         </v-col>
+
       </v-row>
     </v-container>
   </v-form>

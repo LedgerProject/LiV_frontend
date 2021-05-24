@@ -5,24 +5,13 @@
         <div
           class="sign-in__info"
           :style="{
-            backgroundImage: infoBackground,
           }"
         >
           <div class="sign-in__info-backdrop" />
           <h1 class="sign-in__title text-h2 text--lighten-1">
-            {{ 'sign-in.title' | globalize }}
+<!--            {{ 'sign-in.title' | globalize }}-->
+            <img src="@/assets/images/liv.png" class="logo-image">
           </h1>
-          <div class="sign-in__subtitle">
-            {{ 'sign-in.subtitle' | globalize }}
-          </div>
-          <v-btn
-            class="mx-0 mt-2"
-            color="primary"
-            depressed
-            :to="vueRoutes.signUp"
-          >
-            {{ 'sign-in.sign-up-link' | globalize }}
-          </v-btn>
         </div>
         <div class="sign-in__form">
           <sign-in-form />
@@ -41,7 +30,6 @@ export default {
   components: { SignInForm },
   data () {
     return {
-      infoBackground: `url(${require('@/assets/images/login.jpg')})`,
       vueRoutes
     }
   }
@@ -50,6 +38,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/scss/variables.scss";
+
+.logo-image {
+  width: 50%;
+}
 
 .sign-in {
   display: flex;
@@ -91,7 +83,6 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
-      background: $col-sign-in-info-backdrop;
       width: 100%;
       height: 100%;
       z-index: 0;

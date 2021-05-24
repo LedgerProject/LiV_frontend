@@ -5,7 +5,6 @@
         <div
           class="sign-up__info"
           :style="{
-            backgroundImage: infoBackground,
           }"
         >
           <div class="sign-up__info-backdrop" />
@@ -41,7 +40,6 @@ export default {
   components: { SignUpForm },
   data () {
     return {
-      infoBackground: `url(${require('@/assets/images/register.jpg')})`,
       vueRoutes
     }
   }
