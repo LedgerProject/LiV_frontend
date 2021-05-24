@@ -57,7 +57,8 @@
     "password-lbl": "Password",
     "repeat-password-lbl": "Repeat Password",
     "user-role-lbl": "User Role",
-    "submit-btn": "Sign Up"
+    "submit-btn": "Sign Up",
+    "error-submit": "Error"
   },
   "sign-in-form": {
     "error-on-sign-in": "Error while trying sign in! please try again!",
@@ -140,5 +141,8 @@
   "create-will-request": {
     "loading-error": "Error while loading, please try reload page.",
     "title": "Create Will Request"
+  },
+  "app": {
+    "init-app-error-msg": "Error"
   }
 }
