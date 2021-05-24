@@ -8,6 +8,10 @@ export function globalizeWillRequestStatus (value) {
       translationId = 'filters.will-request-statuses.approved'
       break
     }
+    case WILL_REQUEST_STATUSES.deleted: {
+      translationId = 'filters.will-request-statuses.deleted'
+      break
+    }
     case WILL_REQUEST_STATUSES.rejected: {
       translationId = 'filters.will-request-statuses.rejected'
       break

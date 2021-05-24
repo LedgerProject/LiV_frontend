@@ -22,7 +22,7 @@
             />
           </template>
           <v-btn
-            v-if="isAccountGeneral && isKycExist"
+            v-if="isAccountGeneral"
             class="ml-auto"
             color="info"
             :to="vueRoutes.createWillRequest"
@@ -161,21 +161,6 @@ export default {
       this.isLoadFalse = false
       try {
         const { data } = await api.get('/will-requests/', {
-          params: {
-            pageOrder: 'desc',
-            pageLimit: 100,
-            ...(
-              this.isAccountGeneral
-                ? { ownerId: this.account.id }
-                : {}
-            ),
-            ...(
-              this.filters.recipientId
-                ? { recipientId: this.filters.recipientId }
-                : {}
-            ),
-            status: this.filters.status
-          }
         })
         this.willRequests = data.map(el => new WillRequestRecord(el))
       } catch (error) {
