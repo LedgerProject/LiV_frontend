@@ -75,13 +75,10 @@ function authPageGuard (to, from, next) {
 }
 
 function inAppRouteGuard (to, from, next) {
-  console.log('inAppRouteGuard')
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   if (isLoggedIn) {
-    console.log('isLoggedIn')
     next()
   } else {
-    console.log('!isLoggedIn')
     next(vueRoutes.signIn)
   }
 }

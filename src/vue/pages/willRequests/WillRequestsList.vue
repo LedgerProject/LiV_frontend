@@ -5,6 +5,7 @@
         <v-row
           class="align-center"
         >
+          <h1 v-if="!(isAccountGeneral && isKycExist)">{{$t('add-info')}}</h1>
           <!-- <v-select
             v-model="filters.status"
             class="will-requests-list__select-status"

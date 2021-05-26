@@ -145,5 +145,6 @@
   },
   "app": {
     "init-app-error-msg": "Error"
-  }
+  },
+  "add-info" : "You should add info to every field in profile"
 }
