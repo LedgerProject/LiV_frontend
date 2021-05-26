@@ -48,6 +48,7 @@
           <v-col
             cols="12"
             md="4"
+            class="mt-3"
           >
             <material-card
               class="v-card-profile"
