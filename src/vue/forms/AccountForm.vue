@@ -59,6 +59,7 @@
             @change="former.setAttr('address', form.address)"
             label="Address"
             class="purple-input"
+            maxlength="256"
           />
         </v-col>
 
@@ -162,6 +163,24 @@ export default {
         Bus.error('account-form.submit-error')
       }
       this.enableForm()
+    },
+    isFormValid () {
+      const regSimpleString = /[a-zA-Z0-9]$/
+      const regAddress = /[a-zA-Z0-9.,\s]$/
+      const regBirthday = /^((0?[1-9]|1[012])[/](0?[1-9]|[12][0-9]|3[01])[/](19|20)?[0-9]{2})*$/
+
+      const result = regAddress.test(this.form.address) &&
+        regSimpleString.test(this.form.nif) &&
+        regBirthday.test(this.form.birthday) &&
+        regSimpleString.test(this.form.lastName) &&
+        regSimpleString.test(this.form.secondName) &&
+        regSimpleString.test(this.form.firstName)
+
+      if (!result) {
+        Bus.error('account-form.invalid-char')
+      }
+
+      return result
     }
   }
 }

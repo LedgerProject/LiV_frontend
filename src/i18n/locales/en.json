@@ -69,7 +69,8 @@
   "account-form": {
     "loading-error-msg": "Error while loading, please try reload page",
     "submit-success": "User KYC update success",
-    "submit-error": "Error on submit, please try again"
+    "submit-error": "Error on submit, please try again",
+    "invalid-char": "invalid characters in filled fields"
   },
   "sign-up": {
     "title": "LIV",
