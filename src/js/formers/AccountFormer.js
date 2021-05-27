@@ -14,7 +14,8 @@ export class AccountFormer extends Former {
       birthday: '',
       secondName: '',
       lastName: '',
-      nif: ''
+      nif: '',
+      did: ''
     }
   }
 
@@ -59,6 +60,7 @@ export class AccountFormer extends Former {
     this.attrs = this.attrs || this._defaultAttrs
 
     this.attrs.id = source.id
+    this.attrs.did = source.did
     this.attrs.email = source.email
     this.attrs.role = source.role
     this.attrs.address = source.address
@@ -78,6 +80,7 @@ export class AccountFormer extends Former {
     fd.append('address', this.attrs.address)
     fd.append('birthday', this.attrs.birthday)
     fd.append('nif', this.attrs.nif)
+    fd.append('did', this.attrs.did)
     return fd
   }
 
@@ -90,6 +93,7 @@ export class AccountFormer extends Former {
     fd.append('address', this.attrs.address)
     fd.append('birthday', this.attrs.birthday)
     fd.append('nif', this.attrs.nif)
+    fd.append('did', this.attrs.did)
     return fd
   }
 }

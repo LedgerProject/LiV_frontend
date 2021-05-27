@@ -7,6 +7,7 @@ export class AccountRecord {
     this._record = record
 
     this.id = _get(record, 'id', '')
+    this.did = _get(record, 'did', '')
     this.email = _get(record, 'email', '')
     this.role = _get(record, 'role', USER_ROLES.general)
     this.address = _get(record, 'address')

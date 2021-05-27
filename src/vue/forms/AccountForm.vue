@@ -81,7 +81,7 @@
           <v-text-field
             v-model="form.birthday"
             @change="former.setAttr('birthday', form.birthday)"
-            label="Birthday"
+            label="Birthday (dd/mm/yyyy)"
             class="purple-input"
           />
         </v-col>
@@ -133,7 +133,8 @@ export default {
         birthday: this.former.attrs.birthday,
         secondName: this.former.attrs.secondName,
         lastName: this.former.attrs.lastName,
-        nif: this.former.attrs.nif
+        nif: this.former.attrs.nif,
+        did: this.former.attrs.did
       }
     }
   },
