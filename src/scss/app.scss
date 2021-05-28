@@ -27,7 +27,11 @@ select,
 input,
 body,
 span,
-p { font-size: 1.4rem; }
+div,
+p,
+th,
+td,
+a { font-size: 1.4rem !important; }
 
 button {
   border: none;
@@ -61,7 +65,7 @@ button {
 }
 
 html {
-  font-size: 10px;
+  font-size: 10px !important;
   overflow: auto !important;
   min-height: 100vh;
   display: flex;

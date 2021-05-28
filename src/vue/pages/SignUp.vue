@@ -43,6 +43,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/scss/variables';
+
 .sign-up {
   display: flex;
   justify-content: center;
