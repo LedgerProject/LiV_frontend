@@ -6,6 +6,7 @@ import Vuelidate from 'vuelidate'
 import i18n from '@/i18n'
 import App from '@/vue/App.vue'
 import router from '@/vue-router'
+import NProgress from 'nprogress'
 import { buildStore } from './vuex'
 
 import { globalize } from '@/vue/filters/globalize'
@@ -48,6 +49,11 @@ const vuetify = new Vuetify({
   },
 })
 const store = buildStore()
+
+NProgress.configure({ showSpinner: false })
+router.afterEach((to, from) => {
+  NProgress.done()
+})
 
 new Vue({
   router,

@@ -1,4 +1,6 @@
 @import './variables';
+@import '../../node_modules/nprogress/nprogress.css';
+@import '../../static/fonts/index.css';
 
 * {
   box-sizing: border-box;
@@ -14,8 +16,9 @@ select,
 button,
 textarea {
   background: transparent;
+  font-family: 'Roboto', 'Noto Sans', '-apple-system', 'BlinkMacSystemFont', sans-serif;
   font-weight: 400;
-  letter-spacing: 0.005rem;
+  letter-spacing: 0.003rem;
 }
 
 textarea,
@@ -79,4 +82,14 @@ body {
 
   & ul,
   li { list-style-type: none; } 
+}
+
+#nprogress {
+  z-index: 5;
+
+  .bar {
+    // !importants are for overwrite nprogress’ styles
+    background: $col-primary !important;
+    height: 0.3rem !important;
+  }
 }

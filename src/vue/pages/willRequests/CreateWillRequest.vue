@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import MaterialCard from '@/vue/common/base/MaterialCard'
+import MaterialCard from '@/vue/common/MaterialCard'
 import WillRequestForm from '@/vue/forms/WillRequestForm'
 
 export default {

@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import MaterialCard from '@/vue/common/base/MaterialCard'
+import MaterialCard from '@/vue/common/MaterialCard'
 import WillRequestsTable from '@/vue/pages/willRequests/WillRequestsTable'
 import { WillRequestRecord } from '@/js/records/will-request.record'
 import { globalize } from '@/vue/filters/globalize'

@@ -5,7 +5,7 @@
         <div class="sign-in__info">
           <div class="sign-in__info-backdrop" />
           <h1 class="sign-in__title text-h2 text--lighten-1">
-            <img src="@/assets/images/liv.png" class="logo-image">
+            <img src="/static/branding/logo.png" class="logo-image">
           </h1>
         </div>
         <div class="sign-in__form">

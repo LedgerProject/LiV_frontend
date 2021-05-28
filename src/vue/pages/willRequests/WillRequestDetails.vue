@@ -200,7 +200,7 @@
 </template>
 
 <script>
-import MaterialCard from '@/vue/common/base/MaterialCard'
+import MaterialCard from '@/vue/common/MaterialCard'
 import FormMixin from '@/vue/mixins/form.mixin'
 import { WillRequestRecord } from '@/js/records/will-request.record'
 import { Bus } from '@/js/helpers/event-bus'

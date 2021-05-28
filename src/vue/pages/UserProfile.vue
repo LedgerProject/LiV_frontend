@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import MaterialCard from '@/vue/common/base/MaterialCard'
+import MaterialCard from '@/vue/common/MaterialCard'
 import AccountForm from '@/vue/forms/AccountForm'
 import { AccountFormer } from '@/js/formers/AccountFormer'
 import { mapActions, mapGetters } from 'vuex'
