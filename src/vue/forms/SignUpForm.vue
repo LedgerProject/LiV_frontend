@@ -82,10 +82,10 @@ export default {
         email: '',
         password: '',
         repeatPassword: '',
-        role: USER_ROLES.general
+        role: USER_ROLES.general,
       },
       vueRoutes,
-      USER_ROLES
+      USER_ROLES,
     }
   },
   validations: {
@@ -94,14 +94,14 @@ export default {
       password: { required },
       repeatPassword: {
         required,
-        sameAs: sameAs('password')
+        sameAs: sameAs('password'),
       },
-      role: { required }
-    }
+      role: { required },
+    },
   },
   methods: {
     ...mapActions({
-      loginAccount: vuexTypes.LOG_IN
+      loginAccount: vuexTypes.LOG_IN,
     }),
     async submit () {
       this.disableForm()
@@ -109,18 +109,18 @@ export default {
         await api.post('/users/signup', {
           email: this.form.email,
           password: this.form.password,
-          role: this.form.role
+          role: this.form.role,
         })
         await this.loginAccount({
           email: this.form.email,
-          password: this.form.password
+          password: this.form.password,
         })
         await this.$router.push(vueRoutes.willRequests)
       } catch (error) {
         Bus.error('sign-up-form.error-submit')
       }
       this.enableForm()
-    }
-  }
+    },
+  },
 }
 </script>

@@ -4,17 +4,17 @@ import { AccountRecord } from '@/js/records/account.record'
 import { USER_ROLES } from '@/js/const/user-roles.const'
 
 export const state = {
-  account: {}
+  account: {},
 }
 export const mutations = {
   [vuexTypes.SET_ACCOUNT] (state, account) {
     state.account = account
-  }
+  },
 }
 export const actions = {
   async [vuexTypes.VERIFY_JWT] ({ commit }, token) {
     const { data } = await api.post('/users/verifyJWT', {
-      jwt: token
+      jwt: token,
     })
     return data
   },
@@ -23,9 +23,9 @@ export const actions = {
     const { data } = await api.get(`/users/${verifyJwtResponse.user_id}`)
     commit(vuexTypes.SET_ACCOUNT, new AccountRecord({
       ...data,
-      ...verifyJwtResponse
+      ...verifyJwtResponse,
     }))
-  }
+  },
 }
 export const getters = {
   [vuexTypes.account]: state => state.account,
@@ -36,12 +36,12 @@ export const getters = {
   [vuexTypes.isAccountRegistry]: (_, getters) =>
     +getters[vuexTypes.account].role === USER_ROLES.registry,
   [vuexTypes.isKycExist]: (_, getters) =>
-    getters[vuexTypes.account].isKycExist
+    getters[vuexTypes.account].isKycExist,
 }
 
 export default {
   state,
   mutations,
   actions,
-  getters
+  getters,
 }

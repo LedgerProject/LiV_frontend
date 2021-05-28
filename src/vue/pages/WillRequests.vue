@@ -8,13 +8,10 @@
 </template>
 
 <script>
-export default {
-  name: 'will-requests'
-}
+export default { name: 'will-requests' }
 </script>
 
 <style lang="scss" scoped>
-
 .will-requests-transition-enter-active {
   animation: will-requests-transition 0.35s ease-in-out;
 }
@@ -24,11 +21,8 @@ export default {
 }
 
 @keyframes will-requests-transition {
-  0% {
-    opacity: 0.25;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0.25; }
+
+  100% { opacity: 1; }
 }
 </style>

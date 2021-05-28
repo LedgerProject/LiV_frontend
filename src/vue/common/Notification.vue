@@ -47,7 +47,7 @@ const COLORS = {
   error: 'error',
   success: 'success',
   warning: 'warning',
-  info: 'info'
+  info: 'info',
 }
 
 export default {
@@ -58,7 +58,7 @@ export default {
       color: COLORS.info,
       timeout: 5000,
       message: '',
-      COLORS
+      COLORS,
     }
   },
   created () {
@@ -82,7 +82,7 @@ export default {
       this.color = COLORS.info
       this.snackbar = true
     })
-  }
+  },
 }
 </script>
 

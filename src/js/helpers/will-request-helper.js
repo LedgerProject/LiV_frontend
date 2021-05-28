@@ -3,16 +3,16 @@ import { api } from '@/api'
 export async function rejectWillRequest (willRequestId) {
   await api.post('/will-requests/reject', [
     {
-      willRequestId: willRequestId
-    }
+      willRequestId: willRequestId,
+    },
   ])
 }
 
 export async function approveWillRequest (willRequestId) {
   await api.post('/will-requests/approve', [
     {
-      willRequestId: willRequestId
-    }
+      willRequestId: willRequestId,
+    },
   ])
 }
 

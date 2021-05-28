@@ -50,7 +50,7 @@ import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
 
 const EVENTS = {
-  submitted: 'submitted'
+  submitted: 'submitted',
 }
 
 export default {
@@ -60,20 +60,20 @@ export default {
     return {
       form: {
         email: '',
-        document: null
-      }
+        document: null,
+      },
     }
   },
   validations: {
     form: {
       email: { required, email },
-      document: { required }
-    }
+      document: { required },
+    },
   },
   computed: {
     ...mapGetters([
-      vuexTypes.account
-    ])
+      vuexTypes.account,
+    ]),
   },
   methods: {
     async submit () {
@@ -85,8 +85,8 @@ export default {
         formData.append('file', this.form.document)
         await api.post('/will-requests/create', formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+            'Content-Type': 'multipart/form-data',
+          },
         })
         Bus.success('will-request-form.created-success-msg')
         this.$emit(EVENTS.submitted)
@@ -95,8 +95,8 @@ export default {
         Bus.error('will-request-form.error-sending')
       }
       this.enableForm()
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -2,11 +2,7 @@
   <div class="sign-up">
     <transition name="auth-transition" mode="out-in">
       <div class="sign-up__wrapper">
-        <div
-          class="sign-up__info"
-          :style="{
-          }"
-        >
+        <div class="sign-up__info">
           <div class="sign-up__info-backdrop" />
           <h1 class="sign-up__title text-h2">
             {{ 'sign-up.title' | globalize }}
@@ -40,13 +36,15 @@ export default {
   components: { SignUpForm },
   data () {
     return {
-      vueRoutes
+      vueRoutes,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+@import '~@/scss/variables';
+
 .sign-up {
   display: flex;
   justify-content: center;
@@ -55,12 +53,12 @@ export default {
 
   &__title {
     color: $col-sign-up-info-txt;
-    z-index: 1;
+    z-index: $z-sign-in-title;
   }
 
   &__subtitle {
     color: $col-sign-up-info-txt;
-    z-index: 1;
+    z-index: $z-sign-in-title;
   }
 
   &__wrapper {
@@ -90,7 +88,7 @@ export default {
       background: $col-sign-up-info-backdrop;
       width: 100%;
       height: 100%;
-      z-index: 0;
+      z-index: $z-sign-in-backdrop;
     }
   }
 

@@ -10,14 +10,14 @@ Vue.use(Vuex)
 
 export const rootModule = {
   state: {
-    sidebar: null
+    sidebar: null,
   },
   mutations: {
     [vuexTypes.POP_STATE] () {},
     [vuexTypes.CLEAR_STATE] () {},
     [vuexTypes.SET_SIDEBAR] (state, payload) {
       state.sidebar = payload
-    }
+    },
   },
   actions: {
     async [vuexTypes.LOG_OUT] ({ commit }) {
@@ -26,12 +26,12 @@ export const rootModule = {
     async [vuexTypes.LOG_IN] ({ getters, dispatch }, { email, password }) {
       await dispatch(vuexTypes.LOAD_JWT_TOKEN, { email, password })
       await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.jwtToken])
-    }
+    },
   },
   getters: {
     [vuexTypes.isLoggedIn]: (_, getters) =>
-      !_isEmpty(getters[vuexTypes.account])
-  }
+      !_isEmpty(getters[vuexTypes.account]),
+  },
 }
 
 let store
@@ -41,9 +41,9 @@ function buildStore () {
     ...rootModule,
     modules: {
       account,
-      auth
+      auth,
     },
-    plugins: [sessionStoragePlugin]
+    plugins: [sessionStoragePlugin],
   })
 
   store.commit(vuexTypes.POP_STATE)

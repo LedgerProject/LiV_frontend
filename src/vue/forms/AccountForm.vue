@@ -100,7 +100,7 @@ import { AccountFormer } from '@/js/formers/AccountFormer'
 import { required } from 'vuelidate/lib/validators'
 
 const EVENTS = {
-  submit: 'submit'
+  submit: 'submit',
 }
 
 export default {
@@ -109,8 +109,8 @@ export default {
   props: {
     former: {
       type: AccountFormer,
-      default: new AccountFormer()
-    }
+      default: new AccountFormer(),
+    },
   },
   data () {
     return {
@@ -120,8 +120,8 @@ export default {
         firstName: this.former.attrs.firstName,
         middleName: this.former.attrs.middleName,
         lastName: this.former.attrs.lastName,
-        passportNumber: this.former.attrs.passportNumber
-      }
+        passportNumber: this.former.attrs.passportNumber,
+      },
     }
   },
   validations: {
@@ -131,8 +131,8 @@ export default {
       firstName: { required },
       middleName: { required },
       lastName: { required },
-      passportNumber: { required }
-    }
+      passportNumber: { required },
+    },
   },
   methods: {
     async submit () {
@@ -140,8 +140,8 @@ export default {
       try {
         await api.post('/users/addKYC', this.former.buildOps(), {
           headers: {
-            'content-type': 'multipart/form-data'
-          }
+            'content-type': 'multipart/form-data',
+          },
         })
         Bus.success('account-form.submit-success')
         this.$emit(EVENTS.submit)
@@ -149,8 +149,8 @@ export default {
         Bus.error('account-form.submit-error')
       }
       this.enableForm()
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,16 +1,4 @@
-// =========================================================
-// * Vuetify Material Dashboard - v2.1.0
-// =========================================================
-//
-// * Product Page: https://www.creative-tim.com/product/vuetify-material-dashboard
-// * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-//
-// * Coded by Creative Tim
-//
-// =========================================================
-//
-// eslint-disable-next-line max-len
-// * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+import './scss/app.scss'
 
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib/framework'
@@ -18,6 +6,7 @@ import Vuelidate from 'vuelidate'
 import i18n from '@/i18n'
 import App from '@/vue/App.vue'
 import router from '@/vue-router'
+import NProgress from 'nprogress'
 import { buildStore } from './vuex'
 
 import { globalize } from '@/vue/filters/globalize'
@@ -42,7 +31,7 @@ const vuetify = new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107'
+        warning: '#FFC107',
       },
       dark: {
         primary: '#FFC107',
@@ -51,20 +40,25 @@ const vuetify = new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#1976D2'
-      }
-    }
+        warning: '#1976D2',
+      },
+    },
   },
   lang: {
-    t: (key, ...params) => i18n.t(key, params)
-  }
+    t: (key, ...params) => i18n.t(key, params),
+  },
 })
 const store = buildStore()
+
+NProgress.configure({ showSpinner: false })
+router.afterEach((to, from) => {
+  NProgress.done()
+})
 
 new Vue({
   router,
   store,
   vuetify,
   i18n,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

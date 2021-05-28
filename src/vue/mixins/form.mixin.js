@@ -8,8 +8,8 @@ export default {
     formMixin: {
       isDisabled: false,
       isPending: false,
-      isConfirmationShown: false
-    }
+      isConfirmationShown: false,
+    },
   }),
   methods: {
     disableForm () {
@@ -31,6 +31,6 @@ export default {
       await submit()
       this.hideConfirmation()
       this.formMixin.isPending = false
-    }
-  }
+    },
+  },
 }

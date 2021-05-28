@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import MaterialCard from '@/vue/common/base/MaterialCard'
+import MaterialCard from '@/vue/common/MaterialCard'
 import AccountForm from '@/vue/forms/AccountForm'
 import { AccountFormer } from '@/js/formers/AccountFormer'
 import { mapActions, mapGetters } from 'vuex'
@@ -104,27 +104,27 @@ export default {
   name: 'user-profile',
   components: {
     AccountForm,
-    MaterialCard
+    MaterialCard,
   },
   data () {
     return {
       isLoaded: false,
       isLoadFailed: false,
-      former: new AccountFormer()
+      former: new AccountFormer(),
     }
   },
   computed: {
     ...mapGetters([
       vuexTypes.jwtToken,
-      vuexTypes.account
-    ])
+      vuexTypes.account,
+    ]),
   },
   async created () {
     await this.loadAccount()
   },
   methods: {
     ...mapActions({
-      loadAccountStore: vuexTypes.LOAD_ACCOUNT
+      loadAccountStore: vuexTypes.LOAD_ACCOUNT,
     }),
     async loadAccount () {
       this.isLoaded = false
@@ -140,7 +140,7 @@ export default {
     },
     reloadAccount () {
       this.loadAccount()
-    }
-  }
+    },
+  },
 }
 </script>

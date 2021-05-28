@@ -44,23 +44,26 @@ export default {
     links: [
       {
         href: 'http://livpoc.com/Landing/',
-        text: 'About Us'
-      }
-    ]
+        text: 'About Us',
+      },
+    ],
   }),
   computed: {
     currentYear () {
       return new Date().getFullYear()
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="sass">
-  #dashboard-core-footer
-    a
-      font-size: .825rem
-      font-weight: 500
-      text-decoration: none
-      text-transform: uppercase
+<style lang="scss">
+#dashboard-core-footer {
+
+  a {
+    font-size: 0.825rem;
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}
 </style>

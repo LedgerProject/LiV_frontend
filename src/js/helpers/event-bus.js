@@ -26,7 +26,7 @@ export class EventBus extends Vue {
     if (!this._events[eventName]) {
       this._backlog.push({
         name: eventName,
-        payload
+        payload,
       })
 
       return
@@ -57,7 +57,7 @@ export class EventBus extends Vue {
       success: 'success',
       warning: 'warning',
       error: 'error',
-      info: 'info'
+      info: 'info',
     }
   }
 
