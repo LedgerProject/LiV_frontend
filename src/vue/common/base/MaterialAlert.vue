@@ -41,20 +41,22 @@
 
 <script>
 export default {
-  name: 'material-alert'
+  name: 'material-alert',
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
+.v-alert--material {
+  margin-top: 3.2rem;
 
-  .v-alert--material
-    margin-top: 32px
+  .v-alert__icon { top: -3.6rem; }
+  /* stylelint-disable declaration-no-important */
+  .v-alert__dismissible {
+    align-self: flex-start;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* stylelint-enable declaration-no-important */
+}
 
-    .v-alert__icon
-      top: -36px
-
-    .v-alert__dismissible
-      align-self: flex-start
-      margin: 0 !important
-      padding: 0 !important
 </style>

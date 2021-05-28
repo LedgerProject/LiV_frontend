@@ -27,18 +27,18 @@ export default {
   props: {
     dismissible: {
       type: Boolean,
-      default: true
+      default: true,
     },
     type: {
       type: String,
-      default: ''
+      default: '',
     },
-    value: Boolean
+    value: Boolean,
   },
 
   data () {
     return {
-      internalValue: this.value
+      internalValue: this.value,
     }
   },
 
@@ -52,21 +52,22 @@ export default {
       if (val === oldVal) return
 
       this.internalValue = val
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="sass">
-  .v-snackbar--material
-    margin-top: 32px
-    margin-bottom: 32px
+<style lang="scss">
+.v-snackbar--material {
+  margin-top: 3.2rem;
+  margin-bottom: 3.2rem;
 
-    .v-alert--material,
-    .v-snack__wrapper
-      border-radius: 4px
+  .v-alert--material,
+  .v-snack__wrapper { border-radius: 0.4rem; }
 
-    .v-snack__content
-      overflow: visible
-      padding: 0
+  .v-snack__content {
+    overflow: visible;
+    padding: 0;
+  }
+}
 </style>

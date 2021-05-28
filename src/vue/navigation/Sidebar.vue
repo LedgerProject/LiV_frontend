@@ -61,7 +61,7 @@ export default {
   name: 'dashboard-core-drawer',
   data: () => ({
     vueRoutes,
-    CONFIG
+    CONFIG,
   }),
   computed: {
     sidebar: {
@@ -70,8 +70,8 @@ export default {
       },
       set (val) {
         this.$store.commit(vuexTypes.SET_SIDEBAR, val)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

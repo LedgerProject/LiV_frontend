@@ -35,8 +35,8 @@ export default {
     isAuthPages () {
       return this.$route.name === vueRoutes.signIn.name ||
           this.$route.name === vueRoutes.signUp.name
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -48,9 +48,7 @@ export default {
   height: 100%;
 }
 
-.app-view__footer {
-  margin-top: auto;
-}
+.app-view__footer { margin-top: auto; }
 
 .auth-transition-enter-active {
   animation: auth-transition 0.15s ease-in-out;
@@ -65,6 +63,7 @@ export default {
     opacity: 0;
     transform: scale(0.75);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -80,11 +79,8 @@ export default {
 }
 
 @keyframes in-app-transition {
-  0% {
-    filter: blur(1rem);
-  }
-  100% {
-    filter: blur(0rem);
-  }
+  0% { filter: blur(1rem); }
+
+  100% { filter: blur(0); }
 }
 </style>

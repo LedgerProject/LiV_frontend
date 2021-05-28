@@ -95,10 +95,10 @@ export default {
       willRequests: [],
       filters: {
         status: WILL_REQUEST_STATUSES.submitted,
-        recipientId: 0
+        recipientId: 0,
       },
       vueRoutes,
-      WILL_REQUEST_STATUSES
+      WILL_REQUEST_STATUSES,
     }
   },
   computed: {
@@ -107,7 +107,7 @@ export default {
       vuexTypes.isAccountGeneral,
       vuexTypes.isAccountNotary,
       vuexTypes.isAccountRegistry,
-      vuexTypes.isKycExist
+      vuexTypes.isKycExist,
     ]),
     WILL_REQUEST_STATUSES_SELECT () {
       const statusesForGeneralUsers = [
@@ -115,16 +115,16 @@ export default {
         WILL_REQUEST_STATUSES.rejected,
         WILL_REQUEST_STATUSES.approved,
         WILL_REQUEST_STATUSES.notified,
-        WILL_REQUEST_STATUSES.released
+        WILL_REQUEST_STATUSES.released,
       ]
       const statusesForNotaryUsers = [
         WILL_REQUEST_STATUSES.submitted,
         WILL_REQUEST_STATUSES.notified,
-        WILL_REQUEST_STATUSES.released
+        WILL_REQUEST_STATUSES.released,
       ]
       const statusesForRegistryUsers = [
         WILL_REQUEST_STATUSES.approved,
-        WILL_REQUEST_STATUSES.notified
+        WILL_REQUEST_STATUSES.notified,
       ]
       return (this.isAccountGeneral
         ? statusesForGeneralUsers
@@ -133,21 +133,21 @@ export default {
           : statusesForRegistryUsers)
         .map(status => ({
           text: globalizeWillRequestStatus(status),
-          value: status
+          value: status,
         }))
     },
     OWNER_SELECT () {
       return [
         {
           text: globalize('will-requests-list.from-me-opt'),
-          value: 0
+          value: 0,
         },
         {
           text: globalize('will-requests-list.for-me-opt'),
-          value: this.account.id
-        }
+          value: this.account.id,
+        },
       ]
-    }
+    },
   },
   async created () {
     this.filters.status = this.isAccountRegistry
@@ -171,8 +171,8 @@ export default {
     },
     reloadList () {
       this.loadWillRequests()
-    }
-  }
+    },
+  },
 }
 </script>
 

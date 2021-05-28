@@ -25,7 +25,7 @@ import WillRequestForm from '@/vue/forms/WillRequestForm'
 
 export default {
   name: 'create-will-request',
-  components: { MaterialCard, WillRequestForm }
+  components: { MaterialCard, WillRequestForm },
 }
 </script>
 

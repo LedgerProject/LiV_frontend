@@ -117,7 +117,7 @@
                       <tr>
                         <td>
                           {{ `will-request-details.passport-number` |
-                          globalize }}
+                            globalize }}
                         </td>
                         <td>
                           {{ willRequest.recipient.passportNumber }}
@@ -217,22 +217,22 @@ export default {
   props: {
     id: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data () {
     return {
       isLoaded: false,
       isLoadFailed: false,
       willRequest: new WillRequestRecord(),
-      WILL_REQUEST_STATUSES
+      WILL_REQUEST_STATUSES,
     }
   },
   computed: {
     ...mapGetters([
       vuexTypes.isAccountGeneral,
       vuexTypes.isAccountNotary,
-      vuexTypes.isAccountRegistry
+      vuexTypes.isAccountRegistry,
     ]),
     isWillRequestSubmitted () {
       return +this.willRequest.statusId === WILL_REQUEST_STATUSES.submitted
@@ -242,7 +242,7 @@ export default {
     },
     isWillRequestNotified () {
       return +this.willRequest.statusId === WILL_REQUEST_STATUSES.notified
-    }
+    },
   },
   async created () {
     await this.loadWillRequest()
@@ -264,7 +264,7 @@ export default {
       this.disableForm()
       try {
         await api.post('/will-requests/approve', [{
-          willRequestId: this.id
+          willRequestId: this.id,
         }])
         await this.loadWillRequest()
         Bus.success('will-request-details.approve-success')
@@ -277,7 +277,7 @@ export default {
       this.disableForm()
       try {
         await api.post('/will-requests/reject', [{
-          willRequestId: this.id
+          willRequestId: this.id,
         }])
         await this.loadWillRequest()
         Bus.success('will-request-details.reject-success')
@@ -307,8 +307,8 @@ export default {
         Bus.error('will-request-details.release-error')
       }
       this.enableForm()
-    }
-  }
+    },
+  },
 }
 </script>
 

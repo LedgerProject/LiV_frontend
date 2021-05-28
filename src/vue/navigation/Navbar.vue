@@ -85,27 +85,27 @@ import { vueRoutes } from '@/vue-router/routes'
 export default {
   name: 'navbar',
   data: () => ({
-    vueRoutes
+    vueRoutes,
   }),
   computed: {
     ...mapState([
-      'sidebar'
+      'sidebar',
     ]),
     ...mapGetters([
-      vuexTypes.account
-    ])
+      vuexTypes.account,
+    ]),
   },
   methods: {
     ...mapMutations({
-      setSidebar: vuexTypes.SET_SIDEBAR
+      setSidebar: vuexTypes.SET_SIDEBAR,
     }),
     ...mapActions({
-      logOutAccount: vuexTypes.LOG_OUT
+      logOutAccount: vuexTypes.LOG_OUT,
     }),
     async logOut () {
       await this.logOutAccount()
       window.location.reload()
-    }
-  }
+    },
+  },
 }
 </script>

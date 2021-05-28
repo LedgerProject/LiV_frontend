@@ -1,5 +1,8 @@
 <template>
-  <div class="text-h3 font-weight-light col col-12 text-left text--primary pa-0 mb-8">
+  <div
+    class="text-h3 font-weight-light col"
+    :class="['col-12 text-left text--primary pa-0 mb-8']"
+  >
     <h5 class="font-weight-light">
       {{ subheading }}
       <template v-if="text">
@@ -23,12 +26,12 @@ export default {
   props: {
     subheading: {
       type: String,
-      default: ''
+      default: '',
     },
     text: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>

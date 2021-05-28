@@ -1,5 +1,10 @@
 // colors
 $_white: #f8f9fa;
+$_gray: #999999;
+$_black: #000000;
+
+$z-sign-in-title: 1;
+$z-sign-in-backdrop: 0;
 
 // sign-in
 $col-sign-in-info-backdrop: rgba(0, 0, 0, .5);
@@ -8,3 +13,9 @@ $col-sign-in-info-txt: $_white;
 // sign-up
 $col-sign-up-info-backdrop: rgba(0, 0, 0, .5);
 $col-sign-up-info-txt: $_white;
+
+// chart card
+$col-chart-card-text: $_gray;
+$col-chart-card-grid-stroke: rgba($_white, 0.2);
+$col-chart-card-grid-stroke-secondary: rgba($_white, 0.8);
+$col-chart-card-grid-stroke-third: rgba($_white, 0.4);

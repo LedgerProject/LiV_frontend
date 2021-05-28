@@ -24,20 +24,22 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'primary'
-    }
-  }
+      default: 'primary',
+    },
+  },
 }
 </script>
 
-<style lang="sass">
-  .v-tabs--pill
-    .v-tab,
-    .v-tab:before
-      border-radius: 24px
+<style lang="scss">
+.v-tabs--pill {
 
-    &.v-tabs--icons-and-text
-      .v-tab,
-      .v-tab:before
-        border-radius: 4px
+  .v-tab,
+  .v-tab:before { border-radius: 2.4rem; }
+
+  &.v-tabs--icons-and-text {
+
+    .v-tab,
+    .v-tab:before { border-radius: 0.4rem; }
+  }
+}
 </style>

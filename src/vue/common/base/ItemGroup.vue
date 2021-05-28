@@ -64,17 +64,17 @@ export default {
         avatar: undefined,
         group: undefined,
         title: undefined,
-        children: []
-      })
+        children: [],
+      }),
     },
     subGroup: {
       type: Boolean,
-      default: false
+      default: false,
     },
     text: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   computed: {
@@ -82,7 +82,7 @@ export default {
     children () {
       return this.item.children.map(item => ({
         ...item,
-        to: !item.to ? undefined : `${this.item.group}/${item.to}`
+        to: !item.to ? undefined : `${this.item.group}/${item.to}`,
       }))
     },
     computedText () {
@@ -98,7 +98,7 @@ export default {
     },
     group () {
       return this.genGroup(this.item.children)
-    }
+    },
   },
 
   methods: {
@@ -115,8 +115,8 @@ export default {
 
           return group
         }).join('|')
-    }
-  }
+    },
+  },
 }
 </script>
 

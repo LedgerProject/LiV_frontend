@@ -41,57 +41,61 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     eventHandlers: {
       type: Array,
-      default: () => ([])
+      default: () => ([]),
     },
     options: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     ratio: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     responsiveOptions: {
       type: Array,
-      default: () => ([])
+      default: () => ([]),
     },
     type: {
       type: String,
       required: true,
-      validator: v => ['Bar', 'Line', 'Pie'].includes(v)
-    }
-  }
+      validator: v => ['Bar', 'Line', 'Pie'].includes(v),
+    },
+  },
 }
 </script>
 
-<style lang="sass">
-  .v-card--material-chart
-    p
-      color: #999
+<style lang="scss">
+  .v-card--material-chart {
 
-    .v-card--material__heading
-      max-height: 185px
+    p { color: $col-chart-card-text; }
 
-      .ct-label
-        color: inherit
-        opacity: .7
-        font-size: 0.975rem
-        font-weight: 100
+    .v-card--material__heading {
+      max-height: 18.5rem;
 
-      .ct-grid
-        stroke: rgba(255, 255, 255, 0.2)
+      .ct-label {
+        color: inherit;
+        opacity: 0.7;
+        font-size: 0.975rem;
+        font-weight: 100;
+      }
+
+      .ct-grid { stroke: $col-chart-card-grid-stroke; }
 
       .ct-series-a .ct-point,
       .ct-series-a .ct-line,
       .ct-series-a .ct-bar,
-      .ct-series-a .ct-slice-donut
-          stroke: rgba(255,255,255,.8)
+      .ct-series-a .ct-slice-donut {
+        stroke: $col-chart-card-grid-stroke-secondary;
+      }
 
       .ct-series-a .ct-slice-pie,
-      .ct-series-a .ct-area
-          fill: rgba(255,255,255,.4)
+      .ct-series-a .ct-area {
+        fill: $col-chart-card-grid-stroke-third;
+      }
+    }
+  }
 </style>

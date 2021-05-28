@@ -54,61 +54,62 @@ export default {
     ...Card.props,
     icon: {
       type: String,
-      required: true
+      required: true,
     },
     subIcon: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     subIconColor: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     subTextColor: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     subText: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     title: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     value: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     smallValue: {
       type: String,
-      default: undefined
-    }
-  }
+      default: undefined,
+    },
+  },
 }
 </script>
 
-<style lang="sass">
-.v-card--material-stats
-  display: flex
-  flex-wrap: wrap
-  position: relative
+<style lang="scss">
+.v-card--material-stats {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
 
-  > div:first-child
-    justify-content: space-between
+  & > div:first-child { justify-content: space-between; }
 
-  .v-card
-    border-radius: 4px
-    flex: 0 1 auto
+  .v-card {
+    border-radius: 0.4rem;
+    flex: 0 1 auto;
+  }
 
-  .v-card__text
-    display: inline-block
-    flex: 1 0 calc(100% - 120px)
-    position: absolute
-    top: 0
-    right: 0
-    width: 100%
+  .v-card__text {
+    display: inline-block;
+    flex: 1 0 calc(100% - 12rem);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
 
-  .v-card__actions
-    flex: 1 0 100%
+  .v-card__actions { flex: 1 0 100%; }
+}
 </style>

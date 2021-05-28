@@ -19,9 +19,9 @@ export default {
         avatar: undefined,
         group: undefined,
         title: undefined,
-        children: []
-      })
-    }
-  }
+        children: [],
+      }),
+    },
+  },
 }
 </script>

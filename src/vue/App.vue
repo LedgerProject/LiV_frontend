@@ -22,18 +22,18 @@ export default {
   components: {
     Notification: () => import('@/vue/common/Notification'),
     Navbar: () => import('@/vue/navigation/Navbar'),
-    Sidebar: () => import('@/vue/navigation/Sidebar')
+    Sidebar: () => import('@/vue/navigation/Sidebar'),
   },
   data () {
     return {
-      isAppInitialized: false
+      isAppInitialized: false,
     }
   },
   computed: {
     ...mapGetters([
       vuexTypes.jwtToken,
-      vuexTypes.isLoggedIn
-    ])
+      vuexTypes.isLoggedIn,
+    ]),
   },
   async created () {
     await this.initApp()
@@ -42,10 +42,10 @@ export default {
   methods: {
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
-      clearState: vuexTypes.CLEAR_STATE
+      clearState: vuexTypes.CLEAR_STATE,
     }),
     ...mapActions({
-      loadAccount: vuexTypes.LOAD_ACCOUNT
+      loadAccount: vuexTypes.LOAD_ACCOUNT,
     }),
     async initApp () {
       try {
@@ -56,7 +56,7 @@ export default {
         Bus.error('app.init-app-error-msg')
       }
       this.isAppInitialized = true
-    }
-  }
+    },
+  },
 }
 </script>

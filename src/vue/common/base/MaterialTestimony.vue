@@ -46,31 +46,33 @@ export default {
   props: {
     author: {
       type: String,
-      default: ''
+      default: '',
     },
     avatar: {
       type: String,
-      default: 'https://demos.creative-tim.com/material-dashboard/assets/img/faces/card-profile1-square.jpg'
+      default: 'https://demos.creative-tim.com/material-dashboard/assets/img/faces/card-profile1-square.jpg',
     },
     blurb: {
       type: String,
-      default: ''
+      default: '',
     },
     handle: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 
-<style lang="sass">
-  .v-card--testimony
-    padding-bottom: 72px
-    margin-bottom: 64px
+<style lang="scss">
+.v-card--testimony {
+  padding-bottom: 7.2rem;
+  margin-bottom: 6.4rem;
 
-    .v-avatar
-      position: absolute
-      left: calc(50% - 64px)
-      top: calc(100% - 64px)
+  .v-avatar {
+    position: absolute;
+    left: calc(50% - 6.4rem);
+    top: calc(100% - 6.4rem);
+  }
+}
 </style>

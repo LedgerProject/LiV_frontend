@@ -40,13 +40,13 @@ export default {
         icon: undefined,
         subtitle: undefined,
         title: undefined,
-        to: undefined
-      })
+        to: undefined,
+      }),
     },
     text: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   computed: {
@@ -63,7 +63,7 @@ export default {
     },
     href () {
       return this.item.href || (!this.item.to ? '#' : undefined)
-    }
-  }
+    },
+  },
 }
 </script>

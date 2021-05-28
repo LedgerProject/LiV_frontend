@@ -29,12 +29,12 @@ export default {
   props: {
     heading: {
       type: String,
-      default: ''
+      default: '',
     },
     link: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>

@@ -44,7 +44,6 @@
             {{ 'sign-in.sign-up-link' | globalize }}
           </v-btn>
         </v-col>
-
       </v-row>
     </v-container>
   </v-form>
@@ -65,33 +64,33 @@ export default {
     return {
       form: {
         login: '',
-        password: ''
-      }
+        password: '',
+      },
     }
   },
   validations: {
     form: {
       login: { required, email },
-      password: { required }
-    }
+      password: { required },
+    },
   },
   methods: {
     ...mapActions({
-      loginAccount: vuexTypes.LOG_IN
+      loginAccount: vuexTypes.LOG_IN,
     }),
     async submit () {
       this.disableForm()
       try {
         await this.loginAccount({
           email: this.form.login,
-          password: this.form.password
+          password: this.form.password,
         })
         await this.$router.push(vueRoutes.willRequests)
       } catch (error) {
         Bus.error('sign-in-form.error-on-sign-in')
       }
       this.enableForm()
-    }
-  }
+    },
+  },
 }
 </script>

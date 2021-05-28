@@ -68,9 +68,8 @@
                 </v-btn>
               </template>
               <v-list>
-                <template
-                  v-if="isAccountNotary"
-                >
+                <template v-if="isAccountNotary">
+                  <!-- eslint-disable-next-line max-len -->
                   <template v-if="+item.statusId === WILL_REQUEST_STATUSES.submitted">
                     <v-list-item>
                       <v-list-item-title>
@@ -93,6 +92,7 @@
                       </v-list-item-title>
                     </v-list-item>
                   </template>
+                  <!-- eslint-disable-next-line max-len -->
                   <template v-else-if="+item.statusId === WILL_REQUEST_STATUSES.notified">
                     <v-list-item>
                       <v-list-item-title>
@@ -106,6 +106,7 @@
                     </v-list-item>
                   </template>
                 </template>
+                <!-- eslint-disable-next-line max-len -->
                 <template v-if="isAccountRegistry && +item.statusId === WILL_REQUEST_STATUSES.approved">
                   <v-list-item>
                     <v-list-item-title>
@@ -138,11 +139,11 @@ import {
   approveWillRequest,
   notifyWillRequest,
   rejectWillRequest,
-  releaseWillRequest
+  releaseWillRequest,
 } from '@/js/helpers/will-request-helper'
 
 const EVENTS = {
-  submitted: 'submitted'
+  submitted: 'submitted',
 }
 
 export default {
@@ -151,21 +152,21 @@ export default {
   props: {
     willRequests: {
       type: Array, /** {@link WillRequestRecord} **/
-      required: true
-    }
+      required: true,
+    },
   },
   data () {
     return {
       vueRoutes,
-      WILL_REQUEST_STATUSES
+      WILL_REQUEST_STATUSES,
     }
   },
   computed: {
     ...mapGetters([
       vuexTypes.isAccountGeneral,
       vuexTypes.isAccountNotary,
-      vuexTypes.isAccountRegistry
-    ])
+      vuexTypes.isAccountRegistry,
+    ]),
   },
   methods: {
     async rejectWillRequest (willRequestId) {
@@ -207,8 +208,8 @@ export default {
       } catch (error) {
         Bus.error('will-requests-table.release-error')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
