@@ -79,7 +79,7 @@ export default {
         })
         await this.$router.push(vueRoutes.willRequests)
       } catch (error) {
-        if (error.response.status === 401) {
+        if (error.response.status === 403) {
           Bus.error('sign-in-form.auth-error')
         } else if (error.response.status === 500) {
           Bus.error('sign-in-form.server-error')
