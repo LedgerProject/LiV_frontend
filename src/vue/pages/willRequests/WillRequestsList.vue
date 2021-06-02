@@ -5,7 +5,8 @@
         <v-row
           class="align-center"
         >
-          <v-select
+          <h1 v-if="!(isAccountGeneral && isKycExist)">{{$t('add-info')}}</h1>
+          <!-- <v-select
             v-model="filters.status"
             class="will-requests-list__select-status"
             :label="'will-requests-list.select-status-lbl' | globalize"
@@ -20,7 +21,7 @@
               :items="OWNER_SELECT"
               @change="reloadList"
             />
-          </template>
+          </template> -->
           <v-btn
             v-if="isAccountGeneral"
             class="ml-auto"
@@ -76,8 +77,8 @@
 import MaterialCard from '@/vue/common/base/MaterialCard'
 import WillRequestsTable from '@/vue/pages/willRequests/WillRequestsTable'
 import { WillRequestRecord } from '@/js/records/will-request.record'
-import { globalize } from '@/vue/filters/globalize'
-import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
+// import { globalize } from '@/vue/filters/globalize'
+// import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
 import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
 import { vueRoutes } from '@/vue-router/routes'
 import { mapGetters } from 'vuex'
@@ -108,46 +109,46 @@ export default {
       vuexTypes.isAccountNotary,
       vuexTypes.isAccountRegistry,
       vuexTypes.isKycExist
-    ]),
-    WILL_REQUEST_STATUSES_SELECT () {
-      const statusesForGeneralUsers = [
-        WILL_REQUEST_STATUSES.submitted,
-        WILL_REQUEST_STATUSES.rejected,
-        WILL_REQUEST_STATUSES.approved,
-        WILL_REQUEST_STATUSES.notified,
-        WILL_REQUEST_STATUSES.released
-      ]
-      const statusesForNotaryUsers = [
-        WILL_REQUEST_STATUSES.submitted,
-        WILL_REQUEST_STATUSES.notified,
-        WILL_REQUEST_STATUSES.released
-      ]
-      const statusesForRegistryUsers = [
-        WILL_REQUEST_STATUSES.approved,
-        WILL_REQUEST_STATUSES.notified
-      ]
-      return (this.isAccountGeneral
-        ? statusesForGeneralUsers
-        : this.isAccountNotary
-          ? statusesForNotaryUsers
-          : statusesForRegistryUsers)
-        .map(status => ({
-          text: globalizeWillRequestStatus(status),
-          value: status
-        }))
-    },
-    OWNER_SELECT () {
-      return [
-        {
-          text: globalize('will-requests-list.from-me-opt'),
-          value: 0
-        },
-        {
-          text: globalize('will-requests-list.for-me-opt'),
-          value: this.account.id
-        }
-      ]
-    }
+    ])
+    // WILL_REQUEST_STATUSES_SELECT () {
+    //   const statusesForGeneralUsers = [
+    //     WILL_REQUEST_STATUSES.submitted,
+    //     WILL_REQUEST_STATUSES.rejected,
+    //     WILL_REQUEST_STATUSES.approved,
+    //     WILL_REQUEST_STATUSES.notified,
+    //     WILL_REQUEST_STATUSES.released
+    //   ]
+    //   const statusesForNotaryUsers = [
+    //     WILL_REQUEST_STATUSES.submitted,
+    //     WILL_REQUEST_STATUSES.notified,
+    //     WILL_REQUEST_STATUSES.released
+    //   ]
+    //   const statusesForRegistryUsers = [
+    //     WILL_REQUEST_STATUSES.approved,
+    //     WILL_REQUEST_STATUSES.notified
+    //   ]
+    //   return (this.isAccountGeneral
+    //     ? statusesForGeneralUsers
+    //     : this.isAccountNotary
+    //       ? statusesForNotaryUsers
+    //       : statusesForRegistryUsers)
+    //     .map(status => ({
+    //       text: globalizeWillRequestStatus(status),
+    //       value: status
+    //     }))
+    // },
+    // OWNER_SELECT () {
+    //   return [
+    //     {
+    //       text: globalize('will-requests-list.from-me-opt'),
+    //       value: 0
+    //     },
+    //     {
+    //       text: globalize('will-requests-list.for-me-opt'),
+    //       value: this.account.id
+    //     }
+    //   ]
+    // }
   },
   async created () {
     this.filters.status = this.isAccountRegistry
@@ -168,10 +169,10 @@ export default {
         this.isLoadFalse = true
       }
       this.isLoaded = true
-    },
-    reloadList () {
-      this.loadWillRequests()
     }
+    // reloadList () {
+    //   this.loadWillRequests()
+    // }
   }
 }
 </script>

@@ -24,6 +24,9 @@
             :label="'sign-up-form.email-lbl' | globalize"
             :disabled="formMixin.isDisabled"
             @blur="touchField('form.email')"
+            maxlength="128"
+            minlength="6"
+            required
           />
         </v-col>
         <v-col cols="12" md="12">
@@ -34,6 +37,9 @@
             :label="'sign-up-form.password-lbl' | globalize"
             :disabled="formMixin.isDisabled"
             @blur="touchField('form.password')"
+            maxlength="128"
+            minlength="6"
+            required
           />
         </v-col>
         <v-col cols="12" md="12">
@@ -44,6 +50,9 @@
             :label="'sign-up-form.repeat-password-lbl' | globalize"
             :disabled="formMixin.isDisabled"
             @blur="touchField('form.repeatPassword')"
+            maxlength="128"
+            minlength="6"
+            required
           />
         </v-col>
         <v-col cols="12" md="12">
@@ -120,6 +129,15 @@ export default {
         Bus.error('sign-up-form.error-submit')
       }
       this.enableForm()
+    },
+    isFormValid () {
+      const regEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+      const result = regEmail.test(this.form.email) && this.form.password.length >= 6 && this.form.repeatPassword.length >= 6 && this.form.password === this.form.repeatPassword
+
+      if (!result) Bus.error('sign-up-form.error-submit')
+
+      return result
     }
   }
 }

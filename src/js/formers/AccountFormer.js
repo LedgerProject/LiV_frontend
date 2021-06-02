@@ -11,9 +11,11 @@ export class AccountFormer extends Former {
       role: '',
       address: '',
       firstName: '',
-      middleName: '',
+      birthday: '',
+      secondName: '',
       lastName: '',
-      passportNumber: ''
+      nif: '',
+      did: ''
     }
   }
 
@@ -58,23 +60,27 @@ export class AccountFormer extends Former {
     this.attrs = this.attrs || this._defaultAttrs
 
     this.attrs.id = source.id
+    this.attrs.did = source.did
     this.attrs.email = source.email
     this.attrs.role = source.role
     this.attrs.address = source.address
     this.attrs.firstName = source.firstName
-    this.attrs.middleName = source.middleName
+    this.attrs.birthday = source.birthday
+    this.attrs.secondName = source.secondName
     this.attrs.lastName = source.lastName
-    this.attrs.passportNumber = source.passportNumber
+    this.attrs.nif = source.nif
   }
 
   _buildOpCreate () {
     const fd = new FormData()
     fd.append('email', this.attrs.email)
     fd.append('first_name', this.attrs.firstName)
-    fd.append('middle_name', this.attrs.middleName)
-    fd.append('last_name', this.attrs.middleName)
+    fd.append('second_name', this.attrs.secondName)
+    fd.append('last_name', this.attrs.lastName)
     fd.append('address', this.attrs.address)
-    fd.append('passport_number', this.attrs.passportNumber)
+    fd.append('birthday', this.attrs.birthday)
+    fd.append('nif', this.attrs.nif)
+    fd.append('did', this.attrs.did)
     return fd
   }
 
@@ -82,10 +88,12 @@ export class AccountFormer extends Former {
     const fd = new FormData()
     fd.append('email', this.attrs.email)
     fd.append('first_name', this.attrs.firstName)
-    fd.append('middle_name', this.attrs.middleName)
-    fd.append('last_name', this.attrs.middleName)
+    fd.append('second_name', this.attrs.secondName)
+    fd.append('last_name', this.attrs.lastName)
     fd.append('address', this.attrs.address)
-    fd.append('passport_number', this.attrs.passportNumber)
+    fd.append('birthday', this.attrs.birthday)
+    fd.append('nif', this.attrs.nif)
+    fd.append('did', this.attrs.did)
     return fd
   }
 }

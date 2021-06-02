@@ -34,9 +34,9 @@
           md="4"
         >
           <v-text-field
-            v-model="form.middleName"
-            @change="former.setAttr('middleName', form.middleName)"
-            label="Middle Name"
+            v-model="form.secondName"
+            @change="former.setAttr('secondName', form.secondName)"
+            label="Second Name"
             class="purple-input"
           />
         </v-col>
@@ -59,6 +59,7 @@
             @change="former.setAttr('address', form.address)"
             label="Address"
             class="purple-input"
+            maxlength="256"
           />
         </v-col>
 
@@ -67,9 +68,20 @@
           md="4"
         >
           <v-text-field
-            v-model="form.passportNumber"
-            @change="former.setAttr('passportNumber', form.passportNumber)"
+            v-model="form.nif"
+            @change="former.setAttr('nif', form.nif)"
             label="Passport Number"
+            class="purple-input"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="form.birthday"
+            @change="former.setAttr('birthday', form.birthday)"
+            label="Birthday (dd/mm/yyyy)"
             class="purple-input"
           />
         </v-col>
@@ -118,9 +130,11 @@ export default {
         email: this.former.attrs.email,
         address: this.former.attrs.address,
         firstName: this.former.attrs.firstName,
-        middleName: this.former.attrs.middleName,
+        birthday: this.former.attrs.birthday,
+        secondName: this.former.attrs.secondName,
         lastName: this.former.attrs.lastName,
-        passportNumber: this.former.attrs.passportNumber
+        nif: this.former.attrs.nif,
+        did: this.former.attrs.did
       }
     }
   },
@@ -129,9 +143,10 @@ export default {
       email: { required },
       address: { required },
       firstName: { required },
-      middleName: { required },
+      secondName: { required },
+      birthday: { required },
       lastName: { required },
-      passportNumber: { required }
+      nif: { required }
     }
   },
   methods: {
@@ -149,6 +164,24 @@ export default {
         Bus.error('account-form.submit-error')
       }
       this.enableForm()
+    },
+    isFormValid () {
+      const regSimpleString = /[a-zA-Z0-9]$/
+      const regAddress = /[a-zA-Z0-9.,\s]$/
+      const regBirthday = /^((0?[1-9]|1[012])[/](0?[1-9]|[12][0-9]|3[01])[/](19|20)?[0-9]{2})*$/
+
+      const result = regAddress.test(this.form.address) &&
+        regSimpleString.test(this.form.nif) &&
+        regBirthday.test(this.form.birthday) &&
+        regSimpleString.test(this.form.lastName) &&
+        regSimpleString.test(this.form.secondName) &&
+        regSimpleString.test(this.form.firstName)
+
+      if (!result) {
+        Bus.error('account-form.invalid-char')
+      }
+
+      return result
     }
   }
 }

@@ -17,7 +17,7 @@
   },
   "validation": {
     "failed": "Please fill out all the fields before continuing",
-    "field-error": "Invalid field",
+    "field-error": "Entered value is incorrect",
     "field-error_email": "This field should be a valid email",
     "field-error_seed": "This field should be a valid secret seed",
     "field-error_required": "Please fill out this field",
@@ -58,10 +58,13 @@
     "password-lbl": "Password",
     "repeat-password-lbl": "Repeat Password",
     "user-role-lbl": "User Role",
-    "submit-btn": "Sign Up"
+    "submit-btn": "Sign Up",
+    "error-submit": "Error"
   },
   "sign-in-form": {
-    "error-on-sign-in": "Error while trying sign in! please try again!",
+    "auth-error": "The email or password is incorrect",
+    "server-error": "The email or password is incorrect",
+    "undefined-error": "Error while trying sign in! please try again!",
     "submit-btn": "Sign In",
     "login-lbl": "Login",
     "password-lbl": "Password"
@@ -69,7 +72,8 @@
   "account-form": {
     "loading-error-msg": "Error while loading, please try reload page",
     "submit-success": "User KYC update success",
-    "submit-error": "Error on submit, please try again"
+    "submit-error": "Error on submit, please try again",
+    "invalid-char": "invalid characters in filled fields"
   },
   "sign-up": {
     "title": "LIV",
@@ -87,7 +91,7 @@
   "will-requests-list": {
     "loading-error": "Error while loading, please try reload page.",
     "no-data-message": "Empty will requests",
-    "create-will-request-btn": "Create",
+    "create-will-request-btn": "Notarize",
     "select-status-lbl": "Status",
     "select-owner-lbl": "Creator / Recipient",
     "for-me-opt": "Will Requests for me",
@@ -135,11 +139,15 @@
     "error-sending": "Something went wrong, please try again",
     "email-lbl": "Email",
     "document-lbl": "Document",
-    "submit-btn": "Create",
+    "submit-btn": "Submit",
     "created-success-msg": "Created Success!"
   },
   "create-will-request": {
     "loading-error": "Error while loading, please try reload page.",
     "title": "Create Will Request"
-  }
+  },
+  "app": {
+    "init-app-error-msg": "Error"
+  },
+  "add-info" : "You should add info to every field in profile"
 }
