@@ -137,7 +137,13 @@
     "email-lbl": "Email",
     "document-lbl": "Document",
     "submit-btn": "Create",
-    "created-success-msg": "Created Success!"
+    "created-success-msg": "Created Success!",
+    "will-blueprint": "Will blueprint",
+    "recipients" : "Recipients",
+    "knowledge-test" : "Knowledge Test",
+    "pass-test" : "Pass Test",
+    "add-another-rec" : "Add another recipient",
+    "enter-answer" : "Enter answer"
   },
   "create-will-request": {
     "loading-error": "Error while loading, please try reload page.",
