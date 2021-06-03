@@ -67,7 +67,7 @@
               type="submit"
               :disabled="formMixin.isDisabled"
             >
-              {{ 'will-request-form.submit-btn' | globalize }}
+              {{ 'will-request-form.create-btn' | globalize }}
             </v-btn>
             <v-progress-circular
               v-if="formMixin.isDisabled"

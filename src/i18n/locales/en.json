@@ -16,7 +16,7 @@
   },
   "validation": {
     "failed": "Please fill out all the fields before continuing",
-    "field-error": "Invalid field",
+    "field-error": "Entered value is incorrect",
     "field-error_email": "This field should be a valid email",
     "field-error_seed": "This field should be a valid secret seed",
     "field-error_required": "Please fill out this field",
@@ -61,7 +61,9 @@
     "error-submit": "Error"
   },
   "sign-in-form": {
-    "error-on-sign-in": "Error while trying sign in! please try again!",
+    "auth-error": "The email or password is incorrect",
+    "server-error": "The email or password is incorrect",
+    "undefined-error": "Error while trying sign in! please try again!",
     "submit-btn": "Sign In",
     "login-lbl": "Login",
     "password-lbl": "Password"
@@ -88,7 +90,7 @@
   "will-requests-list": {
     "loading-error": "Error while loading, please try reload page.",
     "no-data-message": "Empty will requests",
-    "create-will-request-btn": "Create",
+    "create-will-request-btn": "Notarize",
     "select-status-lbl": "Status",
     "select-owner-lbl": "Creator / Recipient",
     "for-me-opt": "Will Requests for me",
@@ -136,14 +138,15 @@
     "error-sending": "Something went wrong, please try again",
     "email-lbl": "Email",
     "document-lbl": "Document",
-    "submit-btn": "Create",
-    "created-success-msg": "Created Success!",
+    "create-btn": "Create",
     "will-blueprint": "Will blueprint",
     "recipients" : "Recipients",
     "knowledge-test" : "Knowledge Test",
     "pass-test" : "Pass Test",
     "add-another-rec" : "Add another recipient",
-    "enter-answer" : "Enter answer"
+    "enter-answer" : "Enter answer",
+    "submit-btn": "Submit",
+    "created-success-msg": "Created Success!"
   },
   "create-will-request": {
     "loading-error": "Error while loading, please try reload page.",
