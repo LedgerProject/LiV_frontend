@@ -1,5 +1,5 @@
-import Axios from 'axios'
+import axios from 'axios'
 
-export const api = Axios.create({
-  baseURL: 'https://platform.livpoc.com:8081'
+export const api = axios.create({
+  baseURL: 'https://platform.livpoc.com:8081',
 })

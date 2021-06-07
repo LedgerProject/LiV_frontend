@@ -1,191 +1,100 @@
 <template>
-  <v-container fluid>
-    <material-card>
-      <template v-slot:heading>
-        <v-row
-          class="align-center"
-        >
-          <h1 v-if="!(isAccountGeneral && isKycExist)">{{$t('add-info')}}</h1>
-          <!-- <v-select
-            v-model="filters.status"
-            class="will-requests-list__select-status"
-            :label="'will-requests-list.select-status-lbl' | globalize"
-            :items="WILL_REQUEST_STATUSES_SELECT"
-            @change="reloadList"
-          />
-          <template v-if="isAccountGeneral">
-            <v-select
-              v-model="filters.recipientId"
-              class="will-requests-list__select-owner mx-5"
-              :label="'will-requests-list.select-owner-lbl' | globalize"
-              :items="OWNER_SELECT"
-              @change="reloadList"
-            />
-          </template> -->
-          <v-btn
-            v-if="isAccountGeneral"
-            class="ml-auto"
-            color="info"
-            :to="vueRoutes.createWillRequest"
-          >
-            {{ 'will-requests-list.create-will-request-btn' | globalize }}
-          </v-btn>
-        </v-row>
+  <div class="app__page-content will-requests-list">
+    <template v-if="isLoading">
+      <loader
+        :message="$t('loading-message')"
+        position-center
+      />
+    </template>
+    <template v-else>
+      <template v-if="isLoadFailed">
+        <loading-error-message />
       </template>
-      <v-card-text>
-        <v-row class="will-requests-list">
-          <v-col cols="12" lg="12">
-            <template v-if="isLoaded">
-              <template v-if="isLoadFalse">
-                <v-alert
-                  border="right"
-                  colored-border
-                  type="error"
-                  elevation="2"
-                >
-                  {{ 'will-requests-list.loading-error' | globalize }}
-                </v-alert>
-              </template>
-              <template v-else-if="willRequests.length">
-                <will-requests-table
-                  :will-requests="willRequests"
-                  @submitted="loadWillRequests"
-                />
-              </template>
-              <template v-else>
-                <v-alert
-                  border="right"
-                  colored-border
-                  type="info"
-                  elevation="2"
-                >
-                  {{ 'will-requests-list.no-data-message' | globalize }}
-                </v-alert>
-              </template>
-            </template>
-            <template v-else>
-              <v-progress-linear indeterminate/>
-            </template>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </material-card>
-  </v-container>
+      <template v-else>
+        <template v-if="willRequests.length">
+          <will-requests-table
+            :will-requests="willRequests"
+            @submit="loadWillRequestsList"
+          />
+        </template>
+        <template v-else>
+          <no-data-message
+            :title="$t('no-data-title')"
+            :message="$t('no-data-message')"
+            center
+          />
+        </template>
+      </template>
+    </template>
+  </div>
 </template>
 
 <script>
-import MaterialCard from '@/vue/common/base/MaterialCard'
-import WillRequestsTable from '@/vue/pages/willRequests/WillRequestsTable'
-import { WillRequestRecord } from '@/js/records/will-request.record'
-// import { globalize } from '@/vue/filters/globalize'
-// import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
-import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
-import { vueRoutes } from '@/vue-router/routes'
-import { mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-import { Bus } from '@/js/helpers/event-bus'
+import Loader from '@/vue/common/Loader'
+import LoadingErrorMessage from '@/vue/common/LoadingErrorMessage'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import WillRequestsTable from '@/vue/pages/WillRequests/WillRequestsTable'
+
 import { api } from '@/api'
+import { ref, computed } from 'vue'
+import { Bus } from '@/js/helpers/event-bus'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { WillRequestRecord } from '@/js/records/will-request.record'
+import { useStore } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'will-requests-list',
-  components: { MaterialCard, WillRequestsTable },
-  data () {
-    return {
-      isLoaded: false,
-      isLoadFalse: false,
-      willRequests: [],
-      filters: {
-        status: WILL_REQUEST_STATUSES.submitted,
-        recipientId: 0
-      },
-      vueRoutes,
-      WILL_REQUEST_STATUSES
-    }
-  },
-  computed: {
-    ...mapGetters([
-      vuexTypes.account,
-      vuexTypes.isAccountGeneral,
-      vuexTypes.isAccountNotary,
-      vuexTypes.isAccountRegistry,
-      vuexTypes.isKycExist
-    ])
-    // WILL_REQUEST_STATUSES_SELECT () {
-    //   const statusesForGeneralUsers = [
-    //     WILL_REQUEST_STATUSES.submitted,
-    //     WILL_REQUEST_STATUSES.rejected,
-    //     WILL_REQUEST_STATUSES.approved,
-    //     WILL_REQUEST_STATUSES.notified,
-    //     WILL_REQUEST_STATUSES.released
-    //   ]
-    //   const statusesForNotaryUsers = [
-    //     WILL_REQUEST_STATUSES.submitted,
-    //     WILL_REQUEST_STATUSES.notified,
-    //     WILL_REQUEST_STATUSES.released
-    //   ]
-    //   const statusesForRegistryUsers = [
-    //     WILL_REQUEST_STATUSES.approved,
-    //     WILL_REQUEST_STATUSES.notified
-    //   ]
-    //   return (this.isAccountGeneral
-    //     ? statusesForGeneralUsers
-    //     : this.isAccountNotary
-    //       ? statusesForNotaryUsers
-    //       : statusesForRegistryUsers)
-    //     .map(status => ({
-    //       text: globalizeWillRequestStatus(status),
-    //       value: status
-    //     }))
-    // },
-    // OWNER_SELECT () {
-    //   return [
-    //     {
-    //       text: globalize('will-requests-list.from-me-opt'),
-    //       value: 0
-    //     },
-    //     {
-    //       text: globalize('will-requests-list.for-me-opt'),
-    //       value: this.account.id
-    //     }
-    //   ]
-    // }
-  },
-  async created () {
-    this.filters.status = this.isAccountRegistry
-      ? WILL_REQUEST_STATUSES.approved
-      : WILL_REQUEST_STATUSES.submitted
-    await this.loadWillRequests()
-  },
-  methods: {
-    async loadWillRequests () {
-      this.isLoaded = false
-      this.isLoadFalse = false
+
+  components: { Loader, LoadingErrorMessage, NoDataMessage, WillRequestsTable },
+
+  setup () {
+    const store = useStore()
+    const accountId = computed(() => store.getters[vuexTypes.accountId])
+    const isLoading = ref(false)
+    const isLoadFailed = ref(false)
+    const willRequests = ref([])
+
+    Bus.on(Bus.eventList.createWillRequest, () => loadWillRequestsList())
+
+    const loadWillRequestsList = async () => {
+      isLoading.value = true
+      isLoadFailed.value = false
       try {
         const { data } = await api.get('/will-requests/', {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          params: { ownerId: accountId.value },
         })
-        this.willRequests = data.map(el => new WillRequestRecord(el))
-      } catch (error) {
-        Bus.error('will-requests-list.loading-error')
-        this.isLoadFalse = true
+        willRequests.value = data
+        // TODO: remove filter (temporary handler for null items)
+          .filter(i => i)
+          .map(el => new WillRequestRecord(el))
+      } catch (e) {
+        isLoadFailed.value = true
+        ErrorHandler.process(e)
       }
-      this.isLoaded = true
+      isLoading.value = false
     }
-    // reloadList () {
-    //   this.loadWillRequests()
-    // }
-  }
+
+    loadWillRequestsList()
+
+    return {
+      isLoading,
+      isLoadFailed,
+      willRequests,
+      loadWillRequestsList,
+    }
+  },
+
 }
 </script>
 
-<style lang="scss" scoped>
-.will-requests-list {
-
-  &__select-status {
-    max-width: 15rem;
-  }
-
-  &__select-owner {
-    max-width: 15rem;
+<i18n>
+{
+  "en": {
+    "loading-message": "Loading will requests list...",
+    "no-data-title": "Nothing there...",
+    "no-data-message": "There is no will requests"
   }
 }
-</style>
+</i18n>

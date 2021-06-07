@@ -1,14 +1,40 @@
-# Change Log
+# Changelog
+All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
+for further information about branching and tagging conventions.
+
+## [0.1.0] - 2021-06-07
 #### Added
-- Vuex
+- Validators
+- Input field
+- "Use-hooks" for form validation
+- Sign in page
+- Lodash
+- `AppButton` component
+- `StatusMessage` component
+- `AppSidebar` component
+- `AppFooter` component
+- `AppHeader` component
+- `Logo` component
+- `Modal` component
+- `Dropdown` component
+- Profile page and kyc form
+- Will Requests list page
+- Will Requests form
+- `FileField` component
+- Build version displaying
+- Will request details page
+#### Fixed
+- Restoring store from localStorage
 
-#### Changed
-- Structure
+## [0.1.0-rc.1] - 2021-05-28
+#### Initial project release
+- Initiated project with vue cli
 
-## [2.1.0] 2020-02-29
-- refactor: all the product was changed and now it's the same version with PRO version and also the structure it's the same 
-
-## [1.0.0] 2018-10-16
-### Initial Release
+[Unreleased]: https://gitlab.com/napalmpapalam/web-client-liv/compare/0.1.0...main
+[0.1.0]: https://gitlab.com/napalmpapalam/web-client-liv/compare/0.1.0-rc.1...0.1.0
+[0.1.0-rc.1]: https://gitlab.com/napalmpapalam/web-client-liv/tags/0.1.0-rc.1

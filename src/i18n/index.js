@@ -1,19 +1,28 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 
-import en from 'vuetify/lib/locale/en'
+const STORAGE_KEY = 'locale'
+const DEFAULT_LOCALE = 'en'
 
-Vue.use(VueI18n)
+const locale = localStorage && localStorage.getItem(STORAGE_KEY)
+  ? localStorage.getItem(STORAGE_KEY)
+  : DEFAULT_LOCALE
 
-const messages = {
-  en: {
-    ...require('@/i18n/locales/en.json'),
-    $vuetify: en
-  }
+const i18n = createI18n({
+  locale,
+  fallbackLocale: locale,
+  silentFallbackWarn: true,
+  messages: {
+    ...require('./resources.js').default,
+  },
+})
+
+// Hot module replacement
+if (module.hot) {
+  module.hot.accept(['./resources.js'], function () {
+    const resources = require('./resources.js').default
+
+    i18n.setLocaleMessage('en', resources.en)
+  })
 }
 
-export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || 'en',
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-  messages
-})
+export { i18n }

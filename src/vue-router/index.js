@@ -1,77 +1,94 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import AppContent from '@/AppContent'
+import Auth from '@/vue/pages/Auth'
+import Login from '@/vue/pages/Login'
+import Profile from '@/vue/pages/Profile'
+import WillRequests from '@/vue/pages/WillRequests/WillRequests'
+import WillRequestsList from '@/vue/pages/WillRequests/WillRequestsList'
+import WillRequestsDetails from '@/vue/pages/WillRequests/WillRequestsDetails'
+
+import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 import { store, vuexTypes } from '@/vuex'
 
-Vue.use(Router)
+import NProgress from 'nprogress'
 
-export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '*',
-      name: vueRoutes.app.name,
-      redirect: vueRoutes.signIn,
-      component: () => import('@/vue/navigation/View'),
-      children: [
-        {
-          path: '/sign-in',
-          name: vueRoutes.signIn.name,
-          component: () => import('@/vue/pages/SignIn'),
-          beforeEnter: authPageGuard
-        },
-        {
-          path: '/sign-up',
-          name: vueRoutes.signUp.name,
-          component: () => import('@/vue/pages/SignUp'),
-          beforeEnter: authPageGuard
-        },
-        {
-          name: vueRoutes.profile.name,
-          path: '/profile',
-          component: () => import('@/vue/pages/UserProfile'),
-          beforeEnter: inAppRouteGuard
-        },
-        {
-          path: '/will-requests',
-          name: vueRoutes.willRequests.name,
-          component: () => import('@/vue/pages/WillRequests'),
-          redirect: vueRoutes.willRequestsList,
-          children: [
-            {
-              path: '/will-requests/list',
-              name: vueRoutes.willRequestsList.name,
-              component: () => import('@/vue/pages/willRequests/WillRequestsList'),
-              beforeEnter: inAppRouteGuard
-            },
-            {
-              path: '/will-requests/create',
-              name: vueRoutes.createWillRequest.name,
-              component: () => import('@/vue/pages/willRequests/CreateWillRequest'),
-              beforeEnter: inAppRouteGuard,
-              props: true
-            },
-            {
-              path: '/will-requests/:id',
-              name: vueRoutes.willRequestDetails.name,
-              component: () => import('@/vue/pages/willRequests/WillRequestDetails'),
-              props: true,
-              beforeEnter: inAppRouteGuard
-            }
-          ]
-        }
-      ]
-    }
-  ]
+const routes = [
+  {
+    path: '/:catchAll(.*)',
+    redirect: vueRoutes.app,
+  },
+  {
+    path: '/auth',
+    name: vueRoutes.auth.name,
+    component: Auth,
+    redirect: vueRoutes.login,
+    children: [
+      {
+        path: '/sign-in',
+        name: vueRoutes.login.name,
+        component: Login,
+        beforeEnter: authPageGuard,
+      },
+    ],
+  },
+  {
+    path: '/',
+    name: vueRoutes.app.name,
+    meta: { isNavigationRendered: true },
+    redirect: vueRoutes.willRequests,
+    component: AppContent,
+    beforeEnter: inAppRouteGuard,
+    children: [
+      {
+        path: '/will-requests',
+        name: vueRoutes.willRequests.name,
+        component: WillRequests,
+        redirect: vueRoutes.willRequestsList,
+        beforeEnter: inAppRouteGuard,
+        children: [
+          {
+            path: '/will-requests/list',
+            name: vueRoutes.willRequestsList.name,
+            component: WillRequestsList,
+            beforeEnter: inAppRouteGuard,
+          },
+          {
+            path: '/will-requests/:id',
+            name: vueRoutes.willRequestsDetails.name,
+            component: WillRequestsDetails,
+            beforeEnter: inAppRouteGuard,
+            props: true,
+          },
+        ],
+      },
+      {
+        path: '/profile',
+        name: vueRoutes.profile.name,
+        beforeEnter: inAppRouteGuard,
+        component: Profile,
+      },
+    ],
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+  scrollBehavior: _ => ({ x: 0, y: 0 }),
 })
+
+router.beforeEach(async (to, from, next) => {
+  if (to.name !== from.name) NProgress.start()
+  next()
+})
+
+NProgress.configure({ showSpinner: false })
+
+router.afterEach((to, from) => { NProgress.done() })
 
 function authPageGuard (to, from, next) {
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
-  if (isLoggedIn) {
-    next(vueRoutes.willRequests)
-  } else {
-    next()
-  }
+  isLoggedIn ? next(vueRoutes.app) : next()
 }
 
 function inAppRouteGuard (to, from, next) {
@@ -79,6 +96,8 @@ function inAppRouteGuard (to, from, next) {
   if (isLoggedIn) {
     next()
   } else {
-    next(vueRoutes.signIn)
+    next(vueRoutes.login)
   }
 }
+
+export default router

@@ -1,18 +1,39 @@
-import _get from 'lodash/get'
-import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+import { WILL_REQUEST_STATES } from '@/js/const/will-request-states.const'
 import { AccountRecord } from '@/js/records/account.record'
 
 export class WillRequestRecord {
   constructor (record) {
     this._record = record
 
-    this.id = _get(record, 'id', '')
-    this.documentHash = _get(record, 'documentHash', '')
-    this.documentLink = _get(record, 'documentLink', '')
-    const creator = _get(record, 'creator', '')
-    this.creator = new AccountRecord(creator)
-    const recipient = _get(record, 'recipient', '')
-    this.recipient = new AccountRecord(recipient)
-    this.statusId = _get(record, 'statusId', WILL_REQUEST_STATUSES.submitted)
+    this.id = record?.id || ''
+    this.documentHash = record?.documentHash || ''
+    this.documentLink = record?.documentLink || ''
+    this.statusId = record?.statusId || WILL_REQUEST_STATES.submitted
+
+    this.creator = record?.creator
+      ? new AccountRecord(record.creator)
+      : new AccountRecord({})
+
+    this.recipients = record?.recipient
+      ? record.recipient.map(i => new AccountRecord(i))
+      : []
+  }
+
+  get isStatusSubmitted () {
+    return +this.statusId === WILL_REQUEST_STATES.submitted
+  }
+
+  get isStatusNotified () {
+    return +this.statusId === WILL_REQUEST_STATES.notified
+  }
+
+  get isStatusApproved () {
+    return +this.statusId === WILL_REQUEST_STATES.approved
+  }
+
+  get isManageable () {
+    return this.isStatusSubmitted ||
+      this.isStatusNotified ||
+      this.isStatusApproved
   }
 }

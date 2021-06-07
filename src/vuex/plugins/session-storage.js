@@ -20,7 +20,7 @@ export const sessionStoragePlugin = (store) => {
         store.replaceState({
           ...state,
           account: savedStore.account,
-          auth: savedStore.auth
+          auth: savedStore.auth,
         })
         break
       }
@@ -36,9 +36,9 @@ function setLocalStorage (state) {
     CONFIG.STORAGE_KEY,
     JSON.stringify({
       account: {
-        ...state.account
+        ...state.account,
       },
-      auth: state.auth
-    })
+      auth: state.auth,
+    }),
   )
 }

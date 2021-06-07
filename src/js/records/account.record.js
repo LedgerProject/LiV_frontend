@@ -1,33 +1,33 @@
-import _get from 'lodash/get'
-import _isEmpty from 'lodash/isEmpty'
 import { USER_ROLES } from '@/js/const/user-roles.const'
 
 export class AccountRecord {
   constructor (record) {
     this._record = record
 
-    this.id = _get(record, 'id', '')
-    this.did = _get(record, 'did', '')
-    this.email = _get(record, 'email', '')
-    this.role = _get(record, 'role', USER_ROLES.general)
-    this.address = _get(record, 'address')
-    this.firstName = _get(record, 'firstName')
-    this.birthday = _get(record, 'birthday')
-    this.secondName = _get(record, 'secondName')
-    this.lastName = _get(record, 'lastName')
-    this.nif = _get(record, 'nif')
+    this.id = record?.id || ''
+    this.email = record?.email || ''
+    this.role = record?.role || USER_ROLES.general
+    this.address = record?.address || ''
+    this.firstName = record?.firstName || ''
+    this.secondName = record?.secondName || ''
+    this.lastName = record?.lastName || ''
+    this.passportId = record?.nif || ''
+    this.birthday = record?.birthday || ''
   }
 
   get fullName () {
-    return `${this.firstName} ${this.secondName} ${this.lastName}`
+    return this.firstName && this.secondName && this.lastName
+      ? `${this.firstName} ${this.secondName} ${this.lastName}`
+      : this.email
   }
 
   get isKycExist () {
-    return !_isEmpty(this.address) &&
-      !_isEmpty(this.firstName) &&
-      !_isEmpty(this.secondName) &&
-      !_isEmpty(this.birthday) &&
-      !_isEmpty(this.lastName) &&
-      !_isEmpty(this.nif)
+    return Boolean(
+      this.address &&
+      this.firstName &&
+      this.secondName &&
+      this.lastName &&
+      this.passportId,
+    )
   }
 }

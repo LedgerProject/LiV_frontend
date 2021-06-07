@@ -1,70 +1,67 @@
-// =========================================================
-// * Vuetify Material Dashboard - v2.1.0
-// =========================================================
-//
-// * Product Page: https://www.creative-tim.com/product/vuetify-material-dashboard
-// * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-//
-// * Coded by Creative Tim
-//
-// =========================================================
-//
-// eslint-disable-next-line max-len
-// * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+import '@/scss/app.scss'
 
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib/framework'
-import Vuelidate from 'vuelidate'
-import i18n from '@/i18n'
-import App from '@/vue/App.vue'
+import App from '@/App.vue'
 import router from '@/vue-router'
-import { buildStore } from './vuex'
 
-import { globalize } from '@/vue/filters/globalize'
-import { globalizeUserRole } from '@/vue/filters/globalizeUserRole'
-import { globalizeWillRequestStatus } from '@/vue/filters/globalizeWillRequestStatus'
+import AppButton from '@/vue/common/AppButton'
 
-Vue.use(Vuelidate)
-Vue.use(Vuetify)
+import { store } from '@/vuex'
+import { vueRoutes } from '@/vue-router/routes'
+import { CONFIG } from '@/config'
+import { i18n } from '@/i18n'
+import { ripple, clickOutside } from '@/vue/directives'
+import { createApp, h, getCurrentInstance } from 'vue'
+import {
+  useFormatDate,
+  useGlobalizeUserRole,
+  useGlobalizeWillRequestStatus,
+} from '@/vue/composables'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 
-Vue.filter('globalize', globalize)
-Vue.filter('globalizeUserRole', globalizeUserRole)
-Vue.filter('globalizeWillRequestStatus', globalizeWillRequestStatus)
+import Maska from 'maska'
 
-// Vue.config.productionTip = false
-const vuetify = new Vuetify({
-  theme: {
-    themes: {
-      light: {
-        primary: '#FF005A',
-        secondary: '#424242',
-        accent: '#82B1FF',
-        error: '#FF5252',
-        info: '#2196F3',
-        success: '#4CAF50',
-        warning: '#FFC107'
-      },
-      dark: {
-        primary: '#FFC107',
-        secondary: '#424242',
-        accent: '#82B1FF',
-        error: '#FF5252',
-        info: '#2196F3',
-        success: '#4CAF50',
-        warning: '#1976D2'
-      }
-    }
+const app = createApp({
+  setup () {
+    const app = getCurrentInstance()
+
+    const {
+      formatDate,
+      formatDateDMY,
+      formatDateDMYT,
+      formatCalendar,
+      formatCalendarInline,
+    } = useFormatDate()
+
+    const { globalizeUserRole } = useGlobalizeUserRole()
+    const { globalizeWillRequestStatus } = useGlobalizeWillRequestStatus()
+
+    /* eslint-disable max-len */
+    app.appContext.config.globalProperties.$fd = formatDate
+    app.appContext.config.globalProperties.$fddmy = formatDateDMY
+    app.appContext.config.globalProperties.$fddmyt = formatDateDMYT
+    app.appContext.config.globalProperties.$fcalend = formatCalendar
+    app.appContext.config.globalProperties.$fcalendi = formatCalendarInline
+    app.appContext.config.globalProperties.$globalizeUserRole = globalizeUserRole
+    app.appContext.config.globalProperties.$globalizeWillRequestStatus = globalizeWillRequestStatus
+    /* eslint-enable max-len */
   },
-  lang: {
-    t: (key, ...params) => i18n.t(key, params)
-  }
+  render: () => h(App),
 })
-const store = buildStore()
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  i18n,
-  render: h => h(App)
-}).$mount('#app')
+app
+  .use(store)
+  .use(router)
+  .use(i18n)
+  .use(Maska)
+
+app.config.globalProperties.$routes = vueRoutes
+app.config.globalProperties.$config = CONFIG
+
+app.directive('ripple', ripple)
+app.directive('click-outside', clickOutside)
+
+app.component('AppButton', AppButton)
+
+app.config.errorHandler = error => { ErrorHandler.process(error) }
+
+app.mount('#app')

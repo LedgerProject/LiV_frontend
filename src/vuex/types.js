@@ -8,12 +8,6 @@ const mutations = {
 
   // account
   SET_ACCOUNT: 'SET_ACCOUNT',
-
-  // kyc
-  SET_KYC: 'SET_KYC',
-
-  // sidebar
-  SET_SIDEBAR: 'SET_SIDEBAR'
 }
 
 const actions = {
@@ -27,9 +21,6 @@ const actions = {
   // account
   VERIFY_JWT: 'VERIFY_JWT',
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
-
-  // kyc
-  LOAD_KYC: 'LOAD_KYC'
 }
 
 const getters = {
@@ -41,17 +32,16 @@ const getters = {
 
   // account
   account: 'account',
+  accountId: 'accountId',
+  accountEmail: 'accountEmail',
+  isKycExist: 'isKycExist',
   isAccountGeneral: 'isAccountGeneral',
   isAccountNotary: 'isAccountNotary',
   isAccountRegistry: 'isAccountRegistry',
-
-  // account
-  kyc: 'kyc',
-  isKycExist: 'isKycExist'
 }
 
 export const vuexTypes = {
   ...mutations,
   ...actions,
-  ...getters
+  ...getters,
 }

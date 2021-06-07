@@ -1,8 +1,10 @@
-import Vue from 'vue'
+import mitt from 'mitt'
+import log from 'loglevel'
 
-export class EventBus extends Vue {
+const emitter = mitt()
+
+class EventBus {
   constructor () {
-    super()
     this._backlog = []
   }
 
@@ -14,8 +16,9 @@ export class EventBus extends Vue {
     for (const [index, event] of backloggedEvents.entries()) {
       handlerFn(event.payload)
       this._backlog.splice(index, 1)
+      log.debug(`Event ${eventName} is backlogged. Handling...`)
     }
-    this.$on(eventName, handlerFn)
+    emitter.on(eventName, handlerFn)
   }
 
   emit (eventName, payload) {
@@ -23,33 +26,23 @@ export class EventBus extends Vue {
       throw new Error(`EventBus.list has no ${eventName} event`)
     }
 
-    if (!this._events[eventName]) {
-      this._backlog.push({
-        name: eventName,
-        payload
-      })
-
-      return
-    }
-    this.$emit(eventName, payload)
+    emitter.emit(eventName, payload)
   }
 
-  reset () {
-    this.$off()
-    this._backlog = []
-  }
-
-  resetEvent (eventName) {
+  resetEvent (eventName, handlerFn) {
     if (!this.eventExists(eventName)) {
       throw new Error(`EventBus.list has no ${eventName} event`)
     }
-    this.$off(eventName)
+    emitter.off(eventName, handlerFn)
     this._backlog = []
   }
 
   success (payload) { this.emit(this.eventList.success, payload) }
+
   warning (payload) { this.emit(this.eventList.warning, payload) }
+
   error (payload) { this.emit(this.eventList.error, payload) }
+
   info (payload) { this.emit(this.eventList.info, payload) }
 
   get eventList () {
@@ -57,7 +50,8 @@ export class EventBus extends Vue {
       success: 'success',
       warning: 'warning',
       error: 'error',
-      info: 'info'
+      info: 'info',
+      createWillRequest: 'create-will-request',
     }
   }
 

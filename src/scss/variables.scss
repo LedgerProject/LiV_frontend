@@ -1,10 +1,214 @@
-// colors
-$_white: #f8f9fa;
+@import '@static/branding/app-colors';
 
-// sign-in
-$col-sign-in-info-backdrop: rgba(0, 0, 0, .5);
-$col-sign-in-info-txt: $_white;
+/* https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints */
+$x-large: 1920px;
+$large: 1440px;
+$x-medium: 1200px;
 
-// sign-up
-$col-sign-up-info-backdrop: rgba(0, 0, 0, .5);
-$col-sign-up-info-txt: $_white;
+$media-desktop: 1130px;
+
+$medium: 1024px;
+$media-small-desktop: 960px;
+$tablet: 820px;
+
+$sidebar-hide-bp: 1280px;
+
+$small: 600px;
+$x-small: 480px;
+
+$status-message-reposition-bp: 470px;
+
+$app-sidebar-width: 26rem;
+$app-header-height: 6.7rem;
+$app-footer-height: 5rem;
+
+$content-padding-top: 2rem;
+$content-padding-bottom: 5.9rem;
+$content-padding-left: 8rem;
+$content-padding-right: 7.3rem;
+$content-side-paddings-sm: 2rem;
+
+// z indexes
+$z-status-message: 210;
+$z-app-sidebar-burger: 10;
+$z-app-sidebar-backdrop: 115;
+$z-app-sidebar: 120;
+$z-modal: 160;
+$z-modal-backdrop: -1;
+$z-modal-pane: 165;
+$z-dropdown: 10;
+
+$_white: #ffffff;
+$_wildSand: #f5f5f5;
+$_blueHaze: #d2d6e5;
+$_zirkon: #f5f7ff;
+$_lightRed: #ff4d00;
+$_alto: #e0e0e0;
+$_black: #000000;
+$_yellowGreen: #3cab00;
+$_orangePeel: #ffa333;
+$_mercury: #e5e5e5;
+$_gallery : #eeeeee;
+$_whiteSmoke: #f5f6f9;
+$_lightPurple: #837fa1;
+$_grayishBlue: #252733;
+
+// status colors:
+$col-warning: $_orangePeel;
+$col-success: $_yellowGreen;
+$col-error: $_lightRed;
+$col-info: $_white;
+
+// status message colors:
+$col-status-msg-warning: $col-warning;
+$col-status-msg-success: $col-success;
+$col-status-msg-error: $col-error;
+$col-status-msg-info: $col-info;
+$col-status-msg-bg: var(--col-block-bg);
+$col-status-msg-text: $_white;
+$col-status-msg-text-dark: var(--col-text);
+$col-status-close-btn-hover: rgba(0, 0, 0, 0.1);
+
+// field variables
+$col-field-text: var(--col-field-txt);
+$col-field-icon: $col-field-text;
+$z-index-select-field-list: 5;
+$z-index-label: 2;
+$field-color-background: transparent;
+$field-color-text: $col-field-text;
+$field-color-text-disabled: var(--col-text-secondary);
+$field-carret-color: $col-field-text;
+$field-color-label: $col-field-text;
+$field-color-focused: var(--col-primary);
+$field-color-hover: var(--col-text-secondary);
+$field-color-unfocused: $_blueHaze;
+$field-color-disabled: $_zirkon;
+$field-color-error: $_lightRed;
+$field-border-radius: 0.6rem;
+$field-text-font-size: 1.4rem;
+$field-text-line-height: 2rem;
+$field-label-font-size: 1.2rem;
+$field-label-line-height: 1;
+$field-text-letter-spacing: 0.03rem;
+$field-error-font-size: 1.2rem;
+$field-error-line-height: 1.25;
+$field-transition-duration: 0.2s;
+$field-error-margin-top: 0.6rem;
+$field-input-padding-top: 1.5rem;
+$field-input-padding-bottom: 0.6rem;
+$field-input-padding: $field-input-padding-top 0 $field-input-padding-bottom 0;
+$field-label-color: $field-color-focused;
+$field-placeholder-color: var(--col-text-secondary);
+$file-field-background-color: rgba($_whiteSmoke, 0.8);
+$file-field-border-color: rgba($col-primary, 0.4);
+$file-field-note-color: rgba($col-primary, 0.6);
+$file-field-title-color: rgba($col-primary, 0.6);
+$file-field-drop-bg-color: $_white;
+$file-field-reset-btn-color: rgba($col-primary, 0.6);
+$file-field-reset-btn-hover-color: rgba($col-primary, 0.8);
+
+// loading error message
+$col-loading-error-message-text: rgba($col-error, 0.8);
+$col-loading-error-message-description: rgba($col-error, 0.7);
+$col-loading-error-message-icon-color: rgba($col-error, 0.4);
+
+// app button
+$col-app-button-primary-text: $_white;
+$col-app-button-primary-bg: $col-primary;
+$col-app-button-primary-disabled-bg: lighten($col-app-button-primary-bg, 40%);
+$col-app-button-primary-hover-bg: lighten($col-app-button-primary-bg, 10%);
+
+$col-app-button-secondary-text: rgba($_black, 0.87);
+$col-app-button-secondary-disabled: rgba($_black, 0.3);
+$col-app-button-secondary-bg: $_alto;
+$col-app-button-secondary-disabled-bg: lighten($col-app-button-secondary-bg, 8%);
+$col-app-button-secondary-hover-bg: darken($col-app-button-secondary-bg, 10%);
+
+// app sidebar
+$col-app-sidebar-background: var(--col-block-bg);
+$col-app-sidebar-border: 0.1rem solid $_alto;
+$col-app-sidebar-backdrop: rgba($_black, 0.46);
+$col-app-sidebar-backdrop-animation: cubic-bezier(0.4, 0, 0.2, 1);
+$col-app-sidebar-text: var(--col-text);
+$col-app-sidebar-active-elem-background: $_mercury;
+$col-app-sidebar-hover-elem-background: rgba($_mercury, 0.8);
+$col-app-sidebar-burger-button: $_wildSand;
+$col-app-sidebar-burger-icon-color: rgba($_black, 0.87);
+$col-app-sidebar-burger-button-shadow: 
+  0 0.2rem 0.1rem -0.1rem rgba($_black, 0.2),
+  0 0.1rem 0.1rem 0 rgba($_black, 0.14),
+  0 0.1rem 0.3rem 0 rgba($_black, 0.12);
+$col-app-sidebar-build-version: var(--col-text-secondary);
+
+// app footer
+$col-app-footer-border: 0.1rem solid $_alto;
+$col-app-footer-background: var(--col-block-bg);
+$col-app-footer-text: var(--col-text);
+
+// app header
+$col-app-header-border: 0.1rem solid $_alto;
+$col-app-header-background: var(--col-block-bg);
+$col-app-header-text: var(--col-text);
+$col-app-header-text-active: var(--col-primary);
+$col-app-header-account-btn-hover: $_gallery;
+$col-app-header-dropdown: var(--col-block-bg);
+$col-app-header-dropdown-shadow: var(--col-dropdown-shadow);
+
+// logo viewer
+$col-logo-viewer-background: $col-primary;
+$col-logo-viewer-text: $_white;
+
+// profile
+$col-profile-avatar-shadow: var(--col-block-shadow);
+$col-profile-subtitle-text: var(--col-text-secondary);
+$col-profile-viewer-shadow: var(--col-block-shadow);
+$col-profile-viewer: var(--col-block-bg);
+
+// loader
+$col-loader-text: var(--col-text);
+$col-loader-icon: var(--col-primary);
+
+// no data message colors:
+$col-no-data-message-text: var(--col-text);
+$col-no-data-message-icon-color: rgba(var(--col-secondary-rgb), 0.4);
+
+// modal
+$col-modal-backdrop-bg: rgba($_black, 0.6);
+$col-modal-btn-text: var(--col-primary);
+$col-modal-head-text: var(--col-primary);
+$col-modal-btn-color-hover-bg: rgba($col-primary, 0.2);
+$col-modal-btn-color-active: darken($col-primary, 10%);
+$col-modal-bg: var(--col-block-bg);
+$col-modal-head-bg: $col-modal-bg;
+$col-modal-head-text: $col-modal-head-text;
+
+// table
+$col-table-background: var(--col-block-bg);
+$col-table-border: $_alto;
+$col-table-cell-text: var(--col-text);
+$col-table-cell-text-inactive: $_lightPurple;
+$col-table-head-text: var(--col-primary);
+$col-table-row-selected: $_gallery;
+$col-table-row-disabled: $_alto;
+$col-table-shadow: 
+  0 0.3rem 0.1rem -0.2rem rgba($_black, 0.2),
+  0 0.2rem 0.2rem 0 rgba($_black, 0.14),
+  0 0.1rem 0.5rem 0 rgba($_black, 0.12);
+
+// dropdown
+$col-dropdown-bg: var(--col-block-bg);
+$col-dropdown-text: $_black;
+$col-dropdown-text-active: var(--col-primary);
+$col-dropdown-icon: var(--col-primary);
+$col-dropdown-button-hover: rgba($col-primary, 0.2);
+$col-dropdown-shadow: var(--col-dropdown-shadow);
+$col-dropdown-option: $_alto;
+$col-dropdown-option-active: $_gallery;
+
+// will request form
+$col-will-request-form-remove-btn-text: var(--col-primary);
+$col-will-request-form-remove-btn-color-hover-bg: rgba($col-primary, 0.2);
+$col-will-request-form-remove-btn-color-active: darken($col-primary, 10%);
+
+// will request details
+$col-will-request-details-page-title: var(--col-primary);

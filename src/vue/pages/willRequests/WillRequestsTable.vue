@@ -1,219 +1,206 @@
 <template>
-  <div class="will-requests-table">
-    <v-simple-table>
+  <div
+    class="will-requests-table app__table app__table--last-td-to-right"
+    :class="['app__table--clickable-rows app__table--with-shadow']"
+  >
+    <table>
       <thead>
-        <tr>
-          <th class="primary--text">
-            {{ 'will-requests-table.id-th' | globalize }}
-          </th>
-          <th class="primary--text">
-            {{ 'will-requests-table.creator-th' | globalize }}
-          </th>
-          <th class="primary--text">
-            {{ 'will-requests-table.recipient-th' | globalize }}
-          </th>
-          <th class="primary--text">
-            {{ 'will-requests-table.status-th' | globalize }}
-          </th>
-          <th
-            v-if="!isAccountGeneral"
-            class="text-right primary--text"
-          >
-            {{ 'will-requests-table.action-th' | globalize }}
-          </th>
-        </tr>
+        <th>
+          {{ $t('table-head-id') }}
+        </th>
+        <th>
+          {{ $t('table-head-creator') }}
+        </th>
+        <th>
+          {{ $t('table-head-recipient') }}
+        </th>
+        <th>
+          {{ $t('table-head-status') }}
+        </th>
+        <th v-if="isAccountNotary || isAccountRegistry">
+          {{ $t('table-head-action') }}
+        </th>
       </thead>
-
       <tbody>
         <router-link
           v-for="item in willRequests"
-          :key="item.id"
-          class="will-request-table"
           :to="{
-            ...vueRoutes.willRequestDetails,
-            params: {
-              id: item.id
-            }
+            ...$routes.willRequestsDetails,
+            params: { id: item.id }
           }"
-          tag="tr"
+          custom
+          v-slot="{ navigate }"
+          :key="item.id"
         >
-          <td>
-            {{ item.id }}
-          </td>
-          <td>
-            {{ item.creator.fullName || item.creator.email }}
-          </td>
-          <td>
-            {{ item.recipient.fullName || item.recipient.email }}
-          </td>
-          <td>
-            {{ item.statusId | globalizeWillRequestStatus }}
-          </td>
-          <td
-            v-if="!isAccountGeneral"
-            @click.stop
+          <tr
+            v-if="item.id"
+            role="link"
+            @click="navigate"
+            @keypress.enter="navigate"
           >
-            <v-menu left>
-              <template
-                v-slot:activator="{ on, attrs }"
+            <td>
+              {{ item.id }}
+            </td>
+            <td>
+              {{ item.creator.fullName }}
+            </td>
+            <td>
+              <p
+                v-for="recipient in item.recipients"
+                class="will-requests-table__recipient"
+                :key="recipient.id"
               >
-                <v-btn
-                  class="float-right"
-                  icon
-                  outlined
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <template
-                  v-if="isAccountNotary"
-                >
-                  <template v-if="+item.statusId === WILL_REQUEST_STATUSES.submitted">
-                    <v-list-item>
-                      <v-list-item-title>
-                        <v-btn
-                          text
-                          @click="approveWillRequest(item.id)"
-                        >
-                          {{ 'will-requests-table.approve-btn' | globalize }}
-                        </v-btn>
-                      </v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                      <v-list-item-title>
-                        <v-btn
-                          text
-                          @click="rejectWillRequest(item.id)"
-                        >
-                          {{ 'will-requests-table.reject-btn' | globalize }}
-                        </v-btn>
-                      </v-list-item-title>
-                    </v-list-item>
+                {{ recipient.fullName }}
+              </p>
+            </td>
+            <td>
+              {{ $globalizeWillRequestStatus(item.statusId) }}
+            </td>
+            <td
+              v-if="isAccountNotary || isAccountRegistry"
+              class="will-request-table__dropdown-td"
+            >
+              <dropdown :disabled="isActionsDisabled(item)">
+                <template v-if="isAccountNotary">
+                  <template v-if="item.isStatusSubmitted">
+                    <button
+                      type="button"
+                      :title="$t('approve-btn')"
+                      :aria-label="$t('approve-btn')"
+                      @click.prevent="submitRequest(
+                        item.id, WILL_REQUEST_OPERATIONS.approve
+                      )"
+                    >
+                      {{ $t('approve-btn') }}
+                      <i class="mdi mdi-check" />
+                    </button>
+                    <button
+                      type="button"
+                      :title="$t('reject-btn')"
+                      :aria-label="$t('reject-btn')"
+                      @click.prevent="submitRequest(
+                        item.id, WILL_REQUEST_OPERATIONS.reject
+                      )"
+                    >
+                      {{ $t('reject-btn') }}
+                      <i class="mdi mdi-close" />
+                    </button>
                   </template>
-                  <template v-else-if="+item.statusId === WILL_REQUEST_STATUSES.notified">
-                    <v-list-item>
-                      <v-list-item-title>
-                        <v-btn
-                          text
-                          @click="releaseWillRequest(item.id)"
-                        >
-                          {{ 'will-requests-table.release-btn' | globalize }}
-                        </v-btn>
-                      </v-list-item-title>
-                    </v-list-item>
-                  </template>
+                  <button
+                    v-else-if="item.isStatusNotified"
+                    type="button"
+                    :title="$t('release-btn')"
+                    :aria-label="$t('release-btn')"
+                    @click.prevent="submitRequest(
+                      item.id, WILL_REQUEST_OPERATIONS.release
+                    )"
+                  >
+                    {{ $t('release-btn') }}
+                    <i class="mdi mdi-email-send-outline" />
+                  </button>
                 </template>
-                <template v-if="isAccountRegistry && +item.statusId === WILL_REQUEST_STATUSES.approved">
-                  <v-list-item>
-                    <v-list-item-title>
-                      <v-btn
-                        text
-                        @click="notifyWillRequest(item.id)"
-                      >
-                        {{ 'will-requests-table.notify-btn' | globalize }}
-                      </v-btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                </template>
-              </v-list>
-            </v-menu>
-          </td>
+                <button
+                  v-if="item.isStatusApproved && isAccountRegistry"
+                  type="button"
+                  :title="$t('notify-btn')"
+                  :aria-label="$t('notify-btn')"
+                  @click.prevent="submitRequest(
+                    item.id, WILL_REQUEST_OPERATIONS.notify
+                  )"
+                >
+                  {{ $t('notify-btn') }}
+                  <i class="mdi mdi-shield-check-outline" />
+                </button>
+              </dropdown>
+            </td>
+          </tr>
         </router-link>
       </tbody>
-    </v-simple-table>
+    </table>
   </div>
 </template>
 
 <script>
-import FormMixin from '@/vue/mixins/form.mixin'
-import { vueRoutes } from '@/vue-router/routes'
-import { Bus } from '@/js/helpers/event-bus'
-import { WILL_REQUEST_STATUSES } from '@/js/const/will-statuses.const'
+import { useStore } from 'vuex'
+import { computed, ref } from 'vue'
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
-import {
-  approveWillRequest,
-  notifyWillRequest,
-  rejectWillRequest,
-  releaseWillRequest
-} from '@/js/helpers/will-request-helper'
+import { manageWillRequest } from '@/js/helpers/will-requests-manager'
+import { WILL_REQUEST_OPERATIONS } from '@/js/const/will-request-operations.const'
 
-const EVENTS = {
-  submitted: 'submitted'
-}
+import Dropdown from '@/vue/common/Dropdown'
 
 export default {
   name: 'will-requests-table',
-  mixins: [FormMixin],
+
+  components: { Dropdown },
+
   props: {
     willRequests: {
-      type: Array, /** {@link WillRequestRecord} **/
-      required: true
-    }
+      type: Array /** {@link WillRequestRecord} **/,
+      default: () => ([]),
+    },
   },
-  data () {
+
+  emits: ['submit'],
+
+  setup (_, { emit }) {
+    const store = useStore()
+    const isDisabled = ref(false)
+
+    const isAccountNotary = computed(
+      () => store.getters[vuexTypes.isAccountNotary],
+    )
+    const isAccountRegistry = computed(
+      () => store.getters[vuexTypes.isAccountRegistry],
+    )
+
+    const submitRequest = async (id, type) => {
+      isDisabled.value = true
+      await manageWillRequest(id, type)
+      emit('submit')
+      isDisabled.value = false
+    }
+
+    const isActionsDisabled = item => {
+      let isStatusWrong = false
+      if (isAccountNotary.value) isStatusWrong = item.isStatusApproved
+      if (isAccountRegistry.value) isStatusWrong = !item.isStatusApproved
+      return !item.isManageable || isDisabled.value || isStatusWrong
+    }
+
     return {
-      vueRoutes,
-      WILL_REQUEST_STATUSES
+      WILL_REQUEST_OPERATIONS,
+      isAccountNotary,
+      isAccountRegistry,
+      submitRequest,
+      isActionsDisabled,
     }
   },
-  computed: {
-    ...mapGetters([
-      vuexTypes.isAccountGeneral,
-      vuexTypes.isAccountNotary,
-      vuexTypes.isAccountRegistry
-    ])
-  },
-  methods: {
-    async rejectWillRequest (willRequestId) {
-      this.disableForm()
-      try {
-        rejectWillRequest(willRequestId)
-        this.$emit(EVENTS.submitted)
-        Bus.success('will-requests-table.reject-success')
-      } catch (error) {
-        Bus.error('will-request-table.reject-error')
-      }
-      this.enableForm()
-    },
-    async approveWillRequest (willRequestId) {
-      this.disableForm()
-      try {
-        approveWillRequest(willRequestId)
-        this.$emit(EVENTS.submitted)
-        Bus.success('will-requests-table.approve-success')
-      } catch (error) {
-        Bus.error('will-request-table.approve-error')
-      }
-      this.enableForm()
-    },
-    async notifyWillRequest (willRequestId) {
-      try {
-        await notifyWillRequest(willRequestId)
-        this.$emit(EVENTS.submitted)
-        Bus.success('will-requests-table.notify-success')
-      } catch (error) {
-        Bus.error('will-requests-table.notify-error')
-      }
-    },
-    async releaseWillRequest (willRequestId) {
-      try {
-        releaseWillRequest(willRequestId)
-        this.$emit(EVENTS.submitted)
-        Bus.success('will-requests-table.release-success')
-      } catch (error) {
-        Bus.error('will-requests-table.release-error')
-      }
-    }
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-.will-request-table {
-  cursor: pointer;
+.will-request-table__dropdown-td { width: 2rem; }
+
+.will-requests-table__recipient {
+  line-height: 1.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "table-head-id": "ID",
+    "table-head-creator": "Creator",
+    "table-head-recipient": "Recipient",
+    "table-head-status": "Status",
+    "table-head-action": "Action",
+    "reject-btn": "Reject",
+    "approve-btn": "Approve",
+    "release-btn": "Release",
+    "notify-btn": "Notify"
+  }
+}
+</i18n>

@@ -1,0 +1,74 @@
+{
+  "filters": {
+    "user-roles": {
+      "general": "General",
+      "registry": "Registry",
+      "notary": "Notary",
+      "unknown": "Unknown"
+    },
+    "will-request-statuses": {
+      "approved": "Approved",
+      "deleted": "Deleted",
+      "rejected": "Rejected",
+      "submitted": "Submitted",
+      "notified": "Notified",
+      "released": "Released",
+      "unknown": "Unknown"
+    }
+  },
+  "notifications": {
+    "update-kyc-success": "User profile successfully updated",
+    "request-approve-success": "Will request successfully approved",
+    "request-reject-success": "Will request successfully rejected",
+    "request-release-success": "Will request successfully released",
+    "request-notify-success": "Will request successfully notified",
+    "request-creation-success": "Will request successfully created",
+    "max-recipient-amount-reached": "Reached maximum recipient amount",
+    "min-recipient-amount-reached": "There must be at least one recipient",
+    "file-corrupted-err": "Your file is corrupted",
+    "max-size-exceeded-err": "You cannot upload a file exceeding { maxSize } MB",
+    "incorrect-file-type-err": "You cannot upload a { type} file. Allowed types: { allowedTypes }",
+    "invalid-dimensions-err": "You cannot upload an image with dimensions less than { minWidth }x{ minHeight }"
+  },
+  "errors": {
+    "default": "Something bad happened. Please try again later or contact the system owner.",
+    "network": "Network error: { msg }",
+    "wrong-credentials": "Wrong email or password"
+  },
+  "validation": {
+    "field-error_required": "Please fill out this field",
+    "field-error_minLength": "This field must contain minimum { minLength } symbols",
+    "field-error_maxLength": "This field must contain maximum { maxLength } symbols",
+    "field-error_alphaNum": "Value should consists of alphanumeric values (A-Z, a-z, 0-9)",
+    "field-error_alpha": "Value should consists of alphabetic characters (A-Z, a-z)",
+    "field-error_uniqueValue": "Value is not unique, please try another one",
+    "field-error_birthday": "Value is not correct birthday date (YYYY-MM-DD), please try another one",
+    "field-error_email": "This field should be a valid email",
+    "field-error_recipientEmail": "Recipient's email cannot be equal to the current one"
+  },
+  "formats": {
+    "dates": {
+      "time": "H:mm",
+      "date": "MMMM D, YYYY",
+      "datetime": "MMMM D, YYYY [at] H:mm",
+      "dmy": "DD.MM.YYYY",
+      "dmyt": "DD.MM.YYYY [at] H:mm",
+      "calendar": {
+        "sameDay": "[Today at] H:mm",
+        "lastDay": "[Yesterday at] H:mm",
+        "nextDay": "[Tomorrow at] H:mm",
+        "lastWeek": "[Last] dddd [at] H:mm",
+        "nextWeek": "[Next] dddd [at] H:mm",
+        "sameElse": "MMMM D, YYYY [at] H:mm"
+      },
+      "calendarInline": {
+        "sameDay": "[today at] H:mm",
+        "lastDay": "[yesterday at] H:mm",
+        "nextDay": "[tomorrow at] H:mm",
+        "lastWeek": "[last] dddd [at] H:mm",
+        "nextWeek": "[next] dddd [at] H:mm",
+        "sameElse": "[at] MMMM D, YYYY [at] H:mm"
+      }
+    }
+  }
+}
