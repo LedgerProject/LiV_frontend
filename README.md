@@ -1,5 +1,5 @@
+This repository is deprecared, new one is located [here](https://github.com/LedgerProject/LiV_frontend_2.0)
 # LiV Frontend
-[![Frontend CI](https://github.com/LedgerProject/LiV_frontend/actions/workflows/blank.yml/badge.svg?branch=master)](https://github.com/LedgerProject/LiV_frontend/actions/workflows/blank.yml)
 ## Built with
 * [Vue.js](https://vuejs.org/)
 * [JavaScript](https://www.javascript.com/)
